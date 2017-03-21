@@ -6,7 +6,13 @@
   "author": "Matt Trifilo",
   "license": "MIT",
   "scripts": {
-    "build:dev": "webpack",
+    "start": "yarn run server",
+    "test": "jest",
+    "tdd": "NODE_ENV=test jest --watch",
+    "lint": "eslint server.js webpack.config.js webpack.prod.js server/** src/**",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "watch:prod": "webpack --config webpack.prod.js --watch",
     "server": "NODE_ENV=server node server.js",
     "compile-routes": "NODE_ENV=server babel src/Components/Router/Routes.js -o src/Components/Router/CompiledRoutes.js"
   },
@@ -40,6 +46,7 @@
     "eslint-plugin-standard": "^2.1.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
+    "jest": "^19.0.2",
     "json-loader": "^0.5.4",
     "style-loader": "^0.14.1",
     "url-loader": "^0.5.8",

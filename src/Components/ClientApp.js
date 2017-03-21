@@ -3,10 +3,13 @@ import {
   BrowserRouter
 } from 'react-router-dom'
 import Routes from './Router/Routes'
+import Layout from './Layout'
 
 const App = (props) => (
   <BrowserRouter>
-    {Routes()}
+    <Layout>
+      {Routes()}
+    </Layout>
   </BrowserRouter>
 )
 

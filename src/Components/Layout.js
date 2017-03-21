@@ -1,9 +1,16 @@
 import React from 'react'
+import NavBar from './NavBar/NavBar'
+const { element } = React.PropTypes
 
-const Layout = (props) => (
+const Layout = ({children}) => (
   <div>
-    <h1>Hello World!</h1>
+    <NavBar />
+    {children}
   </div>
 )
+
+Layout.propTypes = {
+  children: element
+}
 
 export default Layout
