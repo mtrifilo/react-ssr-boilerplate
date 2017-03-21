@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router'
-const { string, element } = React.PropTypes
+const { number, element } = React.PropTypes
 
 const Status = ({ code, children }) => (
   <Route render={({ staticContext }) => {
@@ -12,7 +12,7 @@ const Status = ({ code, children }) => (
 )
 
 Status.propTypes = {
-  code: string,
+  code: number,
   children: element
 }
 

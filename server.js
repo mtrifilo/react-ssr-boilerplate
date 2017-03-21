@@ -8,6 +8,7 @@ const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const Routes = require('./src/Components/Router/CompiledRoutes').default
+const Layout = require('./src/Components/Layout').default
 
 const _template = require('lodash/template')
 const baseTemplate = fs.readFileSync('./index.html')
@@ -27,7 +28,9 @@ app.use((req, res) => {
   const context = {}
   const body = ReactDOMServer.renderToString(
     React.createElement(StaticRouter, { location: req.url, context: context },
-      React.createElement(Routes)
+      React.createElement(Layout, null,
+        React.createElement(Routes)
+      )
     )
   )
   if (context.url) {

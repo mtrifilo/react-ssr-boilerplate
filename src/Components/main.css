@@ -1,0 +1,6 @@
+.page-title {
+  margin-top: 2rem;
+  font-size: 4em;
+}
+
+@import "Signup/_Signup.css"

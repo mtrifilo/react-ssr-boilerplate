@@ -12134,7 +12134,7 @@ var GuestLinks = function GuestLinks(props) {
       { className: 'navbar-nav' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"],
-        { to: '/signup', className: 'nav-link', avtiveClassName: 'active' },
+        { to: '/signup', className: 'nav-link', activeClassName: 'active' },
         'Signup'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -12161,7 +12161,7 @@ var GuestLinks = function GuestLinks(props) {
 var Home = function Home(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'h1',
-    { className: 'text-center' },
+    { className: 'text-center page-title' },
     'Home!'
   );
 };
@@ -12181,7 +12181,7 @@ var Home = function Home(props) {
 var Login = function Login(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'h1',
-    { className: 'text-center' },
+    { className: 'text-center page-title' },
     'Login!'
   );
 };
@@ -12196,17 +12196,95 @@ var Login = function Login(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SignupForm__ = __webpack_require__(240);
+
 
 
 var Signup = function Signup(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'h1',
-    { className: 'text-center' },
-    'Signup!'
+    'div',
+    null,
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'h1',
+      { className: 'text-center page-title' },
+      'Signup!'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SignupForm__["a" /* default */], null)
   );
 };
 
 /* harmony default export */ __webpack_exports__["a"] = Signup;
+
+/***/ }),
+
+/***/ 240:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var SignupForm = function SignupForm(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'form',
+    { className: 'signup-form' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'form-group' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        null,
+        'Username'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', className: 'form-control' })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'form-group' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        null,
+        'Email Address'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', className: 'form-control' })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'form-group' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        null,
+        'Password'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password', className: 'form-control' })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'form-group' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'label',
+        null,
+        'Confirm Password'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password', className: 'form-control' })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'button',
+      { type: 'submit', className: 'btn btn-primary' },
+      'Submit'
+    )
+  );
+};
+
+/* harmony default export */ __webpack_exports__["a"] = SignupForm;
+
+/***/ }),
+
+/***/ 247:
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -12217,8 +12295,11 @@ var Signup = function Signup(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Router_Routes__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Layout__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main_css__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Router_Routes__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Layout__ = __webpack_require__(96);
+
 
 
 
@@ -12229,9 +12310,9 @@ var App = function App(props) {
     __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["BrowserRouter"],
     null,
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_3__Layout__["a" /* default */],
+      __WEBPACK_IMPORTED_MODULE_4__Layout__["a" /* default */],
       null,
-      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__Router_Routes__["a" /* default */])()
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Router_Routes__["a" /* default */])()
     )
   );
 };
@@ -15889,7 +15970,7 @@ var Routes = function Routes() {
 
 
 var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
-    string = _React$PropTypes.string,
+    number = _React$PropTypes.number,
     element = _React$PropTypes.element;
 
 
@@ -15907,7 +15988,7 @@ var Status = function Status(_ref) {
 };
 
 Status.propTypes = {
-  code: string,
+  code: number,
   children: element
 };
 
