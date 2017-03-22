@@ -205,24 +205,81 @@ var Signup = function Signup(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(96);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
-var SignupForm = function SignupForm(props) {
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'form',
-    { className: 'signup-form' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Username', type: 'text' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Email Address', type: 'email' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Password', type: 'password' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Confirm Password', type: 'password' }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'button',
-      { type: 'submit', className: 'btn btn-primary' },
-      'Submit'
-    )
-  );
-};
+
+var SignupForm = function (_Component) {
+  _inherits(SignupForm, _Component);
+
+  function SignupForm() {
+    _classCallCheck(this, SignupForm);
+
+    var _this = _possibleConstructorReturn(this, (SignupForm.__proto__ || Object.getPrototypeOf(SignupForm)).call(this));
+
+    _this.onChangeHandler = function (evt) {
+      _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    };
+
+    _this.state = {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    };
+    return _this;
+  }
+
+  _createClass(SignupForm, [{
+    key: 'render',
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'form',
+        { className: 'signup-form' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+          label: 'Username',
+          type: 'text',
+          name: 'username',
+          onChange: this.onChangeHandler,
+          value: this.state.username }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+          label: 'Email Address',
+          type: 'email',
+          name: 'email',
+          onChange: this.onChangeHandler,
+          value: this.state.email }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+          label: 'Password',
+          type: 'password',
+          name: 'password',
+          onChange: this.onChangeHandler,
+          value: this.state.password }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+          label: 'Confirm Password',
+          type: 'password',
+          name: 'confirmPassword',
+          onChange: this.onChangeHandler,
+          value: this.state.confirmPassword }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-primary' },
+          'Submit'
+        )
+      );
+    }
+  }]);
+
+  return SignupForm;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = SignupForm;
 
@@ -15899,12 +15956,17 @@ var Popover = function ($) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
-var string = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string;
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    string = _React$PropTypes.string,
+    func = _React$PropTypes.func;
 
 
 var Input = function Input(_ref) {
   var label = _ref.label,
       type = _ref.type,
+      value = _ref.value,
+      name = _ref.name,
+      onChange = _ref.onChange,
       inputClass = _ref.inputClass;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
@@ -15914,13 +15976,21 @@ var Input = function Input(_ref) {
       null,
       label
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: type, className: 'form-control' })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+      type: type,
+      value: value,
+      name: name,
+      onChange: onChange,
+      className: 'form-control' })
   );
 };
 
 Input.propTypes = {
   label: string,
   type: string,
+  value: string,
+  name: string,
+  onChange: func.isRequired,
   inputClass: string
 };
 
