@@ -1,11 +1,3 @@
-.signup-form {
-  margin: 4rem auto;
-  max-width: 30rem;
-}
-.page-title {
-  margin-top: 2rem;
-  font-size: 4em;
-}
 /*!
  * Bootstrap v4.0.0-alpha.6 (https://getbootstrap.com)
  * Copyright 2011-2017 The Bootstrap Authors
@@ -9325,5 +9317,17 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=bootstrap.css.map */.signup-form {
+  margin: 4rem auto;
+  max-width: 30rem;
+}
+body {
+  background-color: #7FDBFF;
+}
+
+.page-title {
+  margin-top: 2rem;
+  font-size: 4em;
+}
+
 /*# sourceMappingURL=style.css.map*/

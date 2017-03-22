@@ -2,7 +2,6 @@ import React from 'react'
 import {
   BrowserRouter
 } from 'react-router-dom'
-import './main.css'
 import Routes from './Router/Routes'
 import Layout from './Layout'
 
