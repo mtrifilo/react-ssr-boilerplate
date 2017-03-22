@@ -234,7 +234,13 @@ var SignupForm = function (_Component) {
       username: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      validationErrors: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
     };
     return _this;
   }
@@ -250,25 +256,29 @@ var SignupForm = function (_Component) {
           type: 'text',
           name: 'username',
           onChange: this.onChangeHandler,
-          value: this.state.username }),
+          value: this.state.username,
+          validationError: this.state.validationErrors.username }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
           label: 'Email Address',
           type: 'email',
           name: 'email',
           onChange: this.onChangeHandler,
-          value: this.state.email }),
+          value: this.state.email,
+          validationError: this.state.validationErrors.email }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',
           name: 'password',
           onChange: this.onChangeHandler,
-          value: this.state.password }),
+          value: this.state.password,
+          validationError: this.state.validationErrors.password }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
           label: 'Confirm Password',
           type: 'password',
           name: 'confirmPassword',
           onChange: this.onChangeHandler,
-          value: this.state.confirmPassword }),
+          value: this.state.confirmPassword,
+          validationError: this.state.validationErrors.confirmPassord }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary' },
@@ -15967,7 +15977,8 @@ var Input = function Input(_ref) {
       value = _ref.value,
       name = _ref.name,
       onChange = _ref.onChange,
-      inputClass = _ref.inputClass;
+      validationError = _ref.validationError;
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'form-group' },
@@ -15991,7 +16002,7 @@ Input.propTypes = {
   value: string,
   name: string,
   onChange: func.isRequired,
-  inputClass: string
+  validationError: string
 };
 
 /* harmony default export */ __webpack_exports__["a"] = Input;

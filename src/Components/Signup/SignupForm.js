@@ -8,7 +8,13 @@ class SignupForm extends Component {
       username: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      validationErrors: {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
     }
   }
 
@@ -24,25 +30,29 @@ class SignupForm extends Component {
           type='text'
           name='username'
           onChange={this.onChangeHandler}
-          value={this.state.username} />
+          value={this.state.username}
+          validationError={this.state.validationErrors.username} />
         <Input
           label='Email Address'
           type='email'
           name='email'
           onChange={this.onChangeHandler}
-          value={this.state.email} />
+          value={this.state.email}
+          validationError={this.state.validationErrors.email} />
         <Input
           label='Password'
           type='password'
           name='password'
           onChange={this.onChangeHandler}
-          value={this.state.password} />
+          value={this.state.password}
+          validationError={this.state.validationErrors.password} />
         <Input
           label='Confirm Password'
           type='password'
           name='confirmPassword'
           onChange={this.onChangeHandler}
-          value={this.state.confirmPassword} />
+          value={this.state.confirmPassword}
+          validationError={this.state.validationErrors.confirmPassord} />
         <button type='submit' className='btn btn-primary'>Submit</button>
       </form>
     )
