@@ -1,23 +1,12 @@
 import React from 'react'
+import Input from '../Common/Input'
 
 const SignupForm = (props) => (
   <form className='signup-form'>
-    <div className='form-group'>
-      <label>Username</label>
-      <input type='text' className='form-control' />
-    </div>
-    <div className='form-group'>
-      <label>Email Address</label>
-      <input type='text' className='form-control' />
-    </div>
-    <div className='form-group'>
-      <label>Password</label>
-      <input type='password' className='form-control' />
-    </div>
-    <div className='form-group'>
-      <label>Confirm Password</label>
-      <input type='password' className='form-control' />
-    </div>
+    <Input label='Username' type='text' />
+    <Input label='Email Address' type='email' />
+    <Input label='Password' type='password' />
+    <Input label='Confirm Password' type='password' />
     <button type='submit' className='btn btn-primary'>Submit</button>
   </form>
 )
