@@ -14,16 +14,26 @@ const _template = require('lodash/template')
 const baseTemplate = fs.readFileSync('./index.html')
 const template = _template(baseTemplate)
 
+const config = require('./config.json')
+
+const connectMongoose = require('./server/models/')
+const MONGO_URI = config.mongoUriDev
+
 const express = require('express')
 const helmet = require('helmet')
-
-const port = process.env.PORT || 4000
+const PORT = process.env.PORT || 4000
 const app = express()
+
+connectMongoose(MONGO_URI)
 
 app.use(helmet())
 
 app.use('/public', express.static('./public'))
 
+/**
+ * Handles server requests, and serves per-rendered context-aware
+ * React markup based on the url
+ */
 app.use((req, res) => {
   const context = {}
   const body = ReactDOMServer.renderToString(
@@ -39,5 +49,5 @@ app.use((req, res) => {
     res.status(200).send(template({ body }))
   }
 })
-console.log(`Express: Listening on port ${port}`)
-app.listen(port)
+console.log(`Express: Listening on port ${PORT}`)
+app.listen(PORT)

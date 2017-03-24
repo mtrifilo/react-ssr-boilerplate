@@ -46,7 +46,7 @@ class SignupForm extends Component {
   }
 
   setValidationError = (validationResult) => {
-    // If a validation result to state
+    // set the validtion result to state
     const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
     this.setState({ validationErrors: newValidationErrors })
   }
