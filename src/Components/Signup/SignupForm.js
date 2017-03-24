@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 import Input from '../Common/Input'
+import isEmpty from 'lodash/isEmpty'
+import {
+  validateUsername, 
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword
+} from '../../../server/validation/signupFormValidation'
 
 class SignupForm extends Component {
   constructor () {
@@ -20,6 +27,29 @@ class SignupForm extends Component {
 
   onChangeHandler = (evt) => {
     this.setState({ [evt.target.name]: evt.target.value })
+  }
+
+  onBlurHandler = (evt) => {
+    if (evt.target.name === 'username') {
+      this.setValidationError(validateUsername(this.state.username))
+    }
+    if (evt.target.name === 'email') {
+      this.setValidationError(validateEmail(this.state.email))
+    }
+    if (evt.target.name === 'password') {
+      this.setValidationError(validatePassword(this.state.password))
+    }
+    if (evt.target.name === 'confirmPassword') {
+      this.setValidationError(
+        validateConfirmPassword(this.state.password, this.state.confirmPassword)
+      )
+    }
+  }
+
+  setValidationError = (validationResult) => {
+    if (!isEmpty(validationResult)) {
+      this.setState(validationResult)
+    }
   }
 
   render () {
