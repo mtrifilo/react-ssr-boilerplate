@@ -3588,6 +3588,9 @@ var Popover = function ($) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_classnames__);
+
 
 var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
     string = _React$PropTypes.string,
@@ -3600,11 +3603,12 @@ var Input = function Input(_ref) {
       value = _ref.value,
       name = _ref.name,
       onChange = _ref.onChange,
+      onBlur = _ref.onBlur,
       validationError = _ref.validationError;
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { className: 'form-group' },
+    { className: __WEBPACK_IMPORTED_MODULE_1_classnames___default()('form-group', { 'has-danger': validationError }) },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'label',
       null,
@@ -3615,7 +3619,13 @@ var Input = function Input(_ref) {
       value: value,
       name: name,
       onChange: onChange,
-      className: 'form-control' })
+      onBlur: onBlur,
+      className: 'form-control' }),
+    validationError && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'form-control-feedback' },
+      validationError
+    )
   );
 };
 
@@ -3625,6 +3635,7 @@ Input.propTypes = {
   value: string,
   name: string,
   onChange: func.isRequired,
+  onBlur: func,
   validationError: string
 };
 
@@ -4062,6 +4073,7 @@ var SignupForm = function (_Component) {
           type: 'text',
           name: 'username',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.username,
           validationError: this.state.validationErrors.username }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
@@ -4069,6 +4081,7 @@ var SignupForm = function (_Component) {
           type: 'email',
           name: 'email',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.email,
           validationError: this.state.validationErrors.email }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
@@ -4076,6 +4089,7 @@ var SignupForm = function (_Component) {
           type: 'password',
           name: 'password',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.password,
           validationError: this.state.validationErrors.password }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
@@ -4083,8 +4097,9 @@ var SignupForm = function (_Component) {
           type: 'password',
           name: 'confirmPassword',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.confirmPassword,
-          validationError: this.state.validationErrors.confirmPassord }),
+          validationError: this.state.validationErrors.confirmPassword }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary' },
@@ -20313,6 +20328,61 @@ function whitelist(str, chars) {
   return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
 }
 module.exports = exports['default'];
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return classNames;
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
 
 /***/ })
 ]),[232]);

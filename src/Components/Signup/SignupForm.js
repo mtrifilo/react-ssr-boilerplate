@@ -62,6 +62,7 @@ class SignupForm extends Component {
           type='text'
           name='username'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.username}
           validationError={this.state.validationErrors.username} />
         <Input
@@ -69,6 +70,7 @@ class SignupForm extends Component {
           type='email'
           name='email'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.email}
           validationError={this.state.validationErrors.email} />
         <Input
@@ -76,6 +78,7 @@ class SignupForm extends Component {
           type='password'
           name='password'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.password}
           validationError={this.state.validationErrors.password} />
         <Input
@@ -83,8 +86,9 @@ class SignupForm extends Component {
           type='password'
           name='confirmPassword'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.confirmPassword}
-          validationError={this.state.validationErrors.confirmPassord} />
+          validationError={this.state.validationErrors.confirmPassword} />
         <button type='submit' className='btn btn-primary'>Submit</button>
       </form>
     )
