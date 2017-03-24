@@ -9321,6 +9321,10 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   margin: 4rem auto;
   max-width: 30rem;
 }
+.login-form {
+  margin: 4rem auto;
+  max-width: 30rem;
+}
 body {
   background-color: #7FDBFF;
 }

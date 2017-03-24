@@ -7,4 +7,5 @@ body {
   font-size: 4em;
 }
 
-@import "Signup/_Signup.css"
+@import "Signup/_Signup.css";
+@import "Login/_Login.css";
