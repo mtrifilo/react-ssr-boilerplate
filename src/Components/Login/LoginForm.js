@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Input from '../Common/Input'
+import {
+  validateIdentifier,
+  validatePassword
+} from '../../../server/validation/loginFormValidation'
 
 class LoginForm extends Component {
   constructor () {
@@ -18,6 +22,21 @@ class LoginForm extends Component {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
+  onBlurHandler = (evt) => {
+    if (evt.target.name === 'identifier') {
+      this.setValidationError(validateIdentifier(this.state.identifier))
+    }
+    if (evt.target.name === 'password') {
+      this.setValidationError(validatePassword(this.state.password))
+    }
+  }
+
+  setValidationError = (validationResult) => {
+    // Set validation result to state
+    const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
+    this.setState({ validationErrors: newValidationErrors })
+  }
+
   render () {
     return (
       <form className='login-form'>
@@ -26,6 +45,7 @@ class LoginForm extends Component {
           type='text'
           name='identifier'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.identifier}
           validationError={this.state.validationErrors.identifier} />
         <Input
@@ -33,6 +53,7 @@ class LoginForm extends Component {
           type='password'
           name='password'
           onChange={this.onChangeHandler}
+          onBlur={this.onBlurHandler}
           value={this.state.password}
           validationError={this.state.validationErrors.password} />
         <button type='submit' className='btn btn-primary'>Submit</button>

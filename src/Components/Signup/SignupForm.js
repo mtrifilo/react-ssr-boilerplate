@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Input from '../Common/Input'
-import isEmpty from 'lodash/isEmpty'
 import {
   validateUsername,
   validateEmail,
@@ -47,11 +46,9 @@ class SignupForm extends Component {
   }
 
   setValidationError = (validationResult) => {
-    // If a validation error is present, set it to state
-    if (!isEmpty(validationResult)) {
-      const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
-      this.setState({ validationErrors: newValidationErrors })
-    }
+    // If a validation result to state
+    const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
+    this.setState({ validationErrors: newValidationErrors })
   }
 
   render () {

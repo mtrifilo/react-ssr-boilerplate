@@ -20,7 +20,7 @@ function validateUsername (username) {
   if (Validator.isEmpty(username)) {
     return { username: 'A username is required' }
   }
-  return {}
+  return { username: '' }
 }
 
 function validateEmail (email) {
@@ -32,7 +32,7 @@ function validateEmail (email) {
   if (!Validator.isEmail(email)) {
     return { email: 'This email address is not valid' }
   }
-  return {}
+  return { email: '' }
 }
 
 function validatePassword (password) {
@@ -40,7 +40,7 @@ function validatePassword (password) {
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' }
   }
-  return {}
+  return { password: '' }
 }
 
 function validateConfirmPassword (password, confirmPassword) {
@@ -52,7 +52,7 @@ function validateConfirmPassword (password, confirmPassword) {
   if (!Validator.equals(password, confirmPassword)) {
     return { confirmPassword: 'Passwords don\'t match, try again' }
   }
-  return {}
+  return { confirmPassword: '' }
 }
 
 module.exports = {

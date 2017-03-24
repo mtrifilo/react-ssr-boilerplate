@@ -3723,6 +3723,8 @@ var Login = function Login(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -3732,6 +3734,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -3746,6 +3749,21 @@ var LoginForm = function (_Component) {
 
     _this.onChangeHandler = function (evt) {
       _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
+    };
+
+    _this.onBlurHandler = function (evt) {
+      if (evt.target.name === 'identifier') {
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__["validateIdentifier"])(_this.state.identifier));
+      }
+      if (evt.target.name === 'password') {
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__["validatePassword"])(_this.state.password));
+      }
+    };
+
+    _this.setValidationError = function (validationResult) {
+      // Set validation result to state
+      var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
+      _this.setState({ validationErrors: newValidationErrors });
     };
 
     _this.state = {
@@ -3770,6 +3788,7 @@ var LoginForm = function (_Component) {
           type: 'text',
           name: 'identifier',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.identifier,
           validationError: this.state.validationErrors.identifier }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
@@ -3777,6 +3796,7 @@ var LoginForm = function (_Component) {
           type: 'password',
           name: 'password',
           onChange: this.onChangeHandler,
+          onBlur: this.onBlurHandler,
           value: this.state.password,
           validationError: this.state.validationErrors.password }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -3993,10 +4013,8 @@ var Signup = function Signup(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4006,7 +4024,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -4026,25 +4043,23 @@ var SignupForm = function (_Component) {
 
     _this.onBlurHandler = function (evt) {
       if (evt.target.name === 'username') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__["validateUsername"])(_this.state.username));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateUsername"])(_this.state.username));
       }
       if (evt.target.name === 'email') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__["validateEmail"])(_this.state.email));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateEmail"])(_this.state.email));
       }
       if (evt.target.name === 'password') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__["validatePassword"])(_this.state.password));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validatePassword"])(_this.state.password));
       }
       if (evt.target.name === 'confirmPassword') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__server_validation_signupFormValidation__["validateConfirmPassword"])(_this.state.password, _this.state.confirmPassword));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateConfirmPassword"])(_this.state.password, _this.state.confirmPassword));
       }
     };
 
     _this.setValidationError = function (validationResult) {
-      // If a validation error is present, set it to state
-      if (!__WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty___default()(validationResult)) {
-        var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
-        _this.setState({ validationErrors: newValidationErrors });
-      }
+      // If a validation result to state
+      var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
+      _this.setState({ validationErrors: newValidationErrors });
     };
 
     _this.state = {
@@ -17421,7 +17436,7 @@ function validateUsername(username) {
   if (Validator.isEmpty(username)) {
     return { username: 'A username is required' };
   }
-  return {};
+  return { username: '' };
 }
 
 function validateEmail(email) {
@@ -17433,7 +17448,7 @@ function validateEmail(email) {
   if (!Validator.isEmail(email)) {
     return { email: 'This email address is not valid' };
   }
-  return {};
+  return { email: '' };
 }
 
 function validatePassword(password) {
@@ -17441,7 +17456,7 @@ function validatePassword(password) {
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' };
   }
-  return {};
+  return { password: '' };
 }
 
 function validateConfirmPassword(password, confirmPassword) {
@@ -17453,7 +17468,7 @@ function validateConfirmPassword(password, confirmPassword) {
   if (!Validator.equals(password, confirmPassword)) {
     return { confirmPassword: 'Passwords don\'t match, try again' };
   }
-  return {};
+  return { confirmPassword: '' };
 }
 
 module.exports = {
@@ -20383,6 +20398,47 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 }());
 
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Validator = __webpack_require__(301);
+var isEmpty = __webpack_require__(259);
+
+function loginFormValidation(state) {
+  var errors = {};
+
+  errors = Object.assign({}, errors, validateIdentifier(state.identifier));
+  errors = Object.assign({}, errors, validatePassword(state.password));
+
+  return {
+    errors: errors,
+    isValid: isEmpty(errors)
+  };
+}
+
+function validateIdentifier(identifier) {
+  // identifier shouldn't be empty
+  if (Validator.isEmpty(identifier)) {
+    return { identifier: 'A registered username or email is required' };
+  }
+  return { identifier: '' };
+}
+
+function validatePassword(password) {
+  // password shouldn't be empty
+  if (Validator.isEmpty(password)) {
+    return { password: 'A password is required' };
+  }
+  return { password: '' };
+}
+
+module.exports = {
+  loginFormValidation: loginFormValidation,
+  validateIdentifier: validateIdentifier,
+  validatePassword: validatePassword
+};
 
 /***/ })
 ]),[232]);
