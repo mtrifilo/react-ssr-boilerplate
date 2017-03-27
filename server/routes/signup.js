@@ -27,12 +27,16 @@ router.post('/', (req, res) => {
         res.status(400).json(result.duplicateUserError)
         throw new Error('duplicate user')
       }
-      return hashPassword(userData.password)
+      const { username, email, password } = userData
+      
+      // password is in plaintext here, but gets hashed by bcrypt using a 
+      // mongoose pre hook on 'save', defined in the User model
+      return saveNewUser(username, email, password) // hashPassword(userData.password)
     })
-    .then(hashedPassword => {
-      const { username, email } = userData
-      return saveNewUser(username, email, hashedPassword)
-    })
+    // .then(hashedPassword => {
+    //   const { username, email } = userData
+    //   return saveNewUser(username, email, hashedPassword)
+    // })
     .then(newUser => {
       return res.status(201).json(newUser)
     })
@@ -63,16 +67,16 @@ function duplicateUserCheck (userData) {
     })
 }
 
-function hashPassword (plainTextPassword) {
-  return bcrypt.hash(plainTextPassword, 10)
-    .then((hashedPassword) => {
-      return hashedPassword
-    })
-    .catch(err => {
-      console.error('signup.js: hashPassword failed', err)
-      return err
-    })
-}
+// function hashPassword (plainTextPassword) {
+//   return bcrypt.hash(plainTextPassword, 10)
+//     .then((hashedPassword) => {
+//       return hashedPassword
+//     })
+//     .catch(err => {
+//       console.error('signup.js: hashPassword failed', err)
+//       return err
+//     })
+// }
 
 function saveNewUser (username, email, hashedPassword) {
   const newUserData = { username, email, hashedPassword }

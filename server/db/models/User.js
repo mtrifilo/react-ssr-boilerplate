@@ -26,17 +26,29 @@ UserSchema.pre('save', function saveHook (next) {
 })
 
 function hashPassword (user, next) {
-  return bcrypt.genSalt((saltError, salt) => {
-    if (saltError) { return next(saltError) }
-
-    return bcrypt.hash(user.password, salt, (hashError, hash) => {
-      if (hashError) { return next(hashError) }
-
-      user.password = hash
+  return bcrypt.hash(user.password, 10)
+    .then((hashedPassword) => {
+      user.password = hashedPassword
       return next()
     })
-  })
+    .catch(err => {
+      console.error('User.js: hashPassword failed', err)
+      return next(err)
+    })
 }
+
+// function hashPassword (user, next) {
+//   return bcrypt.genSalt((saltError, salt) => {
+//     if (saltError) { return next(saltError) }
+
+//     return bcrypt.hash(user.password, salt, (hashError, hash) => {
+//       if (hashError) { return next(hashError) }
+
+//       user.password = hash
+//       return next()
+//     })
+//   })
+// }
 
 const User = mongoose.model('User', UserSchema)
 
