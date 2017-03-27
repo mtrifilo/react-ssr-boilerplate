@@ -1,4 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
+  require('babel-polyfill')
   require('babel-register')({ ignore: /node_modules/ })
 }
 
@@ -16,17 +17,23 @@ const template = _template(baseTemplate)
 
 const config = require('./config.json')
 
-const connectMongoose = require('./server/models/')
+const connectMongoose = require('./server/db/connectMongoose')
 const MONGO_URI = config.mongoUriDev
 
 const express = require('express')
 const helmet = require('helmet')
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 4000
 const app = express()
+
+const signup = require('./server/routes/signup')
 
 connectMongoose(MONGO_URI)
 
 app.use(helmet())
+app.use(bodyParser.json())
+
+app.use('/api/signup', signup)
 
 app.use('/public', express.static('./public'))
 

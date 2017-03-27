@@ -1,17 +1,37 @@
 const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
 
-function signupFormValidation (state) {
-  let errors = {}
+/**
+ * Validates all signup form fields.
+ *
+ * @param {object} data - A new user's submitted signup form data
+ * @returns {object} {error: Array, isValid: Boolean} - errors contains the
+ *   results of all of the validation functions as an array. isValid
+ *   will be true if any error messages are returned from any of the validation
+ *   functions.
+ */
+function signupFormValidation (data) {
+  const ValidationResults = Object.assign(
+    {},
+    validateUsername(data.username),
+    validateEmail(data.email),
+    validatePassword(data.password),
+    validateConfirmPassword(data.password, data.confirmPassword)
+  )
 
-  errors = Object.assign({}, errors, validateUsername(state.username))
-  errors = Object.assign({}, errors, validateEmail(state.email))
-  errors = Object.assign({}, errors, validatePassword(state.password))
-  errors = Object.assign({}, errors, validateConfirmPassword(state.password, state.confirmPassword))
+  const fields = Object.keys(ValidationResults)
+
+  // return any error messages, or an empty array
+  const ValidationErrors = fields.map(field => {
+    if (ValidationResults[field]) {
+      return { [field]: ValidationResults[field] }
+    }
+    return false
+  }).filter(message => message)
 
   return {
-    errors,
-    isValid: isEmpty(errors)
+    ValidationErrors,
+    isValid: isEmpty(ValidationErrors)
   }
 }
 

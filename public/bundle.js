@@ -5148,20 +5148,38 @@ module.exports = {
 /* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var Validator = __webpack_require__(111);
 var isEmpty = __webpack_require__(81);
 
-function signupFormValidation(state) {
-  var errors = {};
+/**
+ * Validates all signup form fields.
+ *
+ * @param {object} data - A new user's submitted signup form data
+ * @returns {object} {error: Array, isValid: Boolean} - errors contains the
+ *   results of all of the validation functions as an array. isValid
+ *   will be true if any error messages are returned from any of the validation
+ *   functions.
+ */
+function signupFormValidation(data) {
+  var ValidationResults = Object.assign({}, validateUsername(data.username), validateEmail(data.email), validatePassword(data.password), validateConfirmPassword(data.password, data.confirmPassword));
 
-  errors = Object.assign({}, errors, validateUsername(state.username));
-  errors = Object.assign({}, errors, validateEmail(state.email));
-  errors = Object.assign({}, errors, validatePassword(state.password));
-  errors = Object.assign({}, errors, validateConfirmPassword(state.password, state.confirmPassword));
+  var fields = Object.keys(ValidationResults);
+
+  // return any error messages, or an empty array
+  var ValidationErrors = fields.map(function (field) {
+    if (ValidationResults[field]) {
+      return _defineProperty({}, field, ValidationResults[field]);
+    }
+    return false;
+  }).filter(function (message) {
+    return message;
+  });
 
   return {
-    errors: errors,
-    isValid: isEmpty(errors)
+    ValidationErrors: ValidationErrors,
+    isValid: isEmpty(ValidationErrors)
   };
 }
 
