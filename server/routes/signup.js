@@ -3,12 +3,12 @@ const bcrypt = require('bcrypt')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
 const { signupFormValidation } = require('../validation/signupFormValidation')
-let router = express.Router()
+const router = express.Router()
 
 /**
  * '/api/signup'
  *
- * Handles a signup request from a new user
+ * Handles a signup request
  */
 router.post('/', (req, res) => {
   const userData = req.body
