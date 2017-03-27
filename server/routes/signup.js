@@ -21,9 +21,10 @@ router.post('/', (req, res) => {
       }
     })
   }
-  console.log('endpoint reached')
 
-  const handleSignup = function * () {
+  handleSignup()
+
+  function * handleSignup () {
     console.log('signuping!')
     const serverError = { errors: { server: 'An error occured during signup' } }
 
@@ -43,8 +44,6 @@ router.post('/', (req, res) => {
 
     return res.status(201).json(newUser)
   }
-
-  handleSignup()
 })
 
 function duplicateUserCheck (userData) {
