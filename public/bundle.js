@@ -5163,14 +5163,14 @@ var isEmpty = __webpack_require__(81);
  *   functions.
  */
 function signupFormValidation(data) {
-  var ValidationResults = Object.assign({}, validateUsername(data.username), validateEmail(data.email), validatePassword(data.password), validateConfirmPassword(data.password, data.confirmPassword));
+  var validationResults = Object.assign({}, validateUsername(data.username), validateEmail(data.email), validatePassword(data.password), validateConfirmPassword(data.password, data.confirmPassword));
 
-  var fields = Object.keys(ValidationResults);
+  var fields = Object.keys(validationResults);
 
   // return any error messages, or an empty array
-  var ValidationErrors = fields.map(function (field) {
-    if (ValidationResults[field]) {
-      return _defineProperty({}, field, ValidationResults[field]);
+  var validationErrors = fields.map(function (field) {
+    if (validationResults[field]) {
+      return _defineProperty({}, field, validationResults[field]);
     }
     return false;
   }).filter(function (message) {
@@ -5178,8 +5178,8 @@ function signupFormValidation(data) {
   });
 
   return {
-    ValidationErrors: ValidationErrors,
-    isValid: isEmpty(ValidationErrors)
+    validationErrors: validationErrors,
+    isValid: isEmpty(validationErrors)
   };
 }
 

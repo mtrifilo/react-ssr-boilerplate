@@ -11,7 +11,7 @@ const isEmpty = require('lodash/isEmpty')
  *   functions.
  */
 function signupFormValidation (data) {
-  const ValidationResults = Object.assign(
+  const validationResults = Object.assign(
     {},
     validateUsername(data.username),
     validateEmail(data.email),
@@ -19,19 +19,19 @@ function signupFormValidation (data) {
     validateConfirmPassword(data.password, data.confirmPassword)
   )
 
-  const fields = Object.keys(ValidationResults)
+  const fields = Object.keys(validationResults)
 
   // return any error messages, or an empty array
-  const ValidationErrors = fields.map(field => {
-    if (ValidationResults[field]) {
-      return { [field]: ValidationResults[field] }
+  const validationErrors = fields.map(field => {
+    if (validationResults[field]) {
+      return { [field]: validationResults[field] }
     }
     return false
   }).filter(message => message)
 
   return {
-    ValidationErrors,
-    isValid: isEmpty(ValidationErrors)
+    validationErrors,
+    isValid: isEmpty(validationErrors)
   }
 }
 

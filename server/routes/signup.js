@@ -13,7 +13,6 @@ let router = express.Router()
 router.post('/', (req, res) => {
   const userData = req.body
   const { validationErrors, isValid } = signupFormValidation(userData)
-
   if (!isValid) {
     return res.status(400).json({
       errors: {
@@ -22,28 +21,25 @@ router.post('/', (req, res) => {
     })
   }
 
-  handleSignup()
-
-  function * handleSignup () {
-    console.log('signuping!')
-    const serverError = { errors: { server: 'An error occured during signup' } }
-
-    const uniqueUser = yield duplicateUserCheck(userData)
-    if (!uniqueUser.isUnique) {
-      return uniqueUser.duplicateUserError
-        ? res.status(400).json(uniqueUser.duplicateUserError)
-        : res.status(500).json(serverError)
-    }
-
-    const { username, email } = userData
-    const hashedPassword = yield hashPassword(userData.password)
-    if (!hashedPassword) { return res.status(500).json(serverError) }
-
-    const newUser = yield saveNewUser(username, email, hashedPassword)
-    if (!newUser) { return res.status(500).json(serverError) }
-
-    return res.status(201).json(newUser)
-  }
+  duplicateUserCheck(userData)
+    .then(result => {
+      if (!result.isUnique) {
+        res.status(400).json(result.duplicateUserError)
+        throw new Error('duplicate user')
+      }
+      return hashPassword(userData.password)
+    })
+    .then(hashedPassword => {
+      const { username, email } = userData
+      return saveNewUser(username, email, hashedPassword)
+    })
+    .then(newUser => {
+      return res.status(201).json(newUser)
+    })
+    .catch(err => {
+      console.log('nooo', err)
+      return err
+    })
 })
 
 function duplicateUserCheck (userData) {
@@ -51,10 +47,10 @@ function duplicateUserCheck (userData) {
     .exec()
     .then(user => {
       let duplicateUserError = {}
-      if (user.username === userData.username) {
+      if (user[0].username === userData.username) {
         duplicateUserError.username = 'This username is taken.'
       }
-      if (user.email === userData.email) {
+      if (user[0].email === userData.email) {
         duplicateUserError.email = 'This email is already registered'
       }
       return {
@@ -64,7 +60,7 @@ function duplicateUserCheck (userData) {
     })
     .catch(err => {
       console.error('signup.js: duplicateUserCheck failed', err)
-      return false
+      return err
     })
 }
 
@@ -75,7 +71,7 @@ function hashPassword (plainTextPassword) {
     })
     .catch(err => {
       console.error('signup.js: hashPassword failed', err)
-      return false
+      return err
     })
 }
 
@@ -88,7 +84,7 @@ function saveNewUser (username, email, hashedPassword) {
     })
     .catch(err => {
       console.error('signup.js: saveNewuser failed', err)
-      return false
+      return err
     })
 }
 
