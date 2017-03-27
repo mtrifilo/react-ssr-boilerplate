@@ -37,7 +37,6 @@ router.post('/', (req, res) => {
       return res.status(201).json(newUser)
     })
     .catch(err => {
-      console.log('nooo', err)
       return err
     })
 })
