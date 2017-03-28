@@ -1,5 +1,4 @@
 if (process.env.NODE_ENV !== 'production') {
-  require('babel-polyfill')
   require('babel-register')({ ignore: /node_modules/ })
 }
 
@@ -23,17 +22,23 @@ const MONGO_URI = config.mongoUriDev
 const express = require('express')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
+const passport = require('passport')
+const localStrategy = require('./server/passport/localStrategy')
 const PORT = process.env.PORT || 4000
 const app = express()
 
 const signup = require('./server/routes/signup')
+const login = require('./server/routes/login')
 
 connectMongoose(MONGO_URI)
 
 app.use(helmet())
 app.use(bodyParser.json())
+app.use(passport.initialize())
+passport.use('local-login', localStrategy)
 
 app.use('/api/signup', signup)
+app.use('/api/login', login)
 
 app.use('/public', express.static('./public'))
 

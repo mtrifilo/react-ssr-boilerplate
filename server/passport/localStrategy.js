@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../db/models/User')
 
-const localLogin = new LocalStrategy({
+const localStrategy = new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false,
@@ -16,7 +16,6 @@ const localLogin = new LocalStrategy({
 })
 
 function verifyUser (user, password, done) {
-  console.log('localLogin: user:', user)
   if (!user) {
     return done(null, false, { message: 'Invalid login credentials' })
   }
@@ -30,4 +29,4 @@ function verifyUser (user, password, done) {
     })
 }
 
-module.exports = localLogin
+module.exports = localStrategy

@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
   duplicateUserCheck(userData)
     .then(result => {
       if (!result.isUnique) {
-        res.status(400).json(result.duplicateUserError)
+        res.status(200).json(result.duplicateUserError)
         throw new Error('duplicate user')
       }
       return saveNewUser(userData)
@@ -41,11 +41,12 @@ function duplicateUserCheck (userData) {
   return User.find({ $or: [{ email: userData.email }, { username: userData.username }] })
     .exec()
     .then(user => {
+      console.log('44: user:', user)
       let duplicateUserError = {}
-      if (user[0].username === userData.username) {
+      if (!isEmpty(user) && user[0].username === userData.username) {
         duplicateUserError.username = 'This username is taken.'
       }
-      if (user[0].email === userData.email) {
+      if (!isEmpty(user) && user[0].email === userData.email) {
         duplicateUserError.email = 'This email is already registered'
       }
       return {
