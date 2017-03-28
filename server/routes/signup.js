@@ -1,5 +1,4 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
 const { signupFormValidation } = require('../validation/signupFormValidation')
@@ -27,20 +26,13 @@ router.post('/', (req, res) => {
         res.status(400).json(result.duplicateUserError)
         throw new Error('duplicate user')
       }
-      const { username, email, password } = userData
-      
-      // password is in plaintext here, but gets hashed by bcrypt using a 
-      // mongoose pre hook on 'save', defined in the User model
-      return saveNewUser(username, email, password) // hashPassword(userData.password)
+      return saveNewUser(userData)
     })
-    // .then(hashedPassword => {
-    //   const { username, email } = userData
-    //   return saveNewUser(username, email, hashedPassword)
-    // })
     .then(newUser => {
       return res.status(201).json(newUser)
     })
     .catch(err => {
+      console.log('signup.js: Signup failed', err)
       return err
     })
 })
@@ -67,23 +59,11 @@ function duplicateUserCheck (userData) {
     })
 }
 
-// function hashPassword (plainTextPassword) {
-//   return bcrypt.hash(plainTextPassword, 10)
-//     .then((hashedPassword) => {
-//       return hashedPassword
-//     })
-//     .catch(err => {
-//       console.error('signup.js: hashPassword failed', err)
-//       return err
-//     })
-// }
-
-function saveNewUser (username, email, hashedPassword) {
-  const newUserData = { username, email, hashedPassword }
-  const user = new User(newUserData)
+function saveNewUser (userData) {
+  const user = new User(userData)
   return user.save()
-    .then(newUser => {
-      return newUser
+    .then(user => {
+      return user
     })
     .catch(err => {
       console.error('signup.js: saveNewuser failed', err)
