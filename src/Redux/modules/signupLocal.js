@@ -17,6 +17,10 @@ export function signupRequest (userData) {
       .then(res => {
         dispatch(signupLoading(false))
       })
+      .catch(err => {
+        console.error('redux: signupLocal: signupRequest failed', err)
+        dispatch(signupLoading(false))
+      })
   }
 }
 
