@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { displayFlashMessage } from './flashMessage'
 
 const DEFAULT_STATE = {
   signupLoading: false
@@ -16,10 +17,12 @@ export function signupRequest (userData) {
     return axios.post('/api/signup', userData)
       .then(res => {
         dispatch(signupLoading(false))
+        dispatch(displayFlashMessage({ message: 'Signup successful! You can login.', level: 'success' }))
       })
       .catch(err => {
         console.error('redux: signupLocal: signupRequest failed', err)
         dispatch(signupLoading(false))
+        dispatch(displayFlashMessage({ message: 'Signup failed. That\'s an error.', level: 'error' }))
       })
   }
 }
