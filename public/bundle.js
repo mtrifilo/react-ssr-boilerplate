@@ -309,6 +309,8 @@ var Home = function Home(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NavBar_NavBar__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Common_FlashMessageContainer__ = __webpack_require__(49);
+
 
 
 var element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.element;
@@ -320,6 +322,7 @@ var Layout = function Layout(_ref) {
     'div',
     null,
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__NavBar_NavBar__["a" /* default */], null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Common_FlashMessageContainer__["a" /* default */], null),
     children
   );
 };
@@ -784,6 +787,104 @@ var SignupForm = function (_Component) {
 /***/ (function(module, exports) {
 
 module.exports = require("classnames");
+
+/***/ }),
+/* 32 */,
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_classnames__);
+
+
+var string = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string;
+
+
+var FlashMessage = function FlashMessage(_ref) {
+  var message = _ref.message,
+      level = _ref.level;
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { className: __WEBPACK_IMPORTED_MODULE_1_classnames___default()('alert', {
+        'alert-success': level === 'success',
+        'alert-danger': level === 'error'
+      }) },
+    message
+  );
+};
+
+FlashMessage.propTypes = {
+  message: string,
+  level: string
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (FlashMessage);
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FlashMessage__ = __webpack_require__(48);
+
+
+
+var array = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.array;
+
+
+var FlashMessageContainer = function FlashMessageContainer(_ref) {
+  var flashMessages = _ref.flashMessages;
+
+  var displayFlashMessages = flashMessages.map(function (_ref2) {
+    var message = _ref2.message,
+        level = _ref2.level;
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__FlashMessage__["a" /* default */], { key: message, message: message, level: level });
+  });
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    null,
+    displayFlashMessages
+  );
+};
+
+FlashMessageContainer.propTypes = {
+  flashMessages: array.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    flashMessages: state.flashMessage.flashMessages
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(mapStateToProps)(FlashMessageContainer));
 
 /***/ })
 ],[14]);
