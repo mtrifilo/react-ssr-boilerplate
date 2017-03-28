@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
+const secret = process.env.JWT_SECRET || require('../../config.json').jwtSecret
 
 /**
  * '/api/login/local'
@@ -21,11 +23,23 @@ router.post('/local', (req, res, next) => {
     }
 
     if (!user) {
+      // info will contain { message: 'Invalid login credentials' }
       return res.status(401).json(info)
     }
 
-    return res.json({ success: true })
+    const token = createToken(user)
+
+    return res.json({ token })
   })(req, res, next)
 })
+
+function createToken (user) {
+  return jwt.sign({
+    sub: user._id,
+    username: user.username
+  }, secret, {
+    expiresIn: '3h'
+  })
+}
 
 module.exports = router

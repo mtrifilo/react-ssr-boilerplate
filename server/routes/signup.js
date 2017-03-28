@@ -37,6 +37,14 @@ router.post('/', (req, res) => {
     })
 })
 
+/**
+ * Queries the database to check if a submitted username or email is already
+ * registered to another user.
+ *
+ * @param {object} userData
+ * @returns {object} - duplicateError will contain a username error, email error, or both
+ *   isUnique is a boolean, which will be false if duplicateError contains any errors
+ */
 function duplicateUserCheck (userData) {
   return User.find({ $or: [{ email: userData.email }, { username: userData.username }] })
     .exec()
@@ -60,6 +68,12 @@ function duplicateUserCheck (userData) {
     })
 }
 
+/**
+ * Saves a new user to the database
+ *
+ * @param {object} userData
+ * @returns {object} user or err - user is the user object that was successfully saved
+ */
 function saveNewUser (userData) {
   const user = new User(userData)
   return user.save()
