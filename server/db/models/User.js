@@ -13,16 +13,19 @@ const UserSchema = new mongoose.Schema({
   password: String
 })
 
-UserSchema.methods.comparePassword = function comparePassword (password, callback) {
-  bcrypt.compare(password, this.password, callback)
+UserSchema.methods.verifyPassword = function verifyPassword (password) {
+  console.log('User.js: verifyPassword: password:', password)
+  return bcrypt.compare(password, this.password)
+    .then(res => res)
+    .catch(err => {
+      console.error('User.js: verifyPassword method failed', err)
+      return err
+    })
 }
 
 UserSchema.pre('save', function saveHook (next) {
-  const user = this
-
-  if (!user.isModified('password')) { return next() }
-
-  return hashPassword(user, next)
+  if (!this.isModified('password')) { return next() }
+  return hashPassword(this, next)
 })
 
 function hashPassword (user, next) {
@@ -36,19 +39,6 @@ function hashPassword (user, next) {
       return next(err)
     })
 }
-
-// function hashPassword (user, next) {
-//   return bcrypt.genSalt((saltError, salt) => {
-//     if (saltError) { return next(saltError) }
-
-//     return bcrypt.hash(user.password, salt, (hashError, hash) => {
-//       if (hashError) { return next(hashError) }
-
-//       user.password = hash
-//       return next()
-//     })
-//   })
-// }
 
 const User = mongoose.model('User', UserSchema)
 
