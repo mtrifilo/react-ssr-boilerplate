@@ -4,7 +4,7 @@
 
 This will be a minimalistic boiler plate with everything you need to get a server side rendered React application up and running FAST. 
 
-This is meant to be an alternative starter project for Free Code Camp full stack application projects.
+This is meant to be an alternative starter project for Free Code Camp full stack application projects. It's not officially affiliated with Free Code Camp. 
 
 ## Roadmap
 
@@ -25,7 +25,7 @@ It will be a server side rendered universal JavaScript application. This means t
 
 ## Why another boilerplate?
 
-Free Code Camp encourages students to use a boilerplate collection called `Clementine.js`, which is very powerful and easy to set up.
+Free Code Camp encourages students to use a boilerplate collection called `Clementine.js`, which is very powerful and easy to set up. It has great documentation and tutorials so it's the way to go if you're new to building full stack applications.
 
 This boilerplate is meant to be an alternative for students who want to build their full stack application projects using modern tools from the React ecosystem, with a project structure that is tailored to using React and Redux.
 
