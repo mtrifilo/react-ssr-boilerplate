@@ -9276,6 +9276,7 @@ function validateConfirmPassword(password, confirmPassword) {
     console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmPassword === 'undefined' ? 'undefined' : _typeof(confirmPassword));
     return { confirmPassword: 'confirmPassword validation failed' };
   }
+  console.log('validating confirmPassword...', password, confirmPassword);
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmPassword)) {
     return { confirmPassword: 'Please confirm your password' };
@@ -9306,8 +9307,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ClientApp__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_bootstrap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_bootstrap_dist_js_bootstrap_js__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_bootstrap_dist_js_bootstrap_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_bootstrap_dist_js_bootstrap_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_modules_bootstrap_dist_css_bootstrap_css__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_modules_bootstrap_dist_css_bootstrap_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__node_modules_bootstrap_dist_css_bootstrap_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__main_css__ = __webpack_require__(194);
@@ -9597,12 +9598,12 @@ var GuestLinks = function GuestLinks(props) {
       { className: 'navbar-nav' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"],
-        { to: '/signup', className: 'nav-link', activeClassName: 'active' },
+        { to: '/signup', className: 'nav-item nav-link', activeClassName: 'active' },
         'Signup'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"],
-        { to: '/login', className: 'nav-link', activeClassName: 'active' },
+        { to: '/login', className: 'nav-item nav-link', activeClassName: 'active' },
         'Login'
       )
     )
@@ -9633,7 +9634,8 @@ var NavBar = function NavBar(props) {
       {
         className: 'navbar-toggler navbar-toggler-right',
         type: 'button',
-        'data-toggle': 'collape',
+        role: 'button',
+        'data-toggle': 'collapse',
         'data-target': '#navbarNavAltMarkup',
         'aria-controls': 'navbarNavAltMarkup',
         'aria-expanded': 'false',
@@ -9796,6 +9798,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var func = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.func;
 
 var SignupForm = function (_Component) {
   _inherits(SignupForm, _Component);
@@ -9832,6 +9835,28 @@ var SignupForm = function (_Component) {
 
     _this.submitHandler = function (evt) {
       evt.preventDefault();
+      var _this$state = _this.state,
+          username = _this$state.username,
+          email = _this$state.email,
+          password = _this$state.password,
+          confirmPassword = _this$state.confirmPassword;
+
+      var userData = {
+        username: username,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword
+      };
+      console.log('userData:', userData);
+
+      var validation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["signupFormValidation"])(userData);
+      console.log('validation:', validation);
+
+      if (validation.isValid) {
+        return _this.props.dispatchSignupRequest(userData);
+      } else {
+        return _this.setValidationError(validation.validationErrors);
+      }
     };
 
     _this.state = {
@@ -9854,7 +9879,7 @@ var SignupForm = function (_Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
-        { className: 'signup-form' },
+        { className: 'signup-form', onSubmit: this.submitHandler },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Username',
           type: 'text',
@@ -9889,7 +9914,7 @@ var SignupForm = function (_Component) {
           validationError: this.state.validationErrors.confirmPassword }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
-          { type: 'submit', className: 'btn btn-primary' },
+          { type: 'submit', className: 'btn btn-primary', role: 'button' },
           'Submit'
         )
       );
@@ -9899,6 +9924,16 @@ var SignupForm = function (_Component) {
   return SignupForm;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
+SignupForm.propTypes = {
+  dispatchSignupRequest: func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    signupLoading: state.signupLocal.signupLoading
+  };
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     dispatchSignupRequest: function dispatchSignupRequest(userData) {
@@ -9907,7 +9942,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(function (state) {}, mapDispatchToProps)(SignupForm));
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(SignupForm));
 
 /***/ }),
 /* 229 */
@@ -9977,6 +10012,7 @@ function signupRequest(userData) {
     dispatch(signupLoading(true));
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/signup', userData).then(function (res) {
       dispatch(signupLoading(false));
+      console.log('signup success!', res);
       dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Signup successful! You can login.', level: 'success' }));
     }).catch(function (err) {
       console.error('redux: signupLocal: signupRequest failed', err);

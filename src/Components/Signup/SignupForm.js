@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { signupRequest } from '../../Redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
+  signupFormValidation,
   validateUsername,
   validateEmail,
   validatePassword,
   validateConfirmPassword
 } from '../../../server/validation/signupFormValidation'
+const { func } = React.PropTypes
 
 class SignupForm extends Component {
   constructor () {
@@ -55,12 +57,28 @@ class SignupForm extends Component {
 
   submitHandler = (evt) => {
     evt.preventDefault()
-    
+    const { username, email, password, confirmPassword } = this.state
+    const userData = {
+      username,
+      email,
+      password,
+      confirmPassword
+    }
+    console.log('userData:', userData)
+
+    const validation = signupFormValidation(userData)
+    console.log('validation:', validation)
+
+    if (validation.isValid) {
+      return this.props.dispatchSignupRequest(userData)
+    } else {
+      return this.setValidationError(validation.validationErrors)
+    }
   }
 
   render () {
     return (
-      <form className='signup-form'>
+      <form className='signup-form' onSubmit={this.submitHandler} >
         <Input
           label='Username'
           type='text'
@@ -93,9 +111,19 @@ class SignupForm extends Component {
           onBlur={this.onBlurHandler}
           value={this.state.confirmPassword}
           validationError={this.state.validationErrors.confirmPassword} />
-        <button type='submit' className='btn btn-primary'>Submit</button>
+        <button type='submit' className='btn btn-primary' role='button'>Submit</button>
       </form>
     )
+  }
+}
+
+SignupForm.propTypes = {
+  dispatchSignupRequest: func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  return {
+    signupLoading: state.signupLocal.signupLoading
   }
 }
 
@@ -107,4 +135,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect((state) => {}, mapDispatchToProps)(SignupForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)

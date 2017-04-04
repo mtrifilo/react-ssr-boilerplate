@@ -17,6 +17,7 @@ export function signupRequest (userData) {
     return axios.post('/api/signup', userData)
       .then(res => {
         dispatch(signupLoading(false))
+        console.log('signup success!', res)
         dispatch(displayFlashMessage({ message: 'Signup successful! You can login.', level: 'success' }))
       })
       .catch(err => {

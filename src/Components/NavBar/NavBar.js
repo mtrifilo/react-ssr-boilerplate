@@ -7,7 +7,8 @@ const NavBar = (props) => (
     <button
       className='navbar-toggler navbar-toggler-right'
       type='button'
-      data-toggle='collape'
+      role='button'
+      data-toggle='collapse'
       data-target='#navbarNavAltMarkup'
       aria-controls='navbarNavAltMarkup'
       aria-expanded='false'
