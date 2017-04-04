@@ -9855,7 +9855,7 @@ var SignupForm = function (_Component) {
       _this.setState({ validationErrors: newValidationErrors });
     };
 
-    _this.submitHandler = function (evt) {
+    _this.onSubmitHandler = function (evt) {
       evt.preventDefault();
       var _this$state = _this.state,
           username = _this$state.username,
@@ -9899,7 +9899,7 @@ var SignupForm = function (_Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
-        { className: 'signup-form', onSubmit: this.submitHandler },
+        { className: 'signup-form', onSubmit: this.onSubmitHandler },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Username',
           type: 'text',

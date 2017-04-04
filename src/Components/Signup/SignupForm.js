@@ -55,7 +55,7 @@ class SignupForm extends Component {
     this.setState({ validationErrors: newValidationErrors })
   }
 
-  submitHandler = (evt) => {
+  onSubmitHandler = (evt) => {
     evt.preventDefault()
     const { username, email, password, confirmPassword } = this.state
     const userData = {
@@ -76,7 +76,7 @@ class SignupForm extends Component {
 
   render () {
     return (
-      <form className='signup-form' onSubmit={this.submitHandler} >
+      <form className='signup-form' onSubmit={this.onSubmitHandler} >
         <Input
           label='Username'
           type='text'
