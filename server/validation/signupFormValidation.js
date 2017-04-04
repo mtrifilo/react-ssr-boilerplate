@@ -1,5 +1,6 @@
 const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
+const { buildErrorsObject } = require('./utils')
 
 /**
  * Validates all signup form fields.
@@ -28,23 +29,6 @@ function signupFormValidation (data) {
     validationErrors,
     isValid: isEmpty(validationErrors)
   }
-}
-
-function buildErrorsObject (validationResults, fields) {
-  let errors = fields.map(field => {
-    if (validationResults[field]) {
-      return { [field]: validationResults[field] }
-    }
-    return false
-  }).filter(message => message)
-
-  if (!isEmpty(errors)) {
-    errors = errors.reduce((prevMessageObj, nextMessageObj) => {
-      return Object.assign({}, prevMessageObj, nextMessageObj)
-    })
-  }
-
-  return errors
 }
 
 function validateUsername (username) {
@@ -96,7 +80,6 @@ function validateConfirmPassword (password, confirmPassword) {
     console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmPassword)
     return { confirmPassword: 'confirmPassword validation failed' }
   }
-  console.log('validating confirmPassword...', password, confirmPassword)
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmPassword)) {
     return { confirmPassword: 'Please confirm your password' }

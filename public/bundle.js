@@ -9127,24 +9127,18 @@ module.exports = function spread(callback) {
 /* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var Validator = __webpack_require__(179);
 var isEmpty = __webpack_require__(141);
 
-function loginFormValidation(state) {
-  var validationResults = Object.assign({}, validateIdentifier(state.identifier), validatePassword(state.password));
+var _require = __webpack_require__(538),
+    buildErrorsObject = _require.buildErrorsObject;
+
+function loginFormValidation(data) {
+  var validationResults = Object.assign({}, validateIdentifier(data.identifier), validatePassword(data.password));
 
   var fields = Object.keys(validationResults);
 
-  var validationErrors = fields.map(function (field) {
-    if (validationResults[field]) {
-      return _defineProperty({}, field, validationResults[field]);
-    }
-    return false;
-  }).filter(function (message) {
-    return message;
-  });
+  var validationErrors = buildErrorsObject(validationResults, fields);
 
   return {
     validationErrors: validationErrors,
@@ -9155,7 +9149,7 @@ function loginFormValidation(state) {
 function validateIdentifier(identifier) {
   // identifier shouldn't be empty
   if (Validator.isEmpty(identifier)) {
-    return { identifier: 'A registered username or email is required' };
+    return { identifier: 'A registered email is required' };
   }
   return { identifier: '' };
 }
@@ -9180,10 +9174,11 @@ module.exports = {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var Validator = __webpack_require__(179);
 var isEmpty = __webpack_require__(141);
+
+var _require = __webpack_require__(538),
+    buildErrorsObject = _require.buildErrorsObject;
 
 /**
  * Validates all signup form fields.
@@ -9194,6 +9189,8 @@ var isEmpty = __webpack_require__(141);
  *   will be true if any error messages are returned from any of the validation
  *   functions.
  */
+
+
 function signupFormValidation(data) {
   var validationResults = Object.assign({}, validateUsername(data.username), validateEmail(data.email), validatePassword(data.password), validateConfirmPassword(data.password, data.confirmPassword));
 
@@ -9206,25 +9203,6 @@ function signupFormValidation(data) {
     validationErrors: validationErrors,
     isValid: isEmpty(validationErrors)
   };
-}
-
-function buildErrorsObject(validationResults, fields) {
-  var errors = fields.map(function (field) {
-    if (validationResults[field]) {
-      return _defineProperty({}, field, validationResults[field]);
-    }
-    return false;
-  }).filter(function (message) {
-    return message;
-  });
-
-  if (!isEmpty(errors)) {
-    errors = errors.reduce(function (prevMessageObj, nextMessageObj) {
-      return Object.assign({}, prevMessageObj, nextMessageObj);
-    });
-  }
-
-  return errors;
 }
 
 function validateUsername(username) {
@@ -9276,7 +9254,6 @@ function validateConfirmPassword(password, confirmPassword) {
     console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmPassword === 'undefined' ? 'undefined' : _typeof(confirmPassword));
     return { confirmPassword: 'confirmPassword validation failed' };
   }
-  console.log('validating confirmPassword...', password, confirmPassword);
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmPassword)) {
     return { confirmPassword: 'Please confirm your password' };
@@ -9482,9 +9459,11 @@ var Login = function Login(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redux_modules_loginLocal__ = __webpack_require__(537);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Common_Input__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -9494,6 +9473,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -9513,10 +9494,10 @@ var LoginForm = function (_Component) {
 
     _this.onBlurHandler = function (evt) {
       if (evt.target.name === 'identifier') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__["validateIdentifier"])(_this.state.identifier));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["validateIdentifier"])(_this.state.identifier));
       }
       if (evt.target.name === 'password') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_loginFormValidation__["validatePassword"])(_this.state.password));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["validatePassword"])(_this.state.password));
       }
     };
 
@@ -9548,15 +9529,15 @@ var LoginForm = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
         { className: 'login-form', onSubmit: this.onSubmitHandler },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-          label: 'Username or Email',
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
+          label: 'Email',
           type: 'text',
           name: 'identifier',
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.identifier,
           validationError: this.state.validationErrors.identifier }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',
           name: 'password',
@@ -9576,7 +9557,21 @@ var LoginForm = function (_Component) {
   return LoginForm;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (LoginForm);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    loginLoading: state.loginLocal.loginLoading
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    dispatchLoginRequest: function dispatchLoginRequest(userData) {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__Redux_modules_loginLocal__["a" /* loginRequest */])(userData));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(LoginForm));
 
 /***/ }),
 /* 222 */
@@ -9950,15 +9945,18 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_signupLocal__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_flashMessage__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_loginLocal__ = __webpack_require__(537);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_signupLocal__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_flashMessage__ = __webpack_require__(110);
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* combineReducers */])({
-  signupLocal: __WEBPACK_IMPORTED_MODULE_1__modules_signupLocal__["b" /* default */],
-  flashMessage: __WEBPACK_IMPORTED_MODULE_2__modules_flashMessage__["b" /* default */]
+  loginLocal: __WEBPACK_IMPORTED_MODULE_1__modules_loginLocal__["b" /* default */],
+  signupLocal: __WEBPACK_IMPORTED_MODULE_2__modules_signupLocal__["b" /* default */],
+  flashMessage: __WEBPACK_IMPORTED_MODULE_3__modules_flashMessage__["b" /* default */]
 }));
 
 /***/ }),
@@ -28489,6 +28487,108 @@ function whitelist(str, chars) {
   return str.replace(new RegExp('[^' + chars + ']+', 'g'), '');
 }
 module.exports = exports['default'];
+
+/***/ }),
+/* 524 */,
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
+/* 530 */,
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__flashMessage__ = __webpack_require__(110);
+/* harmony export (immutable) */ __webpack_exports__["a"] = loginRequest;
+/* unused harmony export loginLoading */
+/* harmony export (immutable) */ __webpack_exports__["b"] = loginLocal;
+
+
+
+var DEFAULT_STATE = {
+  loginLoading: false
+};
+
+// ******* Action Type *******
+
+var LOGIN_LOADING = 'LOGIN_LOADING';
+
+// ******* Action Creators & Reducer *******
+
+function loginRequest(userData) {
+  return function (dispatch) {
+    dispatch(loginLoading(true));
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/login/local', userData).then(function (res) {
+      dispatch(loginLoading(false));
+      console.log('login success!', res);
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'You are logged in. Welcome back!', level: 'success' }));
+    }).catch(function (err) {
+      console.error('redux: loginLocal: loginRequest failed', err);
+      dispatch(loginLoading(false));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Login failed. That\'s an error.', level: 'error' }));
+    });
+  };
+}
+
+function loginLoading(bool) {
+  return { type: LOGIN_LOADING, loginLoading: bool };
+}
+function loginLoadingReducer(state, action) {
+  return Object.assign({}, state, { loginLoading: action.loginLoading });
+}
+
+// ******* Root Reducer Slice *******
+
+function loginLocal() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_STATE;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case LOGIN_LOADING:
+      return loginLoadingReducer(state, action);
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isEmpty = __webpack_require__(141);
+
+function buildErrorsObject(validationResults, fields) {
+  var errors = fields.map(function (field) {
+    if (validationResults[field]) {
+      return _defineProperty({}, field, validationResults[field]);
+    }
+    return false;
+  }).filter(function (message) {
+    return message;
+  });
+
+  if (!isEmpty(errors)) {
+    errors = errors.reduce(function (prevMessageObj, nextMessageObj) {
+      return Object.assign({}, prevMessageObj, nextMessageObj);
+    });
+  }
+
+  return errors;
+}
+
+module.exports = { buildErrorsObject: buildErrorsObject };
 
 /***/ })
 ],[215]);

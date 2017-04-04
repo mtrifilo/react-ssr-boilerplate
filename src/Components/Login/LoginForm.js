@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { loginRequest } from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
   validateIdentifier,
@@ -46,7 +48,7 @@ class LoginForm extends Component {
     return (
       <form className='login-form' onSubmit={this.onSubmitHandler}>
         <Input
-          label='Username or Email'
+          label='Email'
           type='text'
           name='identifier'
           onChange={this.onChangeHandler}
@@ -67,4 +69,18 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm
+const mapStateToProps = (state) => {
+  return {
+    loginLoading: state.loginLocal.loginLoading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchLoginRequest (userData) {
+      dispatch(loginRequest(userData))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

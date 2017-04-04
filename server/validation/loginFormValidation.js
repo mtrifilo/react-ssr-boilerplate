@@ -1,21 +1,17 @@
 const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
+const { buildErrorsObject } = require('./utils')
 
-function loginFormValidation (state) {
+function loginFormValidation (data) {
   const validationResults = Object.assign(
     {},
-    validateIdentifier(state.identifier),
-    validatePassword(state.password)
+    validateIdentifier(data.identifier),
+    validatePassword(data.password)
   )
 
   const fields = Object.keys(validationResults)
 
-  const validationErrors = fields.map(field => {
-    if (validationResults[field]) {
-      return { [field]: validationResults[field] }
-    }
-    return false
-  }).filter(message => message)
+  const validationErrors = buildErrorsObject(validationResults, fields)
 
   return {
     validationErrors,
@@ -26,7 +22,7 @@ function loginFormValidation (state) {
 function validateIdentifier (identifier) {
   // identifier shouldn't be empty
   if (Validator.isEmpty(identifier)) {
-    return { identifier: 'A registered username or email is required' }
+    return { identifier: 'A registered email is required' }
   }
   return { identifier: '' }
 }
