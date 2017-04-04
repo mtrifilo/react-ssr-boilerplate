@@ -21,9 +21,14 @@ export function loginRequest (userData) {
         dispatch(displayFlashMessage({ message: 'You are logged in. Welcome back!', level: 'success' }))
       })
       .catch(err => {
-        console.error('redux: loginLocal: loginRequest failed', err)
         dispatch(loginLoading(false))
-        dispatch(displayFlashMessage({ message: 'Login failed. That\'s an error.', level: 'error' }))
+        if (err.response.data && err.response.data.message) {
+          console.log('redux: loginLocal: invaild login credentials:', err.response.data.message)
+          return dispatch(displayFlashMessage({ message: err.response.data.message, level: 'error' }))
+        } else {
+          console.error('redux: loginLocal: loginRequest failed:', err, err.response)
+          return dispatch(displayFlashMessage({ message: 'An error occurred.', level: 'error' }))
+        }
       })
   }
 }

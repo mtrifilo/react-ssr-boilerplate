@@ -28558,9 +28558,14 @@ function loginRequest(userData) {
       console.log('login success!', res);
       dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'You are logged in. Welcome back!', level: 'success' }));
     }).catch(function (err) {
-      console.error('redux: loginLocal: loginRequest failed', err);
       dispatch(loginLoading(false));
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Login failed. That\'s an error.', level: 'error' }));
+      if (err.response.data && err.response.data.message) {
+        console.log('redux: loginLocal: invaild login credentials:', err.response.data.message);
+        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: err.response.data.message, level: 'error' }));
+      } else {
+        console.error('redux: loginLocal: loginRequest failed:', err, err.response);
+        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'An error occurred.', level: 'error' }));
+      }
     });
   };
 }
