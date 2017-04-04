@@ -9187,7 +9187,7 @@ var isEmpty = __webpack_require__(141);
  * Validates all signup form fields.
  *
  * @param {object} data - A new user's submitted signup form data
- * @returns {object} {error: Array, isValid: Boolean} - errors contains the
+ * @returns {object} {validationErrors: Object, isValid: Boolean} - errors contains the
  *   results of all of the validation functions as an array. isValid
  *   will be true if any error messages are returned from any of the validation
  *   functions.
@@ -9198,7 +9198,16 @@ function signupFormValidation(data) {
   var fields = Object.keys(validationResults);
 
   // return any error messages, or an empty array
-  var validationErrors = fields.map(function (field) {
+  var validationErrors = buildErrorsObject(validationResults, fields);
+
+  return {
+    validationErrors: validationErrors,
+    isValid: isEmpty(validationErrors)
+  };
+}
+
+function buildErrorsObject(validationResults, fields) {
+  var errors = fields.map(function (field) {
     if (validationResults[field]) {
       return _defineProperty({}, field, validationResults[field]);
     }
@@ -9207,10 +9216,13 @@ function signupFormValidation(data) {
     return message;
   });
 
-  return {
-    validationErrors: validationErrors,
-    isValid: isEmpty(validationErrors)
-  };
+  if (!isEmpty(errors)) {
+    errors = errors.reduce(function (prevMessageObj, nextMessageObj) {
+      return Object.assign({}, prevMessageObj, nextMessageObj);
+    });
+  }
+
+  return errors;
 }
 
 function validateUsername(username) {

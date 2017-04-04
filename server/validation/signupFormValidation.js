@@ -5,7 +5,7 @@ const isEmpty = require('lodash/isEmpty')
  * Validates all signup form fields.
  *
  * @param {object} data - A new user's submitted signup form data
- * @returns {object} {error: Array, isValid: Boolean} - errors contains the
+ * @returns {object} {validationErrors: Object, isValid: Boolean} - errors contains the
  *   results of all of the validation functions as an array. isValid
  *   will be true if any error messages are returned from any of the validation
  *   functions.
@@ -22,17 +22,29 @@ function signupFormValidation (data) {
   const fields = Object.keys(validationResults)
 
   // return any error messages, or an empty array
-  const validationErrors = fields.map(field => {
+  const validationErrors = buildErrorsObject(validationResults, fields)
+
+  return {
+    validationErrors,
+    isValid: isEmpty(validationErrors)
+  }
+}
+
+function buildErrorsObject (validationResults, fields) {
+  let errors = fields.map(field => {
     if (validationResults[field]) {
       return { [field]: validationResults[field] }
     }
     return false
   }).filter(message => message)
 
-  return {
-    validationErrors,
-    isValid: isEmpty(validationErrors)
+  if (!isEmpty(errors)) {
+    errors = errors.reduce((prevMessageObj, nextMessageObj) => {
+      return Object.assign({}, prevMessageObj, nextMessageObj)
+    })
   }
+
+  return errors
 }
 
 function validateUsername (username) {
