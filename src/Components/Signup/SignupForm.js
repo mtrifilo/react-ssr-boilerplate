@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { signupRequest } from '../../Redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
   validateUsername,
@@ -92,4 +94,12 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchSignupRequest (userData) {
+      dispatch(signupRequest(userData))
+    }
+  }
+}
+
+export default connect((state) => {}, mapDispatchToProps)(SignupForm)

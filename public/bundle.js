@@ -2073,8 +2073,8 @@ Input.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_clone__ = __webpack_require__(348);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_clone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_clone__);
-/* harmony export (immutable) */ __webpack_exports__["b"] = displayFlashMessage;
-/* harmony export (immutable) */ __webpack_exports__["a"] = flashMessage;
+/* harmony export (immutable) */ __webpack_exports__["a"] = displayFlashMessage;
+/* harmony export (immutable) */ __webpack_exports__["b"] = flashMessage;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -9742,9 +9742,11 @@ var Signup = function Signup(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redux_modules_signupLocal__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Common_Input__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -9754,6 +9756,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -9773,16 +9777,16 @@ var SignupForm = function (_Component) {
 
     _this.onBlurHandler = function (evt) {
       if (evt.target.name === 'username') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateUsername"])(_this.state.username));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["validateUsername"])(_this.state.username));
       }
       if (evt.target.name === 'email') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateEmail"])(_this.state.email));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["validateEmail"])(_this.state.email));
       }
       if (evt.target.name === 'password') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validatePassword"])(_this.state.password));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["validatePassword"])(_this.state.password));
       }
       if (evt.target.name === 'confirmPassword') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__server_validation_signupFormValidation__["validateConfirmPassword"])(_this.state.password, _this.state.confirmPassword));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["validateConfirmPassword"])(_this.state.password, _this.state.confirmPassword));
       }
     };
 
@@ -9813,7 +9817,7 @@ var SignupForm = function (_Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
         { className: 'signup-form' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Username',
           type: 'text',
           name: 'username',
@@ -9821,7 +9825,7 @@ var SignupForm = function (_Component) {
           onBlur: this.onBlurHandler,
           value: this.state.username,
           validationError: this.state.validationErrors.username }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Email Address',
           type: 'email',
           name: 'email',
@@ -9829,7 +9833,7 @@ var SignupForm = function (_Component) {
           onBlur: this.onBlurHandler,
           value: this.state.email,
           validationError: this.state.validationErrors.email }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',
           name: 'password',
@@ -9837,7 +9841,7 @@ var SignupForm = function (_Component) {
           onBlur: this.onBlurHandler,
           value: this.state.password,
           validationError: this.state.validationErrors.password }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Confirm Password',
           type: 'password',
           name: 'confirmPassword',
@@ -9857,7 +9861,15 @@ var SignupForm = function (_Component) {
   return SignupForm;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (SignupForm);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    dispatchSignupRequest: function dispatchSignupRequest(userData) {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__Redux_modules_signupLocal__["a" /* signupRequest */])(userData));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(function (state) {}, mapDispatchToProps)(SignupForm));
 
 /***/ }),
 /* 229 */
@@ -9872,8 +9884,8 @@ var SignupForm = function (_Component) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* combineReducers */])({
-  signupLocal: __WEBPACK_IMPORTED_MODULE_1__modules_signupLocal__["a" /* default */],
-  flashMessage: __WEBPACK_IMPORTED_MODULE_2__modules_flashMessage__["a" /* default */]
+  signupLocal: __WEBPACK_IMPORTED_MODULE_1__modules_signupLocal__["b" /* default */],
+  flashMessage: __WEBPACK_IMPORTED_MODULE_2__modules_flashMessage__["b" /* default */]
 }));
 
 /***/ }),
@@ -9906,9 +9918,9 @@ var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* cre
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__flashMessage__ = __webpack_require__(110);
-/* unused harmony export signupRequest */
+/* harmony export (immutable) */ __webpack_exports__["a"] = signupRequest;
 /* unused harmony export signupLoading */
-/* harmony export (immutable) */ __webpack_exports__["a"] = signupLocal;
+/* harmony export (immutable) */ __webpack_exports__["b"] = signupLocal;
 
 
 
@@ -9927,11 +9939,11 @@ function signupRequest(userData) {
     dispatch(signupLoading(true));
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/signup', userData).then(function (res) {
       dispatch(signupLoading(false));
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["b" /* displayFlashMessage */])({ message: 'Signup successful! You can login.', level: 'success' }));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Signup successful! You can login.', level: 'success' }));
     }).catch(function (err) {
       console.error('redux: signupLocal: signupRequest failed', err);
       dispatch(signupLoading(false));
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["b" /* displayFlashMessage */])({ message: 'Signup failed. That\'s an error.', level: 'error' }));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Signup failed. That\'s an error.', level: 'error' }));
     });
   };
 }
