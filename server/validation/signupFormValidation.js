@@ -20,10 +20,8 @@ function signupFormValidation (data) {
     validateConfirmPassword(data.password, data.confirmPassword)
   )
 
-  const fields = Object.keys(validationResults)
-
   // return any error messages, or an empty array
-  const validationErrors = buildErrorsObject(validationResults, fields)
+  const validationErrors = buildErrorsObject(validationResults)
 
   return {
     validationErrors,

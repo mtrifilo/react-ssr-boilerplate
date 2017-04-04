@@ -9,9 +9,7 @@ function loginFormValidation (data) {
     validatePassword(data.password)
   )
 
-  const fields = Object.keys(validationResults)
-
-  const validationErrors = buildErrorsObject(validationResults, fields)
+  const validationErrors = buildErrorsObject(validationResults)
 
   return {
     validationErrors,

@@ -9138,9 +9138,7 @@ var _require = __webpack_require__(538),
 function loginFormValidation(data) {
   var validationResults = Object.assign({}, validateEmail(data.email), validatePassword(data.password));
 
-  var fields = Object.keys(validationResults);
-
-  var validationErrors = buildErrorsObject(validationResults, fields);
+  var validationErrors = buildErrorsObject(validationResults);
 
   return {
     validationErrors: validationErrors,
@@ -9208,10 +9206,8 @@ var _require = __webpack_require__(538),
 function signupFormValidation(data) {
   var validationResults = Object.assign({}, validateUsername(data.username), validateEmail(data.email), validatePassword(data.password), validateConfirmPassword(data.password, data.confirmPassword));
 
-  var fields = Object.keys(validationResults);
-
   // return any error messages, or an empty array
-  var validationErrors = buildErrorsObject(validationResults, fields);
+  var validationErrors = buildErrorsObject(validationResults);
 
   return {
     validationErrors: validationErrors,
@@ -28583,7 +28579,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var isEmpty = __webpack_require__(141);
 
-function buildErrorsObject(validationResults, fields) {
+function buildErrorsObject(validationResults) {
+  var fields = Object.keys(validationResults);
   var errors = fields.map(function (field) {
     if (validationResults[field]) {
       return _defineProperty({}, field, validationResults[field]);

@@ -1,6 +1,7 @@
 const isEmpty = require('lodash/isEmpty')
 
-function buildErrorsObject (validationResults, fields) {
+function buildErrorsObject (validationResults) {
+  const fields = Object.keys(validationResults)
   let errors = fields.map(field => {
     if (validationResults[field]) {
       return { [field]: validationResults[field] }
