@@ -2,7 +2,9 @@
 import {
   signupFormValidation,
   validateUsername,
-  validateEmail
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword
   } from '../signupFormValidation'
 
 /**
@@ -139,17 +141,46 @@ test('validateEmail: should return validation failure if email is not a string',
  * validatePassword
  */
 
-test('validateUsername: should return username error if username is empty', () => {
-  const validated = validateUsername('')
-  expect(validated.username).toBe('A username is required')
+test('validatePassword: should return password error if password is empty', () => {
+  const validated = validatePassword('')
+  expect(validated.password).toBe('A password is required')
 })
 
-test('validateUsername: should return { username: \'\' } if username is valid', () => {
-  const validated = validateUsername('coolUser')
-  expect(validated.username).toBe('')
+test('validatePassword: should return { password: \'\' } if password is valid', () => {
+  const validated = validatePassword('coolUser')
+  expect(validated.password).toBe('')
 })
 
-test('validateUsername: should return validation failure if username is not a string', () => {
-  const validated = validateUsername(false)
-  expect(validated.username).toBe('username validation failed')
+test('validatePassword: should return validation failure if password is not a string', () => {
+  const validated = validatePassword(false)
+  expect(validated.password).toBe('password validation failed')
+})
+
+/**
+ * validateConfirmPassword
+ */
+
+test('validateConfirmPassword: should return confirmPassword error if password is empty', () => {
+  const validated = validateConfirmPassword('shh', '')
+  expect(validated.confirmPassword).toBe('Please confirm your password')
+})
+
+test('validateConfirmPassword: should return confirmPassword mismatch error if confirmPassword does not match password', () => {
+  const validated = validateConfirmPassword('shh', 'YELLING')
+  expect(validated.confirmPassword).toBe('Passwords don\'t match, try again')
+})
+
+test('validateConfirmPassword: should return { password: \'\' } if password is valid', () => {
+  const validated = validateConfirmPassword('shh', 'shh')
+  expect(validated.confirmPassword).toBe('')
+})
+
+test('validateConfirmPassword: should return validation failure if confirmPassword is not a string', () => {
+  const validated = validateConfirmPassword('shh', false)
+  expect(validated.confirmPassword).toBe('confirmPassword validation failed')
+})
+
+test('validateConfirmPassword: should return validation failure if password is not a string', () => {
+  const validated = validateConfirmPassword(false, 'shh')
+  expect(validated.confirmPassword).toBe('confirmPassword validation failed')
 })

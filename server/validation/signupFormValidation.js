@@ -63,7 +63,7 @@ function validateEmail (email) {
   if (typeof email !== 'string') {
     console.error('validateEmail: email must be a string. received:', typeof email)
     return { email: 'email validation failed' }
-  }  
+  }
   // email shouldn't be empty
   if (Validator.isEmpty(email)) {
     return { email: 'An email address is required' }
@@ -79,7 +79,7 @@ function validatePassword (password) {
   if (typeof password !== 'string') {
     console.error('validatePassword: password must be a string. received:', typeof password)
     return { password: 'password validation failed' }
-  }    
+  }
   // password shouldn't be empty
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' }
@@ -88,6 +88,14 @@ function validatePassword (password) {
 }
 
 function validateConfirmPassword (password, confirmPassword) {
+  if (typeof password !== 'string') {
+    console.error('validateConfirmPassword: password must be a string. received:', typeof password)
+    return { confirmPassword: 'confirmPassword validation failed' }
+  }   
+  if (typeof confirmPassword !== 'string') {
+    console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmPassword)
+    return { confirmPassword: 'confirmPassword validation failed' }
+  }  
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmPassword)) {
     return { confirmPassword: 'Please confirm your password' }

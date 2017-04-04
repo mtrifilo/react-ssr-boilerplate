@@ -9268,6 +9268,14 @@ function validatePassword(password) {
 }
 
 function validateConfirmPassword(password, confirmPassword) {
+  if (typeof password !== 'string') {
+    console.error('validateConfirmPassword: password must be a string. received:', typeof password === 'undefined' ? 'undefined' : _typeof(password));
+    return { confirmPassword: 'confirmPassword validation failed' };
+  }
+  if (typeof confirmPassword !== 'string') {
+    console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmPassword === 'undefined' ? 'undefined' : _typeof(confirmPassword));
+    return { confirmPassword: 'confirmPassword validation failed' };
+  }
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmPassword)) {
     return { confirmPassword: 'Please confirm your password' };
