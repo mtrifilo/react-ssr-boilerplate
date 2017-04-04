@@ -18,6 +18,10 @@ module.exports = function () {
     resolve: {
       extensions: ['.js', '.jsx', '.json']
     },
+    node: {
+      net: 'empty',
+      dns: 'empty'
+    },
     stats: 'minimal',
     module: {
       rules: [

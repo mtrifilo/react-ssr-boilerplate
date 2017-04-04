@@ -1,4 +1,5 @@
 import axios from 'axios'
+import prepareUserFromToken from '../../auth/prepareUserFromToken'
 import { displayFlashMessage } from './flashMessage'
 
 const DEFAULT_STATE = {
@@ -17,7 +18,15 @@ export function loginRequest (userData) {
     return axios.post('/api/login/local', userData)
       .then(res => {
         dispatch(loginLoading(false))
-        console.log('login success!', res)
+
+        if (!res.data.token) {
+          console.error('loginRequest: no token returned:', res)
+          return dispatch(displayFlashMessage({ message: 'An error occurred', level: 'error' }))
+        }
+
+        const user = prepareUserFromToken(res.data.token)
+        console.log('user:', user)
+
         dispatch(displayFlashMessage({ message: 'You are logged in. Welcome back!', level: 'success' }))
       })
       .catch(err => {
