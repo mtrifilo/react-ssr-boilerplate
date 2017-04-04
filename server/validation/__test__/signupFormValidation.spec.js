@@ -1,5 +1,13 @@
 /* eslint-env node, jest */
-import { signupFormValidation } from '../signupFormValidation'
+import {
+  signupFormValidation,
+  validateUsername,
+  validateEmail
+  } from '../signupFormValidation'
+
+/**
+ * signupFormValidation
+ */
 
 test('signupFormValidation: signupFormValidation should return no errors if all data is valid', () => {
   const data = {
@@ -80,7 +88,68 @@ test('signupFormValidation: signupFormValidation should return confirmPassword e
     confirmPassword: 'YELLING'
   }
   const validated = signupFormValidation(data)
-  console.log(validated)
   expect(validated.isValid).toBe(false)
   expect(validated.validationErrors.confirmPassword).toBe('Passwords don\'t match, try again')
+})
+
+/**
+ * validateUsername
+ */
+
+test('validateUsername: should return username error if username is empty', () => {
+  const validated = validateUsername('')
+  expect(validated.username).toBe('A username is required')
+})
+
+test('validateUsername: should return { username: \'\' } if username is valid', () => {
+  const validated = validateUsername('coolUser')
+  expect(validated.username).toBe('')
+})
+
+test('validateUsername: should return validation failure if username is not a string', () => {
+  const validated = validateUsername(false)
+  expect(validated.username).toBe('username validation failed')
+})
+
+/**
+ * validateEmail
+ */
+
+test('validateEmail: should return email error if email is empty', () => {
+  const validated = validateEmail('')
+  expect(validated.email).toBe('An email address is required')
+})
+
+test('validateEmail: should return email error if email is invalid', () => {
+  const validated = validateEmail('coolUserfuture.net')
+  expect(validated.email).toBe('This email address is not valid')
+})
+
+test('validateEmail: should return { email: \'\' } if email is valid', () => {
+  const validated = validateEmail('coolUser@future.net')
+  expect(validated.email).toBe('')
+})
+
+test('validateEmail: should return validation failure if email is not a string', () => {
+  const validated = validateEmail(false)
+  expect(validated.email).toBe('email validation failed')
+})
+
+/**
+ * validatePassword
+ */
+
+test('validateUsername: should return username error if username is empty', () => {
+  const validated = validateUsername('')
+  expect(validated.username).toBe('A username is required')
+})
+
+test('validateUsername: should return { username: \'\' } if username is valid', () => {
+  const validated = validateUsername('coolUser')
+  expect(validated.username).toBe('')
+})
+
+test('validateUsername: should return validation failure if username is not a string', () => {
+  const validated = validateUsername(false)
+  expect(validated.username).toBe('username validation failed')
 })

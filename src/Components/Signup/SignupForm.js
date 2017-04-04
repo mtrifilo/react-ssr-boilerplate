@@ -53,6 +53,11 @@ class SignupForm extends Component {
     this.setState({ validationErrors: newValidationErrors })
   }
 
+  submitHandler = (evt) => {
+    evt.preventDefault()
+    
+  }
+
   render () {
     return (
       <form className='signup-form'>

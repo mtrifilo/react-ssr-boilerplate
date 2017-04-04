@@ -48,6 +48,10 @@ function buildErrorsObject (validationResults, fields) {
 }
 
 function validateUsername (username) {
+  if (typeof username !== 'string') {
+    console.error('validateUsername: username must be a string. received:', typeof username)
+    return { username: 'username validation failed' }
+  }
   // username shouldn't be empty
   if (Validator.isEmpty(username)) {
     return { username: 'A username is required' }
@@ -56,6 +60,10 @@ function validateUsername (username) {
 }
 
 function validateEmail (email) {
+  if (typeof email !== 'string') {
+    console.error('validateEmail: email must be a string. received:', typeof email)
+    return { email: 'email validation failed' }
+  }  
   // email shouldn't be empty
   if (Validator.isEmpty(email)) {
     return { email: 'An email address is required' }
@@ -68,6 +76,10 @@ function validateEmail (email) {
 }
 
 function validatePassword (password) {
+  if (typeof password !== 'string') {
+    console.error('validatePassword: password must be a string. received:', typeof password)
+    return { password: 'password validation failed' }
+  }    
   // password shouldn't be empty
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' }

@@ -9178,6 +9178,8 @@ module.exports = {
 /* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Validator = __webpack_require__(179);
@@ -9226,6 +9228,10 @@ function buildErrorsObject(validationResults, fields) {
 }
 
 function validateUsername(username) {
+  if (typeof username !== 'string') {
+    console.error('validateUsername: username must be a string. received:', typeof username === 'undefined' ? 'undefined' : _typeof(username));
+    return { username: 'username validation failed' };
+  }
   // username shouldn't be empty
   if (Validator.isEmpty(username)) {
     return { username: 'A username is required' };
@@ -9234,6 +9240,10 @@ function validateUsername(username) {
 }
 
 function validateEmail(email) {
+  if (typeof email !== 'string') {
+    console.error('validateEmail: email must be a string. received:', typeof email === 'undefined' ? 'undefined' : _typeof(email));
+    return { email: 'email validation failed' };
+  }
   // email shouldn't be empty
   if (Validator.isEmpty(email)) {
     return { email: 'An email address is required' };
@@ -9246,6 +9256,10 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
+  if (typeof password !== 'string') {
+    console.error('validatePassword: password must be a string. received:', typeof password === 'undefined' ? 'undefined' : _typeof(password));
+    return { password: 'password validation failed' };
+  }
   // password shouldn't be empty
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' };
@@ -9806,6 +9820,10 @@ var SignupForm = function (_Component) {
       // set the validtion result to state
       var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
       _this.setState({ validationErrors: newValidationErrors });
+    };
+
+    _this.submitHandler = function (evt) {
+      evt.preventDefault();
     };
 
     _this.state = {
