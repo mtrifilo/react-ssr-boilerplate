@@ -2,14 +2,24 @@ const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
 
 function loginFormValidation (state) {
-  let errors = {}
+  const validationResults = Object.assign(
+    {},
+    validateIdentifier(state.identifier),
+    validatePassword(state.password)
+  )
 
-  errors = Object.assign({}, errors, validateIdentifier(state.identifier))
-  errors = Object.assign({}, errors, validatePassword(state.password))
+  const fields = Object.keys(validationResults)
+
+  const validationErrors = fields.map(field => {
+    if (validationResults[field]) {
+      return { [field]: validationResults[field] }
+    }
+    return false
+  }).filter(message => message)
 
   return {
-    errors,
-    isValid: isEmpty(errors)
+    validationErrors,
+    isValid: isEmpty(validationErrors)
   }
 }
 

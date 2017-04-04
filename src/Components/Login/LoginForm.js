@@ -37,9 +37,14 @@ class LoginForm extends Component {
     this.setState({ validationErrors: newValidationErrors })
   }
 
+  onSubmitHandler = (evt) => {
+    evt.preventDefault()
+    console.log('evt', evt.target)
+  }
+
   render () {
     return (
-      <form className='login-form'>
+      <form className='login-form' onSubmit={this.onSubmitHandler}>
         <Input
           label='Username or Email'
           type='text'

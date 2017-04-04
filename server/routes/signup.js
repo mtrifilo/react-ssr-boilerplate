@@ -22,14 +22,18 @@ router.post('/', (req, res) => {
 
   duplicateUserCheck(userData)
     .then(result => {
+      // if a submitted username or email is taken, respond with the error,
+      // and pass false to newUser in the next .then call.
       if (!result.isUnique) {
-        res.status(200).json(result.duplicateUserError)
-        throw new Error('duplicate user')
+        res.status(400).json(result.duplicateUserError)
+        return false
       }
       return saveNewUser(userData)
     })
     .then(newUser => {
-      return res.status(201).json(newUser)
+      if (newUser) {
+        return res.status(201).json(newUser)
+      }
     })
     .catch(err => {
       console.log('signup.js: Signup failed', err)
@@ -49,7 +53,6 @@ function duplicateUserCheck (userData) {
   return User.find({ $or: [{ email: userData.email }, { username: userData.username }] })
     .exec()
     .then(user => {
-      console.log('44: user:', user)
       let duplicateUserError = {}
       if (!isEmpty(user) && user[0].username === userData.username) {
         duplicateUserError.username = 'This username is taken.'

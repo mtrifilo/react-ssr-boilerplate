@@ -11,13 +11,13 @@ const secret = process.env.JWT_SECRET || require('../../config.json').jwtSecret
  * to the client.
  */
 router.post('/local', (req, res, next) => {
-  console.log('/local request ...')
   passport.authenticate('local-login', (err, user, info) => {
     if (err) {
       console.error('login.js: passport.authenticate failed', err)
       return res.status(500).json({
         errors: {
-          server: 'A server error occurred'
+          server: 'A server error occurred',
+          error: err
         }
       })
     }
