@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { loginRequest } from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
+  loginFormValidation,
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
+const { func } = React.PropTypes
 
 class LoginForm extends Component {
   constructor () {
@@ -41,7 +43,16 @@ class LoginForm extends Component {
 
   onSubmitHandler = (evt) => {
     evt.preventDefault()
-    console.log('evt', evt.target)
+    const { email, password } = this.state
+    const userData = { email, password }
+    const validation = loginFormValidation(userData)
+    console.log('userData:', userData)
+    console.log('validation:', validation)
+    if (validation.isValid) {
+      return this.props.dispatchLoginRequest(userData)
+    } else {
+      return this.setValidationError(validation.validationErrors)
+    }
   }
 
   render () {
@@ -67,6 +78,10 @@ class LoginForm extends Component {
       </form>
     )
   }
+}
+
+LoginForm.propTypes = {
+  dispatchLoginRequest: func.isRequired
 }
 
 const mapStateToProps = (state) => {

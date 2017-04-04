@@ -9489,6 +9489,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var func = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.func;
 
 var LoginForm = function (_Component) {
   _inherits(LoginForm, _Component);
@@ -9519,7 +9520,19 @@ var LoginForm = function (_Component) {
 
     _this.onSubmitHandler = function (evt) {
       evt.preventDefault();
-      console.log('evt', evt.target);
+      var _this$state = _this.state,
+          email = _this$state.email,
+          password = _this$state.password;
+
+      var userData = { email: email, password: password };
+      var validation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["loginFormValidation"])(userData);
+      console.log('userData:', userData);
+      console.log('validation:', validation);
+      if (validation.isValid) {
+        return _this.props.dispatchLoginRequest(userData);
+      } else {
+        return _this.setValidationError(validation.validationErrors);
+      }
     };
 
     _this.state = {
@@ -9566,6 +9579,10 @@ var LoginForm = function (_Component) {
 
   return LoginForm;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+LoginForm.propTypes = {
+  dispatchLoginRequest: func.isRequired
+};
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -9852,10 +9869,8 @@ var SignupForm = function (_Component) {
         password: password,
         confirmPassword: confirmPassword
       };
-      console.log('userData:', userData);
 
       var validation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_signupFormValidation__["signupFormValidation"])(userData);
-      console.log('validation:', validation);
 
       if (validation.isValid) {
         return _this.props.dispatchSignupRequest(userData);

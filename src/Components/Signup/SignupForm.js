@@ -64,10 +64,8 @@ class SignupForm extends Component {
       password,
       confirmPassword
     }
-    console.log('userData:', userData)
 
     const validation = signupFormValidation(userData)
-    console.log('validation:', validation)
 
     if (validation.isValid) {
       return this.props.dispatchSignupRequest(userData)
