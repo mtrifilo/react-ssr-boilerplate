@@ -9127,6 +9127,8 @@ module.exports = function spread(callback) {
 /* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var Validator = __webpack_require__(179);
 var isEmpty = __webpack_require__(141);
 
@@ -9134,7 +9136,7 @@ var _require = __webpack_require__(538),
     buildErrorsObject = _require.buildErrorsObject;
 
 function loginFormValidation(data) {
-  var validationResults = Object.assign({}, validateIdentifier(data.identifier), validatePassword(data.password));
+  var validationResults = Object.assign({}, validateEmail(data.email), validatePassword(data.password));
 
   var fields = Object.keys(validationResults);
 
@@ -9146,15 +9148,27 @@ function loginFormValidation(data) {
   };
 }
 
-function validateIdentifier(identifier) {
-  // identifier shouldn't be empty
-  if (Validator.isEmpty(identifier)) {
-    return { identifier: 'A registered email is required' };
+function validateEmail(email) {
+  if (typeof email !== 'string') {
+    console.error('validateEmail: email must be a string. received:', typeof email === 'undefined' ? 'undefined' : _typeof(email));
+    return { email: 'email validation failed' };
   }
-  return { identifier: '' };
+  // email shouldn't be empty
+  if (Validator.isEmpty(email)) {
+    return { email: 'A registered email is required' };
+  }
+  // email should be a valid email address
+  if (!Validator.isEmail(email)) {
+    return { email: 'This email address is not valid' };
+  }
+  return { email: '' };
 }
 
 function validatePassword(password) {
+  if (typeof password !== 'string') {
+    console.error('validatePassword: password must be a string. received:', typeof password === 'undefined' ? 'undefined' : _typeof(password));
+    return { password: 'password validation failed' };
+  }
   // password shouldn't be empty
   if (Validator.isEmpty(password)) {
     return { password: 'A password is required' };
@@ -9164,7 +9178,7 @@ function validatePassword(password) {
 
 module.exports = {
   loginFormValidation: loginFormValidation,
-  validateIdentifier: validateIdentifier,
+  validateEmail: validateEmail,
   validatePassword: validatePassword
 };
 
@@ -9493,8 +9507,8 @@ var LoginForm = function (_Component) {
     };
 
     _this.onBlurHandler = function (evt) {
-      if (evt.target.name === 'identifier') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["validateIdentifier"])(_this.state.identifier));
+      if (evt.target.name === 'email') {
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["validateEmail"])(_this.state.email));
       }
       if (evt.target.name === 'password') {
         _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__server_validation_loginFormValidation__["validatePassword"])(_this.state.password));
@@ -9513,10 +9527,10 @@ var LoginForm = function (_Component) {
     };
 
     _this.state = {
-      identifier: '',
+      email: '',
       password: '',
       validationErrors: {
-        identifier: '',
+        email: '',
         password: ''
       }
     };
@@ -9532,11 +9546,11 @@ var LoginForm = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Email',
           type: 'text',
-          name: 'identifier',
+          name: 'email',
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
-          value: this.state.identifier,
-          validationError: this.state.validationErrors.identifier }),
+          value: this.state.email,
+          validationError: this.state.validationErrors.email }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',

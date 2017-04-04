@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { loginRequest } from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
-  validateIdentifier,
+  validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
 
@@ -11,10 +11,10 @@ class LoginForm extends Component {
   constructor () {
     super()
     this.state = {
-      identifier: '',
+      email: '',
       password: '',
       validationErrors: {
-        identifier: '',
+        email: '',
         password: ''
       }
     }
@@ -25,8 +25,8 @@ class LoginForm extends Component {
   }
 
   onBlurHandler = (evt) => {
-    if (evt.target.name === 'identifier') {
-      this.setValidationError(validateIdentifier(this.state.identifier))
+    if (evt.target.name === 'email') {
+      this.setValidationError(validateEmail(this.state.email))
     }
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
@@ -50,11 +50,11 @@ class LoginForm extends Component {
         <Input
           label='Email'
           type='text'
-          name='identifier'
+          name='email'
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
-          value={this.state.identifier}
-          validationError={this.state.validationErrors.identifier} />
+          value={this.state.email}
+          validationError={this.state.validationErrors.email} />
         <Input
           label='Password'
           type='password'
