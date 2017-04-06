@@ -17,7 +17,7 @@ export function displayFlashMessage ({ message, level }) {
     dispatch(addFlashMessage(message, level))
     setTimeout(() => {
       dispatch(deleteFlashMessage())
-    }, 1200)
+    }, 2000)
   }
 }
 

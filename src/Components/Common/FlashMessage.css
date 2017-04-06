@@ -1,0 +1,13 @@
+.FlashMessage-message {
+  text-align: center;
+  transition: all 0.7s ease;
+  opacity: 0;
+}
+
+.FlashMessage-show {
+  opacity: 1;
+}
+
+.FlashMessage-hide {
+  opacity: 0;
+}

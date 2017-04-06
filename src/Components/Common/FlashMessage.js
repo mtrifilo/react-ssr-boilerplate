@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 const { string } = React.PropTypes
 
-const FlashMessage = ({message, level}) => (
-  <div className={classnames('alert', {
-    'alert-success': level === 'success',
-    'alert-danger': level === 'error'
-  })}>
-    {message}
-  </div>
-)
+class FlashMessage extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      display: false
+    }
+  }
+
+  showMessage = () => {
+    if (this.state.display) {
+      setTimeout(() => {
+        this.setState({ display: false })
+      }, 1500)
+    }
+  }
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.setState({ display: true })
+    }, 50)
+  }
+
+  render () {
+    this.showMessage()
+    return (
+      <div className={classnames('alert FlashMessage-message', {
+        'alert-success': this.props.level === 'success',
+        'alert-danger': this.props.level === 'error',
+        'FlashMessage-show': this.state.display,
+        'FlashMessage-hide': !this.state.display
+      })}>
+        {this.props.message}
+      </div>
+    )
+  }
+}
 
 FlashMessage.propTypes = {
   message: string,

@@ -9325,7 +9325,19 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   margin: 4rem auto;
   max-width: 30rem;
 }
-body {
+.FlashMessage-message {
+  text-align: center;
+  transition: all 0.7s ease;
+  opacity: 0;
+}
+
+.FlashMessage-show {
+  opacity: 1;
+}
+
+.FlashMessage-hide {
+  opacity: 0;
+}body {
   background-color: #7FDBFF;
 }
 

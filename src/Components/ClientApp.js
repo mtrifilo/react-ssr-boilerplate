@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../Redux/Store'
-import { setUser } from '../Redux/modules/user'
+import { setUser, logoutUser } from '../Redux/modules/user'
 import Routes from './Router/Routes'
 import Layout from './Layout'
 import setTokenToHeaders from '../auth/setTokenToHeaders'
@@ -16,7 +16,7 @@ const App = (props) => {
     console.log('ClientApp: decodedToken', decodedToken)
     store.dispatch(setUser(decodedToken))
   } else {
-    store.dispatch(setUser({}))
+    store.dispatch(logoutUser())
   }
   return (
     <Provider store={store}>
