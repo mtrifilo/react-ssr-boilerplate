@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { loginRequest } from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
@@ -7,7 +8,7 @@ import {
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
-const { func } = React.PropTypes
+const { func, object, bool } = React.PropTypes
 
 class LoginForm extends Component {
   constructor () {
@@ -46,8 +47,6 @@ class LoginForm extends Component {
     const { email, password } = this.state
     const userData = { email, password }
     const validation = loginFormValidation(userData)
-    console.log('userData:', userData)
-    console.log('validation:', validation)
     if (validation.isValid) {
       return this.props.dispatchLoginRequest(userData)
     } else {
@@ -56,6 +55,10 @@ class LoginForm extends Component {
   }
 
   render () {
+    if (this.props.isAuthenticated) {
+      return <Redirect to='/' />
+    }
+
     return (
       <form className='login-form' onSubmit={this.onSubmitHandler}>
         <Input
@@ -81,12 +84,18 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  dispatchLoginRequest: func.isRequired
+  dispatchLoginRequest: func.isRequired,
+  isAuthenticated: bool.isRequired
+}
+
+LoginForm.contextTypes = {
+  router: object.isRequired
 }
 
 const mapStateToProps = (state) => {
   return {
-    loginLoading: state.loginLocal.loginLoading
+    loginLoading: state.loginLocal.loginLoading,
+    isAuthenticated: state.user.isAuthenticated
   }
 }
 

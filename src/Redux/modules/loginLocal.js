@@ -1,6 +1,7 @@
 import axios from 'axios'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
 import { displayFlashMessage } from './flashMessage'
+import { setUser } from './user'
 
 const DEFAULT_STATE = {
   loginLoading: false
@@ -26,11 +27,16 @@ export function loginRequest (userData) {
 
         const user = prepareUserFromToken(res.data.token)
         console.log('user:', user)
-
+        dispatch(setUser(user))
         dispatch(displayFlashMessage({ message: 'You are logged in. Welcome back!', level: 'success' }))
       })
       .catch(err => {
         dispatch(loginLoading(false))
+        if (!err.response) {
+          console.error('redux: loginRequest error occurred:', err)
+          return dispatch(displayFlashMessage({ message: 'An error occurred during login request.', level: 'error' }))
+        }
+
         if (err.response.data && err.response.data.message) {
           console.log('redux: loginLocal: invaild login credentials:', err.response.data.message)
           return dispatch(displayFlashMessage({ message: err.response.data.message, level: 'error' }))

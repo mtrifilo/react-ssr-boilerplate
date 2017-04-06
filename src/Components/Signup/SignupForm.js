@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 import { signupRequest } from '../../Redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
@@ -9,7 +10,7 @@ import {
   validatePassword,
   validateConfirmPassword
 } from '../../../server/validation/signupFormValidation'
-const { func } = React.PropTypes
+const { func, bool } = React.PropTypes
 
 class SignupForm extends Component {
   constructor () {
@@ -75,6 +76,9 @@ class SignupForm extends Component {
   }
 
   render () {
+    if (this.props.signupSuccessful) {
+      return <Redirect to='/login' />
+    }
     return (
       <form className='signup-form' onSubmit={this.onSubmitHandler} >
         <Input
@@ -116,12 +120,14 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  dispatchSignupRequest: func.isRequired
+  dispatchSignupRequest: func.isRequired,
+  signupSuccessful: bool.isRequired
 }
 
 const mapStateToProps = (state) => {
   return {
-    signupLoading: state.signupLocal.signupLoading
+    signupLoading: state.signupLocal.signupLoading,
+    signupSuccessful: state.signupLocal.signupSuccessful
   }
 }
 
