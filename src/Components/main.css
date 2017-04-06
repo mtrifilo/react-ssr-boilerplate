@@ -10,3 +10,4 @@ body {
 @import "Signup/_Signup.css";
 @import "Login/_Login.css";
 @import "Common/FlashMessage.css";
+@import "NavBar/_NavBar.css";

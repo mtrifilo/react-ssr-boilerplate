@@ -9337,6 +9337,8 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 
 .FlashMessage-hide {
   opacity: 0;
+}.NavBar-text {
+  color: #EEE;
 }body {
   background-color: #7FDBFF;
 }

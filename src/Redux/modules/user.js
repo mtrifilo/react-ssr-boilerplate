@@ -1,3 +1,4 @@
+import removeToken from '../../auth/removeToken'
 
 const DEFAULT_STATE = {
   user: {},
@@ -20,6 +21,13 @@ export function setUser (user = {}) {
 }
 function setUserReducer (state, action) {
   return Object.assign({}, state, { user: action.user, isAuthenticated: action.isAuthenticated })
+}
+
+export function logoutRequest () {
+  return dispatch => {
+    removeToken()
+    dispatch(logoutUser())
+  }
 }
 
 export function logoutUser () {

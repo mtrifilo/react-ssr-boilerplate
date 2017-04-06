@@ -15446,9 +15446,13 @@ function flashMessage() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_removeToken__ = __webpack_require__(845);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_removeToken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__auth_removeToken__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = setUser;
+/* harmony export (immutable) */ __webpack_exports__["c"] = logoutRequest;
 /* harmony export (immutable) */ __webpack_exports__["b"] = logoutUser;
-/* harmony export (immutable) */ __webpack_exports__["c"] = user;
+/* harmony export (immutable) */ __webpack_exports__["d"] = user;
+
 
 var DEFAULT_STATE = {
   user: {},
@@ -15473,6 +15477,13 @@ function setUser() {
 }
 function setUserReducer(state, action) {
   return Object.assign({}, state, { user: action.user, isAuthenticated: action.isAuthenticated });
+}
+
+function logoutRequest() {
+  return function (dispatch) {
+    __WEBPACK_IMPORTED_MODULE_0__auth_removeToken___default()();
+    dispatch(logoutUser());
+  };
 }
 
 function logoutUser() {
@@ -43523,38 +43534,95 @@ var GuestLinks = function GuestLinks(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GuestLinks__ = __webpack_require__(439);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__GuestLinks__ = __webpack_require__(439);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__ = __webpack_require__(846);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
-var NavBar = function NavBar(props) {
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'nav',
-    { className: 'navbar navbar-toggleable-md navbar-inverse bg-inverse' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'button',
-      {
-        className: 'navbar-toggler navbar-toggler-right',
-        type: 'button',
-        role: 'button',
-        'data-toggle': 'collapse',
-        'data-target': '#navbarNavAltMarkup',
-        'aria-controls': 'navbarNavAltMarkup',
-        'aria-expanded': 'false',
-        'aria-label': 'Toggle navigation' },
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'navbar-toggler-icon' })
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Link"],
-      { to: '/', className: 'navbar-brand' },
-      'React SSR Boilerplate'
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GuestLinks__["a" /* default */], null)
-  );
+
+
+var bool = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.bool;
+
+var NavBar = function (_Component) {
+  _inherits(NavBar, _Component);
+
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
+
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.componentDidMount = function () {
+      if (_this.props.isAuthenticated) {
+        _this.setState({ showAuthenticatedLinks: true });
+      }
+    };
+
+    _this.componentWillReceiveProps = function (nextProps) {
+      if (nextProps.isAuthenticated) {
+        _this.setState({ showAuthenticatedLinks: true });
+      } else {
+        _this.setState({ showAuthenticatedLinks: false });
+      }
+    };
+
+    _this.state = {
+      showAuthenticatedLinks: false
+    };
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'render',
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'nav',
+        { className: 'navbar navbar-toggleable-md navbar-inverse bg-inverse' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          {
+            className: 'navbar-toggler navbar-toggler-right',
+            type: 'button',
+            role: 'button',
+            'data-toggle': 'collapse',
+            'data-target': '#navbarNavAltMarkup',
+            'aria-controls': 'navbarNavAltMarkup',
+            'aria-expanded': 'false',
+            'aria-label': 'Toggle navigation' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'navbar-toggler-icon' })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Link"],
+          { to: '/', className: 'navbar-brand' },
+          'React SSR Boilerplate'
+        ),
+        this.state.showAuthenticatedLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__["a" /* default */], null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GuestLinks__["a" /* default */], null)
+      );
+    }
+  }]);
+
+  return NavBar;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+NavBar.propTypes = {
+  isAuthenticated: bool.isRequired
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (NavBar);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.user.isAuthenticated
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(NavBar));
 
 /***/ }),
 /* 441 */
@@ -43888,7 +43956,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* combineReducers */])({
-  user: __WEBPACK_IMPORTED_MODULE_1__modules_user__["c" /* default */],
+  user: __WEBPACK_IMPORTED_MODULE_1__modules_user__["d" /* default */],
   loginLocal: __WEBPACK_IMPORTED_MODULE_2__modules_loginLocal__["b" /* default */],
   signupLocal: __WEBPACK_IMPORTED_MODULE_3__modules_signupLocal__["b" /* default */],
   flashMessage: __WEBPACK_IMPORTED_MODULE_4__modules_flashMessage__["b" /* default */]
@@ -76031,6 +76099,96 @@ exports.createContext = Script.createContext = function (context) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 836 */,
+/* 837 */,
+/* 838 */,
+/* 839 */,
+/* 840 */,
+/* 841 */,
+/* 842 */,
+/* 843 */,
+/* 844 */,
+/* 845 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* global localStorage */
+var setTokenToHeaders = __webpack_require__(167);
+
+function removeToken() {
+  localStorage.removeItem('token');
+  setTokenToHeaders(false);
+}
+
+module.exports = removeToken;
+
+/***/ }),
+/* 846 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redux_modules_user__ = __webpack_require__(96);
+
+
+
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    func = _React$PropTypes.func,
+    string = _React$PropTypes.string;
+
+
+var AuthenticatedLinks = function AuthenticatedLinks(_ref) {
+  var dispatchLogoutRequest = _ref.dispatchLogoutRequest,
+      username = _ref.username;
+
+  var logout = function logout(evt) {
+    evt.preventDefault();
+    dispatchLogoutRequest();
+  };
+
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { className: 'collapse navbar-collapse justify-content-end', id: 'navbarNavAltMarkup' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { className: 'navbar-nav' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'span',
+        { className: 'navbar-text NavBar-text' },
+        username
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'a',
+        { href: '#', onClick: logout, className: 'nav-item nav-link' },
+        'Logout'
+      )
+    )
+  );
+};
+
+AuthenticatedLinks.propTypes = {
+  dispatchLogoutRequest: func.isRequired,
+  username: string
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    username: state.user.user.username
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    dispatchLogoutRequest: function dispatchLogoutRequest() {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__Redux_modules_user__["c" /* logoutRequest */])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(AuthenticatedLinks));
 
 /***/ })
 ],[432]);
