@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const findOrCreate = require('mongoose-findorcreate')
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -27,6 +28,8 @@ UserSchema.pre('save', function saveHook (next) {
   if (!this.isModified('password')) { return next() }
   return hashPassword(this, next)
 })
+
+UserSchema.plugin(findOrCreate)
 
 function hashPassword (user, next) {
   return bcrypt.hash(user.password, 10)
