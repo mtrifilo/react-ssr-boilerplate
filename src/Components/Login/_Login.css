@@ -1,4 +1,15 @@
 .login-form {
-  margin: 4rem auto;
+  margin: 4rem auto 0;
   max-width: 30rem;
+}
+
+.LoginGithub-container h2 {
+  margin: 0 auto;
+
+}
+
+.LoginGithub-githublogo {
+  margin: 0 auto 1rem auto;
+  height: 5rem;
+  width: 5rem;
 }
