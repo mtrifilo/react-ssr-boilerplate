@@ -13,7 +13,7 @@ const secret = process.env.JWT_SECRET || require('../../config.json').jwtSecret
 router.post('/local', (req, res, next) => {
   passport.authenticate('local-login', (err, user, info) => {
     if (err) {
-      console.error('login.js: passport.authenticate failed', err)
+      console.error('login.js: local-login failed', err)
       return res.status(500).json({
         errors: {
           server: 'A server error occurred',
@@ -29,6 +29,33 @@ router.post('/local', (req, res, next) => {
 
     const token = createToken(user)
 
+    return res.json({ token })
+  })(req, res, next)
+})
+
+/**
+ * '/api/login/github'
+ *
+ * Handles a GitHub OAuth request. If successful, a JWT is returned
+ * to the client.
+ */
+router.get('/github', (req, res, next) => {
+  passport.authenticate('login-github', (err, user) => {
+    if (err) {
+      console.error('login.js: login-github failed', err)
+      return res.status(500).json({
+        errors: {
+          server: 'A server error occurred',
+          error: err
+        }
+      })
+    }
+
+    if (!user) {
+      return res.status(401).json({ message: 'Login failed', user })
+    }
+
+    const token = createToken(user)
     return res.json({ token })
   })(req, res, next)
 })
