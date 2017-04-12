@@ -13,7 +13,6 @@ class SetToken extends Component {
     }
   }
   componentDidMount () {
-    console.log('SetToken: match.params.token:', this.props.match.params.token)
     const user = prepareUserFromToken(this.props.match.params.token)
     store.dispatch(setUser(user))
     this.setState({ loading: false })

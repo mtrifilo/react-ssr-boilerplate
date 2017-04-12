@@ -43,8 +43,15 @@ router.get('/github', passport.authenticate('login-github', {
   session: false
 }))
 
-// router.get('/github/callback', passport.authenticate('login-github',
-//   { successRedirect: '/', faliureRedirect: '/login', session: false }))
+/**
+ * '/api/login/github'
+ *
+ * Callback route to be called after a successful GitHub OAuth request.
+ * This route creates a token containing an access token from github, and
+ * then redirects the user to the client's '/t/' route, which will put
+ * the token into localStorage, and redirect home from there.
+ */
+
 router.get('/github/callback', (req, res, next) => {
   passport.authenticate('login-github', (err, user) => {
     if (err) {
@@ -59,13 +66,9 @@ router.get('/github/callback', (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Login failed', user })
     }
-    console.log('github user: ', user.user)
-    const accessToken = user.token
-    // const tokenUserObj = {
-    //   _id: user.id,
-    //   username: user.username
-    // }
-    const jwt = createToken(user.user)
+
+    const jwt = createToken(user.user, user.token)
+
     res.set({
       'Authorization': `Bearer ${jwt}`
     })
@@ -73,10 +76,11 @@ router.get('/github/callback', (req, res, next) => {
   })(req, res, next)
 })
 
-function createToken (user) {
+function createToken (user, token) {
   return jwt.sign({
     sub: user._id,
-    username: user.username
+    username: user.username,
+    gitHubAccessToken: token
   }, secret, {
     expiresIn: '3h'
   })

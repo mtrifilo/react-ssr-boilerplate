@@ -76278,7 +76278,6 @@ var SetToken = function (_Component) {
   _createClass(SetToken, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log('SetToken: match.params.token:', this.props.match.params.token);
       var user = __WEBPACK_IMPORTED_MODULE_4__auth_prepareUserFromToken___default()(this.props.match.params.token);
       __WEBPACK_IMPORTED_MODULE_2__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["a" /* setUser */])(user));
       this.setState({ loading: false });
