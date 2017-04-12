@@ -9348,8 +9348,10 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 
 .FlashMessage-hide {
   opacity: 0;
-}.NavBar-text {
-  color: #EEE;
+}.navbar-inverse .navbar-text {
+  padding-top: .8rem;
+  color: #CCC;
+  font-size: .7em;
 }body {
   background-color: #7FDBFF;
 }

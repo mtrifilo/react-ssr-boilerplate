@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import Home from '../Home/Home'
 import Login from '../Login/Login'
 import Signup from '../Signup/Signup'
+import MemberPage from '../MemberPage/MemberPage'
 import NotFound from './NotFound'
 import SetToken from '../Login/SetToken'
 const { bool } = React.PropTypes
@@ -21,6 +22,7 @@ const Routes = () => {
       <Route path='/t/:token' component={SetToken} />
       <Route path='/login' component={Login} />
       <Route path='/signup' component={Signup} />
+      <Route path='/memberpage' component={MemberPage} />
       <Route component={NotFound} />
     </Switch>
   )
