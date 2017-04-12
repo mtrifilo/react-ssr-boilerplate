@@ -22,7 +22,7 @@ const App = (props) => {
     <Provider store={store}>
       <BrowserRouter>
         <Layout>
-          <Routes isAuthenticated={store.getState().user.isAuthenticated} />
+          {Routes()}
         </Layout>
       </BrowserRouter>
     </Provider>

@@ -10,8 +10,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactRedux = require('react-redux');
-
 var _Home = require('../Home/Home');
 
 var _Home2 = _interopRequireDefault(_Home);
@@ -28,6 +26,10 @@ var _NotFound = require('./NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
+var _SetToken = require('../Login/SetToken');
+
+var _SetToken2 = _interopRequireDefault(_SetToken);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var bool = _react2.default.PropTypes.bool;
@@ -39,15 +41,13 @@ var bool = _react2.default.PropTypes.bool;
  * which gets used when the app renders on the server.
  */
 
-var Routes = function Routes(props) {
-  console.log('Routes props', props.isAuthenticated);
+var Routes = function Routes() {
   return _react2.default.createElement(
     _reactRouter.Switch,
     null,
     _react2.default.createElement(_reactRouter.Route, { exact: true, path: '/', component: _Home2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/login', render: function render() {
-        return props.isAuthenticated ? _react2.default.createElement(_reactRouter.Redirect, { push: true, to: '/' }) : _react2.default.createElement(_Login2.default, null);
-      } }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/t/:token', component: _SetToken2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default }),
     _react2.default.createElement(_reactRouter.Route, { component: _NotFound2.default })
   );
@@ -57,10 +57,4 @@ Routes.propTypes = {
   isAuthenticated: bool
 };
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.user.isAuthenticated
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Routes);
+exports.default = Routes;

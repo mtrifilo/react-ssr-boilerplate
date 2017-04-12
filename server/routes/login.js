@@ -39,10 +39,15 @@ router.post('/local', (req, res, next) => {
  * Handles a GitHub OAuth request. If successful, a JWT is returned
  * to the client.
  */
-router.get('/github', (req, res, next) => {
+router.get('/github', passport.authenticate('login-github', {
+  session: false
+}))
+
+// router.get('/github/callback', passport.authenticate('login-github',
+//   { successRedirect: '/', faliureRedirect: '/login', session: false }))
+router.get('/github/callback', (req, res, next) => {
   passport.authenticate('login-github', (err, user) => {
     if (err) {
-      console.error('login.js: login-github failed', err)
       return res.status(500).json({
         errors: {
           server: 'A server error occurred',
@@ -54,9 +59,17 @@ router.get('/github', (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Login failed', user })
     }
-
-    const token = createToken(user)
-    return res.json({ token })
+    console.log('github user: ', user.user)
+    const accessToken = user.token
+    // const tokenUserObj = {
+    //   _id: user.id,
+    //   username: user.username
+    // }
+    const jwt = createToken(user.user)
+    res.set({
+      'Authorization': `Bearer ${jwt}`
+    })
+    return res.redirect(`/t/${jwt}`)
   })(req, res, next)
 })
 

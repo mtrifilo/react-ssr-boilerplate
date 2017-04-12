@@ -26,6 +26,7 @@ const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const localStrategy = require('./server/passport/localStrategy')
+const githubStrategy = require('./server/passport/githubStrategy')
 const PORT = process.env.PORT || 4000
 const app = express()
 
@@ -38,6 +39,7 @@ app.use(helmet())
 app.use(bodyParser.json())
 app.use(passport.initialize())
 passport.use('local-login', localStrategy)
+passport.use('login-github', githubStrategy)
 
 app.use('/api/signup', signup)
 app.use('/api/login', login)
