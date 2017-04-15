@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { displayFlashMessage } from './flashMessage'
+import {displayFlashMessage} from './flashMessage'
 
 const DEFAULT_STATE = {
   signupLoading: false,
@@ -16,37 +16,51 @@ const SIGNUP_SUCCESSFUL = 'SIGNUP_SUCCESSFUL'
 export function signupRequest (userData) {
   return dispatch => {
     dispatch(signupLoading(true))
-    return axios.post('/api/signup', userData)
+    return axios
+      .post('/api/signup', userData)
       .then(res => {
         dispatch(signupLoading(false))
         dispatch(signupSuccessful(true))
         console.log('signup success!', res)
-        setTimeout(() => {
-          dispatch(signupSuccessful(false))
-        }, 500)
-        dispatch(displayFlashMessage({ message: 'Signup successful! You can login.', level: 'success' }))
+        setTimeout(
+          () => {
+            dispatch(signupSuccessful(false))
+          },
+          500
+        )
+        dispatch(
+          displayFlashMessage({
+            message: 'Signup successful! You can login.',
+            level: 'success'
+          })
+        )
       })
       .catch(err => {
         console.error('redux: signupLocal: signupRequest failed', err)
         dispatch(signupLoading(false))
         dispatch(signupSuccessful(false))
-        dispatch(displayFlashMessage({ message: 'Signup failed. That\'s an error.', level: 'error' }))
+        dispatch(
+          displayFlashMessage({
+            message: "Signup failed. That's an error.",
+            level: 'error'
+          })
+        )
       })
   }
 }
 
 export function signupLoading (bool) {
-  return { type: SIGNUP_LOADING, signupLoading: bool }
+  return {type: SIGNUP_LOADING, signupLoading: bool}
 }
 function signupLoadingReducer (state, action) {
-  return Object.assign({}, state, { signupLoading: action.signupLoading })
+  return Object.assign({}, state, {signupLoading: action.signupLoading})
 }
 
 export function signupSuccessful (bool) {
-  return { type: SIGNUP_SUCCESSFUL, signupSuccessful: bool }
+  return {type: SIGNUP_SUCCESSFUL, signupSuccessful: bool}
 }
 function signupSuccessfulReducer (state, action) {
-  return Object.assign({}, state, { signupSuccessful: action.signupSuccessful })
+  return Object.assign({}, state, {signupSuccessful: action.signupSuccessful})
 }
 
 // ******* Root Reducer Slice *******

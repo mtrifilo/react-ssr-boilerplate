@@ -1,10 +1,12 @@
 import React from 'react'
 import classNames from 'classnames'
-const { string, func } = React.PropTypes
+const {string, func} = React.PropTypes
 
-const Input = ({ label, type, value, name, onChange, onBlur, validationError }) => {
+const Input = (
+  {label, type, value, name, onChange, onBlur, validationError}
+) => {
   return (
-    <div className={classNames('form-group', { 'has-danger': validationError })}>
+    <div className={classNames('form-group', {'has-danger': validationError})}>
       <label>{label}</label>
       <input
         type={type}
@@ -12,12 +14,12 @@ const Input = ({ label, type, value, name, onChange, onBlur, validationError }) 
         name={name}
         onChange={onChange}
         onBlur={onBlur}
-        className='form-control' />
+        className='form-control'
+      />
       {validationError &&
         <div className='form-control-feedback'>
           {validationError}
-        </div>
-      }
+        </div>}
     </div>
   )
 }

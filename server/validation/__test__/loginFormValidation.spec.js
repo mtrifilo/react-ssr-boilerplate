@@ -25,7 +25,9 @@ test('loginFormValidation: should return email error if email is blank', () => {
   }
   const validated = loginFormValidation(data)
   expect(validated.isValid).toBe(false)
-  expect(validated.validationErrors.email).toBe('A registered email is required')
+  expect(validated.validationErrors.email).toBe(
+    'A registered email is required'
+  )
 })
 
 test('loginFormValidation: should return email error if email is invalid', () => {
@@ -35,7 +37,9 @@ test('loginFormValidation: should return email error if email is invalid', () =>
   }
   const validated = loginFormValidation(data)
   expect(validated.isValid).toBe(false)
-  expect(validated.validationErrors.email).toBe('This email address is not valid')
+  expect(validated.validationErrors.email).toBe(
+    'This email address is not valid'
+  )
 })
 
 test('loginFormValidation: should return password no errors if password is valid', () => {
@@ -71,7 +75,7 @@ test('validateEmail: should return email error if email is invalid', () => {
   expect(validated.email).toBe('This email address is not valid')
 })
 
-test('validateEmail: should return { email: \'\' } if email is valid', () => {
+test("validateEmail: should return { email: '' } if email is valid", () => {
   const validated = validateEmail('coolUser@future.net')
   expect(validated.email).toBe('')
 })
@@ -90,7 +94,7 @@ test('validatePassword: should return password error if password is empty', () =
   expect(validated.password).toBe('A password is required')
 })
 
-test('validatePassword: should return { password: \'\' } if password is valid', () => {
+test("validatePassword: should return { password: '' } if password is valid", () => {
   const validated = validatePassword('coolUser')
   expect(validated.password).toBe('')
 })

@@ -29,7 +29,7 @@ router.post('/local', (req, res, next) => {
 
     const token = createToken(user)
 
-    return res.json({ token })
+    return res.json({token})
   })(req, res, next)
 })
 
@@ -39,9 +39,12 @@ router.post('/local', (req, res, next) => {
  * Handles a GitHub OAuth request. If successful, a JWT is returned
  * to the client.
  */
-router.get('/github', passport.authenticate('login-github', {
-  session: false
-}))
+router.get(
+  '/github',
+  passport.authenticate('login-github', {
+    session: false
+  })
+)
 
 /**
  * '/api/login/github'
@@ -64,26 +67,30 @@ router.get('/github/callback', (req, res, next) => {
     }
 
     if (!user) {
-      return res.status(401).json({ message: 'Login failed', user })
+      return res.status(401).json({message: 'Login failed', user})
     }
 
     const jwt = createToken(user.user, user.token)
 
     res.set({
-      'Authorization': `Bearer ${jwt}`
+      Authorization: `Bearer ${jwt}`
     })
     return res.redirect(`/t/${jwt}`)
   })(req, res, next)
 })
 
 function createToken (user, token) {
-  return jwt.sign({
-    sub: user._id,
-    username: user.username,
-    gitHubAccessToken: token
-  }, secret, {
-    expiresIn: '3h'
-  })
+  return jwt.sign(
+    {
+      sub: user._id,
+      username: user.username,
+      gitHubAccessToken: token
+    },
+    secret,
+    {
+      expiresIn: '3h'
+    }
+  )
 }
 
 module.exports = router

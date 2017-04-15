@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { Component} from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
-const { bool, string } = React.PropTypes
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router'
+const {bool, string} = React.PropTypes
 
 class MemberPage extends Component {
   constructor (props) {
@@ -13,13 +13,13 @@ class MemberPage extends Component {
   }
   componentWillReceiveProps (nextProps) {
     if (!nextProps.isAuthenticated) {
-      this.setState({ authenticated: false })
+      this.setState({authenticated: false})
     }
   }
 
   componentDidMount () {
     if (!this.props.isAuthenticated) {
-      this.setState({ authenticated: false })
+      this.setState({authenticated: false})
     }
   }
 
@@ -41,7 +41,7 @@ MemberPage.propTypes = {
   username: string
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     isAuthenticated: state.user.isAuthenticated,
     username: state.user.user.username

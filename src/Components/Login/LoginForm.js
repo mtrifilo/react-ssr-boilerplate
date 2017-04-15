@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router'
-import { connect } from 'react-redux'
-import { loginRequest } from '../../Redux/modules/loginLocal'
+import React, {Component} from 'react'
+import {Redirect} from 'react-router'
+import {connect} from 'react-redux'
+import {loginRequest} from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
   loginFormValidation,
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
-const { func, object, bool } = React.PropTypes
+const {func, object, bool} = React.PropTypes
 
 class LoginForm extends Component {
   constructor () {
@@ -23,36 +23,40 @@ class LoginForm extends Component {
     }
   }
 
-  onChangeHandler = (evt) => {
-    this.setState({ [evt.target.name]: evt.target.value })
-  }
+  onChangeHandler = evt => {
+    this.setState({[evt.target.name]: evt.target.value})
+  };
 
-  onBlurHandler = (evt) => {
+  onBlurHandler = evt => {
     if (evt.target.name === 'email') {
       this.setValidationError(validateEmail(this.state.email))
     }
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
     }
-  }
+  };
 
-  setValidationError = (validationResult) => {
+  setValidationError = validationResult => {
     // Set validation result to state
-    const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
-    this.setState({ validationErrors: newValidationErrors })
-  }
+    const newValidationErrors = Object.assign(
+      {},
+      this.state.validationErrors,
+      validationResult
+    )
+    this.setState({validationErrors: newValidationErrors})
+  };
 
-  onSubmitHandler = (evt) => {
+  onSubmitHandler = evt => {
     evt.preventDefault()
-    const { email, password } = this.state
-    const userData = { email, password }
+    const {email, password} = this.state
+    const userData = {email, password}
     const validation = loginFormValidation(userData)
     if (validation.isValid) {
       return this.props.dispatchLoginRequest(userData)
     } else {
       return this.setValidationError(validation.validationErrors)
     }
-  }
+  };
 
   render () {
     if (this.props.isAuthenticated) {
@@ -68,7 +72,8 @@ class LoginForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.email}
-          validationError={this.state.validationErrors.email} />
+          validationError={this.state.validationErrors.email}
+        />
         <Input
           label='Password'
           type='password'
@@ -76,7 +81,8 @@ class LoginForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.password}
-          validationError={this.state.validationErrors.password} />
+          validationError={this.state.validationErrors.password}
+        />
         <button type='submit' className='btn btn-primary'>Submit</button>
       </form>
     )
@@ -92,14 +98,14 @@ LoginForm.contextTypes = {
   router: object.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     loginLoading: state.loginLocal.loginLoading,
     isAuthenticated: state.user.isAuthenticated
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     dispatchLoginRequest (userData) {
       dispatch(loginRequest(userData))

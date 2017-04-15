@@ -6,12 +6,13 @@ mongoose.Promise = global.Promise
  *
  * @param {string} uri
  */
-const connectMongoose = (uri) => {
-  mongoose.connect(uri)
+const connectMongoose = uri => {
+  mongoose
+    .connect(uri)
     .then(() => {
       console.log('mongoose connected!')
     })
-    .catch((err) => {
+    .catch(err => {
       console.error('mongoose connection failed:', err)
     })
 }

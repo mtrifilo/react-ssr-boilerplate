@@ -1,7 +1,7 @@
 const express = require('express')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
-const { signupFormValidation } = require('../validation/signupFormValidation')
+const {signupFormValidation} = require('../validation/signupFormValidation')
 const router = express.Router()
 
 /**
@@ -11,7 +11,7 @@ const router = express.Router()
  */
 router.post('/', (req, res) => {
   const userData = req.body
-  const { validationErrors, isValid } = signupFormValidation(userData)
+  const {validationErrors, isValid} = signupFormValidation(userData)
   if (!isValid) {
     return res.status(400).json({
       errors: {
@@ -50,7 +50,9 @@ router.post('/', (req, res) => {
  *   isUnique is a boolean, which will be false if duplicateError contains any errors
  */
 function duplicateUserCheck (userData) {
-  return User.find({ $or: [{ email: userData.email }, { username: userData.username }] })
+  return User.find({
+    $or: [{email: userData.email}, {username: userData.username}]
+  })
     .exec()
     .then(user => {
       let duplicateUserError = {}
@@ -79,7 +81,8 @@ function duplicateUserCheck (userData) {
  */
 function saveNewUser (userData) {
   const user = new User(userData)
-  return user.save()
+  return user
+    .save()
     .then(user => {
       return user
     })

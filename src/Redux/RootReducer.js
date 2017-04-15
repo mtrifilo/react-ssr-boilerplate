@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import user from './modules/user'
 import loginLocal from './modules/loginLocal'
 import signupLocal from './modules/signupLocal'

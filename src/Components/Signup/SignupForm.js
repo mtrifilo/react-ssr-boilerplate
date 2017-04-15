@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
-import { signupRequest } from '../../Redux/modules/signupLocal'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router'
+import {signupRequest} from '../../Redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
   signupFormValidation,
@@ -10,7 +10,7 @@ import {
   validatePassword,
   validateConfirmPassword
 } from '../../../server/validation/signupFormValidation'
-const { func, bool } = React.PropTypes
+const {func, bool} = React.PropTypes
 
 class SignupForm extends Component {
   constructor () {
@@ -29,11 +29,11 @@ class SignupForm extends Component {
     }
   }
 
-  onChangeHandler = (evt) => {
-    this.setState({ [evt.target.name]: evt.target.value })
-  }
+  onChangeHandler = evt => {
+    this.setState({[evt.target.name]: evt.target.value})
+  };
 
-  onBlurHandler = (evt) => {
+  onBlurHandler = evt => {
     if (evt.target.name === 'username') {
       this.setValidationError(validateUsername(this.state.username))
     }
@@ -48,17 +48,21 @@ class SignupForm extends Component {
         validateConfirmPassword(this.state.password, this.state.confirmPassword)
       )
     }
-  }
+  };
 
-  setValidationError = (validationResult) => {
+  setValidationError = validationResult => {
     // set the validtion result to state
-    const newValidationErrors = Object.assign({}, this.state.validationErrors, validationResult)
-    this.setState({ validationErrors: newValidationErrors })
-  }
+    const newValidationErrors = Object.assign(
+      {},
+      this.state.validationErrors,
+      validationResult
+    )
+    this.setState({validationErrors: newValidationErrors})
+  };
 
-  onSubmitHandler = (evt) => {
+  onSubmitHandler = evt => {
     evt.preventDefault()
-    const { username, email, password, confirmPassword } = this.state
+    const {username, email, password, confirmPassword} = this.state
     const userData = {
       username,
       email,
@@ -73,14 +77,14 @@ class SignupForm extends Component {
     } else {
       return this.setValidationError(validation.validationErrors)
     }
-  }
+  };
 
   render () {
     if (this.props.signupSuccessful) {
       return <Redirect to='/login' />
     }
     return (
-      <form className='signup-form' onSubmit={this.onSubmitHandler} >
+      <form className='signup-form' onSubmit={this.onSubmitHandler}>
         <Input
           label='Username'
           type='text'
@@ -88,7 +92,8 @@ class SignupForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.username}
-          validationError={this.state.validationErrors.username} />
+          validationError={this.state.validationErrors.username}
+        />
         <Input
           label='Email Address'
           type='email'
@@ -96,7 +101,8 @@ class SignupForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.email}
-          validationError={this.state.validationErrors.email} />
+          validationError={this.state.validationErrors.email}
+        />
         <Input
           label='Password'
           type='password'
@@ -104,7 +110,8 @@ class SignupForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.password}
-          validationError={this.state.validationErrors.password} />
+          validationError={this.state.validationErrors.password}
+        />
         <Input
           label='Confirm Password'
           type='password'
@@ -112,8 +119,11 @@ class SignupForm extends Component {
           onChange={this.onChangeHandler}
           onBlur={this.onBlurHandler}
           value={this.state.confirmPassword}
-          validationError={this.state.validationErrors.confirmPassword} />
-        <button type='submit' className='btn btn-primary' role='button'>Submit</button>
+          validationError={this.state.validationErrors.confirmPassword}
+        />
+        <button type='submit' className='btn btn-primary' role='button'>
+          Submit
+        </button>
       </form>
     )
   }
@@ -124,14 +134,14 @@ SignupForm.propTypes = {
   signupSuccessful: bool.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     signupLoading: state.signupLocal.signupLoading,
     signupSuccessful: state.signupLocal.signupSuccessful
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     dispatchSignupRequest (userData) {
       dispatch(signupRequest(userData))

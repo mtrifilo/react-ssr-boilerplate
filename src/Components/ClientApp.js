@@ -1,15 +1,15 @@
 /* global localStorage */
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
+import {Provider} from 'react-redux'
 import store from '../Redux/Store'
-import { setUser, logoutUser } from '../Redux/modules/user'
+import {setUser, logoutUser} from '../Redux/modules/user'
 import Routes from './Router/Routes'
 import Layout from './Layout'
 import setTokenToHeaders from '../auth/setTokenToHeaders'
 import jwt from 'jsonwebtoken'
 
-const App = (props) => {
+const App = props => {
   if (localStorage.token) {
     setTokenToHeaders(localStorage.token)
     const decodedToken = jwt.decode(localStorage.token)

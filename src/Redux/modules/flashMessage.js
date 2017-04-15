@@ -12,17 +12,20 @@ const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE'
 
 // ******* Action Creators & Reducers *******
 
-export function displayFlashMessage ({ message, level }) {
+export function displayFlashMessage ({message, level}) {
   return dispatch => {
     dispatch(addFlashMessage(message, level))
-    setTimeout(() => {
-      dispatch(deleteFlashMessage())
-    }, 2000)
+    setTimeout(
+      () => {
+        dispatch(deleteFlashMessage())
+      },
+      2000
+    )
   }
 }
 
 function addFlashMessage (message, level) {
-  return { type: ADD_FLASH_MESSAGE, message, level }
+  return {type: ADD_FLASH_MESSAGE, message, level}
 }
 const addFlashMessageReducer = (state, action) => {
   return Object.assign({}, state, {
@@ -37,13 +40,13 @@ const addFlashMessageReducer = (state, action) => {
 }
 
 function deleteFlashMessage () {
-  return { type: DELETE_FLASH_MESSAGE }
+  return {type: DELETE_FLASH_MESSAGE}
 }
 const deleteFlashMessageReducer = (state, action) => {
   if (state.flashMessages.length >= 0) {
     let newFlashMessages = map(state.flashMessages, clone)
     newFlashMessages.splice(0, 1)
-    return Object.assign({}, state, { flashMessages: newFlashMessages })
+    return Object.assign({}, state, {flashMessages: newFlashMessages})
   }
   return state
 }

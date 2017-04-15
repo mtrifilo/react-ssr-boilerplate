@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 import GuestLinks from './GuestLinks'
 import AuthenticatedLinks from './AuthenticatedLinks'
-const { bool } = React.PropTypes
+const {bool} = React.PropTypes
 
 class NavBar extends Component {
   constructor (props) {
@@ -14,17 +14,17 @@ class NavBar extends Component {
   }
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
-      this.setState({ showAuthenticatedLinks: true })
+      this.setState({showAuthenticatedLinks: true})
     }
-  }
+  };
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (nextProps.isAuthenticated) {
-      this.setState({ showAuthenticatedLinks: true })
+      this.setState({showAuthenticatedLinks: true})
     } else {
-      this.setState({ showAuthenticatedLinks: false })
+      this.setState({showAuthenticatedLinks: false})
     }
-  }
+  };
   render () {
     return (
       <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse'>
@@ -36,11 +36,14 @@ class NavBar extends Component {
           data-target='#navbarNavAltMarkup'
           aria-controls='navbarNavAltMarkup'
           aria-expanded='false'
-          aria-label='Toggle navigation'>
+          aria-label='Toggle navigation'
+        >
           <span className='navbar-toggler-icon' />
         </button>
         <Link to='/' className='navbar-brand'>React SSR Boilerplate</Link>
-        { this.state.showAuthenticatedLinks ? <AuthenticatedLinks /> : <GuestLinks /> }
+        {this.state.showAuthenticatedLinks
+          ? <AuthenticatedLinks />
+          : <GuestLinks />}
       </nav>
     )
   }
@@ -50,7 +53,7 @@ NavBar.propTypes = {
   isAuthenticated: bool.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     isAuthenticated: state.user.isAuthenticated
   }

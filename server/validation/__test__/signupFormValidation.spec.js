@@ -5,7 +5,7 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmPassword
-  } from '../signupFormValidation'
+} from '../signupFormValidation'
 
 /**
  * signupFormValidation
@@ -43,7 +43,9 @@ test('signupFormValidation: signupFormValidation should return email error if em
   }
   const validated = signupFormValidation(data)
   expect(validated.isValid).toBe(false)
-  expect(validated.validationErrors.email).toBe('This email address is not valid')
+  expect(validated.validationErrors.email).toBe(
+    'This email address is not valid'
+  )
 })
 
 test('signupFormValidation: signupFormValidation should return email error if email is blank', () => {
@@ -79,7 +81,9 @@ test('signupFormValidation: signupFormValidation should return confirmPassword e
   }
   const validated = signupFormValidation(data)
   expect(validated.isValid).toBe(false)
-  expect(validated.validationErrors.confirmPassword).toBe('Please confirm your password')
+  expect(validated.validationErrors.confirmPassword).toBe(
+    'Please confirm your password'
+  )
 })
 
 test('signupFormValidation: signupFormValidation should return confirmPassword error if confirmPassword does not match password', () => {
@@ -91,7 +95,9 @@ test('signupFormValidation: signupFormValidation should return confirmPassword e
   }
   const validated = signupFormValidation(data)
   expect(validated.isValid).toBe(false)
-  expect(validated.validationErrors.confirmPassword).toBe('Passwords don\'t match, try again')
+  expect(validated.validationErrors.confirmPassword).toBe(
+    "Passwords don't match, try again"
+  )
 })
 
 /**
@@ -103,7 +109,7 @@ test('validateUsername: should return username error if username is empty', () =
   expect(validated.username).toBe('A username is required')
 })
 
-test('validateUsername: should return { username: \'\' } if username is valid', () => {
+test("validateUsername: should return { username: '' } if username is valid", () => {
   const validated = validateUsername('coolUser')
   expect(validated.username).toBe('')
 })
@@ -127,7 +133,7 @@ test('validateEmail: should return email error if email is invalid', () => {
   expect(validated.email).toBe('This email address is not valid')
 })
 
-test('validateEmail: should return { email: \'\' } if email is valid', () => {
+test("validateEmail: should return { email: '' } if email is valid", () => {
   const validated = validateEmail('coolUser@future.net')
   expect(validated.email).toBe('')
 })
@@ -146,7 +152,7 @@ test('validatePassword: should return password error if password is empty', () =
   expect(validated.password).toBe('A password is required')
 })
 
-test('validatePassword: should return { password: \'\' } if password is valid', () => {
+test("validatePassword: should return { password: '' } if password is valid", () => {
   const validated = validatePassword('coolUser')
   expect(validated.password).toBe('')
 })
@@ -167,10 +173,10 @@ test('validateConfirmPassword: should return confirmPassword error if password i
 
 test('validateConfirmPassword: should return confirmPassword mismatch error if confirmPassword does not match password', () => {
   const validated = validateConfirmPassword('shh', 'YELLING')
-  expect(validated.confirmPassword).toBe('Passwords don\'t match, try again')
+  expect(validated.confirmPassword).toBe("Passwords don't match, try again")
 })
 
-test('validateConfirmPassword: should return { password: \'\' } if password is valid', () => {
+test("validateConfirmPassword: should return { password: '' } if password is valid", () => {
   const validated = validateConfirmPassword('shh', 'shh')
   expect(validated.confirmPassword).toBe('')
 })

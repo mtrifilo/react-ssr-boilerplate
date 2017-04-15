@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router'
+import React, {Component} from 'react'
+import {Redirect} from 'react-router'
 import store from '../../Redux/Store'
-import { setUser } from '../../Redux/modules/user'
+import {setUser} from '../../Redux/modules/user'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
-const { object } = React.PropTypes
+const {object} = React.PropTypes
 
 class SetToken extends Component {
   constructor (props) {
@@ -15,7 +15,7 @@ class SetToken extends Component {
   componentDidMount () {
     const user = prepareUserFromToken(this.props.match.params.token)
     store.dispatch(setUser(user))
-    this.setState({ loading: false })
+    this.setState({loading: false})
   }
 
   render () {

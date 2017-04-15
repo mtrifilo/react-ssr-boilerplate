@@ -9,7 +9,10 @@ function prepareUserFromToken (token) {
     const user = jwt.decode(token)
     return user
   } else {
-    console.error('ERROR: redux: prepareUserFromToken did not receive a token:', token)
+    console.error(
+      'ERROR: redux: prepareUserFromToken did not receive a token:',
+      token
+    )
     return null
   }
 }
