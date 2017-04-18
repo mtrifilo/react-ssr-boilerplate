@@ -2,7 +2,7 @@ import removeToken from '../../auth/removeToken'
 
 const DEFAULT_STATE = {
   user: {},
-  isAuthenticated: false
+  isAuthenticated: null
 }
 
 // ******* Action Types *******

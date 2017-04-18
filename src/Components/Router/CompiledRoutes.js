@@ -22,6 +22,10 @@ var _Signup = require('../Signup/Signup')
 
 var _Signup2 = _interopRequireDefault(_Signup)
 
+var _MemberPage = require('../MemberPage/MemberPage')
+
+var _MemberPage2 = _interopRequireDefault(_MemberPage)
+
 var _NotFound = require('./NotFound')
 
 var _NotFound2 = _interopRequireDefault(_NotFound)
@@ -63,6 +67,10 @@ var Routes = function Routes () {
     _react2.default.createElement(_reactRouter.Route, {
       path: '/signup',
       component: _Signup2.default
+    }),
+    _react2.default.createElement(_reactRouter.Route, {
+      path: '/memberpage',
+      component: _MemberPage2.default
     }),
     _react2.default.createElement(_reactRouter.Route, {
       component: _NotFound2.default

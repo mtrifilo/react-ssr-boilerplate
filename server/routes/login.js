@@ -27,7 +27,7 @@ router.post('/local', (req, res, next) => {
       return res.status(401).json(info)
     }
 
-    const token = createToken(user)
+    const token = createToken(user, null)
 
     return res.json({token})
   })(req, res, next)

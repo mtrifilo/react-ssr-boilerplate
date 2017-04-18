@@ -13042,7 +13042,7 @@ base.Node = __webpack_require__(408);
 
 var DEFAULT_STATE = {
   user: {},
-  isAuthenticated: false
+  isAuthenticated: null
 };
 
 // ******* Action Types *******
@@ -13062,7 +13062,10 @@ function setUser() {
   return { type: SET_USER, user: user, isAuthenticated: isAuthenticated };
 }
 function setUserReducer(state, action) {
-  return Object.assign({}, state, { user: action.user, isAuthenticated: action.isAuthenticated });
+  return Object.assign({}, state, {
+    user: action.user,
+    isAuthenticated: action.isAuthenticated
+  });
 }
 
 function logoutRequest() {
@@ -19090,7 +19093,8 @@ var Input = function Input(_ref) {
       name: name,
       onChange: onChange,
       onBlur: onBlur,
-      className: 'form-control' }),
+      className: 'form-control'
+    }),
     validationError && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'form-control-feedback' },
@@ -19128,7 +19132,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* createStore */])(__WEBPACK_IMPORTED_MODULE_2__RootReducer__["a" /* default */], __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* compose */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* applyMiddleware */])(__WEBPACK_IMPORTED_MODULE_1_redux_thunk___default.a), (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : function (f) {
-    return f;
+  return f;
 }));
 
 /* harmony default export */ __webpack_exports__["a"] = (store);
@@ -19176,17 +19180,26 @@ function loginRequest(userData) {
       var user = __WEBPACK_IMPORTED_MODULE_1__auth_prepareUserFromToken___default()(res.data.token);
       console.log('user:', user);
       dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__user__["a" /* setUser */])(user));
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({ message: 'You are logged in. Welcome back!', level: 'success' }));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({
+        message: 'You are logged in. Welcome back!',
+        level: 'success'
+      }));
     }).catch(function (err) {
       dispatch(loginLoading(false));
       if (!err.response) {
         console.error('redux: loginRequest error occurred:', err);
-        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({ message: 'An error occurred during login request.', level: 'error' }));
+        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({
+          message: 'An error occurred during login request.',
+          level: 'error'
+        }));
       }
 
       if (err.response.data && err.response.data.message) {
         console.log('redux: loginLocal: invaild login credentials:', err.response.data.message);
-        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({ message: err.response.data.message, level: 'error' }));
+        return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({
+          message: err.response.data.message,
+          level: 'error'
+        }));
       } else {
         console.error('redux: loginLocal: loginRequest failed:', err, err.response);
         return dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({ message: 'An error occurred.', level: 'error' }));
@@ -19253,12 +19266,18 @@ function signupRequest(userData) {
       setTimeout(function () {
         dispatch(signupSuccessful(false));
       }, 500);
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Signup successful! You can login.', level: 'success' }));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({
+        message: 'Signup successful! You can login.',
+        level: 'success'
+      }));
     }).catch(function (err) {
       console.error('redux: signupLocal: signupRequest failed', err);
       dispatch(signupLoading(false));
       dispatch(signupSuccessful(false));
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({ message: 'Signup failed. That\'s an error.', level: 'error' }));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__flashMessage__["a" /* displayFlashMessage */])({
+        message: "Signup failed. That's an error.",
+        level: 'error'
+      }));
     });
   };
 }
@@ -43151,7 +43170,7 @@ function validateConfirmPassword(password, confirmPassword) {
   }
   // password and confirmPassword should match
   if (!Validator.equals(password, confirmPassword)) {
-    return { confirmPassword: 'Passwords don\'t match, try again' };
+    return { confirmPassword: "Passwords don't match, try again" };
   }
   return { confirmPassword: '' };
 }
@@ -43245,12 +43264,14 @@ var FlashMessage = function (_Component) {
       this.showMessage();
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: __WEBPACK_IMPORTED_MODULE_1_classnames___default()('alert FlashMessage-message', {
+        {
+          className: __WEBPACK_IMPORTED_MODULE_1_classnames___default()('alert FlashMessage-message', {
             'alert-success': this.props.level === 'success',
             'alert-danger': this.props.level === 'error',
             'FlashMessage-show': this.state.display,
             'FlashMessage-hide': !this.state.display
-          }) },
+          })
+        },
         this.props.message
       );
     }
@@ -43492,7 +43513,8 @@ var LoginForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.email,
-          validationError: this.state.validationErrors.email }),
+          validationError: this.state.validationErrors.email
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',
@@ -43500,7 +43522,8 @@ var LoginForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.password,
-          validationError: this.state.validationErrors.password }),
+          validationError: this.state.validationErrors.password
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary' },
@@ -43566,8 +43589,11 @@ var LoginGithub = function LoginGithub() {
             fillRule: 'evenodd',
             clipRule: 'evenodd',
             strokeLinejoin: 'round',
-            strokeMiterlimit: '1.414' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', { d: 'M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8' })
+            strokeMiterlimit: '1.414'
+          },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('path', {
+            d: 'M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8'
+          })
         )
       )
     ),
@@ -43659,93 +43685,22 @@ SetToken.propTypes = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(12);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Authorize__ = __webpack_require__(851);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__MemberContent__ = __webpack_require__(852);
 /* eslint-disable react/no-unused-prop-types */
 
 
 
-var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
-    bool = _React$PropTypes.bool,
-    string = _React$PropTypes.string;
 
-var MemberPage = function (_Component) {
-  _inherits(MemberPage, _Component);
-
-  function MemberPage(props) {
-    _classCallCheck(this, MemberPage);
-
-    var _this = _possibleConstructorReturn(this, (MemberPage.__proto__ || Object.getPrototypeOf(MemberPage)).call(this, props));
-
-    _this.state = {
-      authenticated: true
-    };
-    return _this;
-  }
-
-  _createClass(MemberPage, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (!nextProps.isAuthenticated) {
-        this.setState({ authenticated: false });
-      }
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (!this.props.isAuthenticated) {
-        this.setState({ authenticated: false });
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      if (!this.state.authenticated) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["c" /* Redirect */], { to: '/' });
-      }
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h1',
-          { className: 'text-center page-title' },
-          'Members Only'
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h2',
-          { className: 'text-center' },
-          'Hi, ',
-          this.props.username,
-          '!'
-        )
-      );
-    }
-  }]);
-
-  return MemberPage;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-MemberPage.propTypes = {
-  isAuthenticated: bool,
-  username: string
+var MemberPage = function MemberPage(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1__Common_Authorize__["a" /* default */],
+    null,
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__MemberContent__["a" /* default */], null)
+  );
 };
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.user.isAuthenticated,
-    username: state.user.user.username
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(MemberPage));
+/* harmony default export */ __webpack_exports__["a"] = (MemberPage);
 
 /***/ }),
 /* 444 */
@@ -43777,13 +43732,20 @@ var AuthenticatedLinks = function AuthenticatedLinks(_ref) {
 
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { className: 'collapse navbar-collapse justify-content-end', id: 'navbarNavAltMarkup' },
+    {
+      className: 'collapse navbar-collapse justify-content-end',
+      id: 'navbarNavAltMarkup'
+    },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'navbar-nav' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["NavLink"],
-        { to: '/memberpage', className: 'nav-item nav-link', activeClassName: 'active' },
+        {
+          to: '/memberpage',
+          className: 'nav-item nav-link',
+          activeClassName: 'active'
+        },
         'Member Page'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -43836,18 +43798,29 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var GuestLinks = function GuestLinks(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { className: 'collapse navbar-collapse justify-content-end', id: 'navbarNavAltMarkup' },
+    {
+      className: 'collapse navbar-collapse justify-content-end',
+      id: 'navbarNavAltMarkup'
+    },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'navbar-nav' },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"],
-        { to: '/signup', className: 'nav-item nav-link', activeClassName: 'active' },
+        {
+          to: '/signup',
+          className: 'nav-item nav-link',
+          activeClassName: 'active'
+        },
         'Signup'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"],
-        { to: '/login', className: 'nav-item nav-link', activeClassName: 'active' },
+        {
+          to: '/login',
+          className: 'nav-item nav-link',
+          activeClassName: 'active'
+        },
         'Login'
       )
     )
@@ -43892,7 +43865,9 @@ var NavBar = function (_Component) {
 
     _this.componentDidMount = function () {
       if (_this.props.isAuthenticated) {
-        _this.setState({ showAuthenticatedLinks: true });
+        _this.setState({ showAuthenticatedLinks: true, mounted: true });
+      } else {
+        _this.setState({ mounted: true });
       }
     };
 
@@ -43905,7 +43880,8 @@ var NavBar = function (_Component) {
     };
 
     _this.state = {
-      showAuthenticatedLinks: false
+      showAuthenticatedLinks: false,
+      mounted: false
     };
     return _this;
   }
@@ -43913,6 +43889,13 @@ var NavBar = function (_Component) {
   _createClass(NavBar, [{
     key: 'render',
     value: function render() {
+      var displayLinks = void 0;
+      if (this.state.mounted && this.props.isAuthenticated !== null) {
+        displayLinks = this.state.showAuthenticatedLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__["a" /* default */], null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GuestLinks__["a" /* default */], null);
+      } else {
+        displayLinks = null;
+      }
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'nav',
         { className: 'navbar navbar-toggleable-md navbar-inverse bg-inverse' },
@@ -43926,7 +43909,8 @@ var NavBar = function (_Component) {
             'data-target': '#navbarNavAltMarkup',
             'aria-controls': 'navbarNavAltMarkup',
             'aria-expanded': 'false',
-            'aria-label': 'Toggle navigation' },
+            'aria-label': 'Toggle navigation'
+          },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'navbar-toggler-icon' })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -43934,7 +43918,7 @@ var NavBar = function (_Component) {
           { to: '/', className: 'navbar-brand' },
           'React SSR Boilerplate'
         ),
-        this.state.showAuthenticatedLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__["a" /* default */], null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GuestLinks__["a" /* default */], null)
+        displayLinks
       );
     }
   }]);
@@ -43943,7 +43927,7 @@ var NavBar = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 NavBar.propTypes = {
-  isAuthenticated: bool.isRequired
+  isAuthenticated: bool
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -44047,14 +44031,16 @@ var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
 var Status = function Status(_ref) {
   var code = _ref.code,
       children = _ref.children;
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { render: function render(_ref2) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], {
+    render: function render(_ref2) {
       var staticContext = _ref2.staticContext;
 
       if (staticContext) {
         staticContext.status = code;
       }
       return children;
-    } });
+    }
+  });
 };
 
 Status.propTypes = {
@@ -44211,7 +44197,8 @@ var SignupForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.username,
-          validationError: this.state.validationErrors.username }),
+          validationError: this.state.validationErrors.username
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Common_Input__["a" /* default */], {
           label: 'Email Address',
           type: 'email',
@@ -44219,7 +44206,8 @@ var SignupForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.email,
-          validationError: this.state.validationErrors.email }),
+          validationError: this.state.validationErrors.email
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Common_Input__["a" /* default */], {
           label: 'Password',
           type: 'password',
@@ -44227,7 +44215,8 @@ var SignupForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.password,
-          validationError: this.state.validationErrors.password }),
+          validationError: this.state.validationErrors.password
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Common_Input__["a" /* default */], {
           label: 'Confirm Password',
           type: 'password',
@@ -44235,7 +44224,8 @@ var SignupForm = function (_Component) {
           onChange: this.onChangeHandler,
           onBlur: this.onBlurHandler,
           value: this.state.confirmPassword,
-          validationError: this.state.validationErrors.confirmPassword }),
+          validationError: this.state.validationErrors.confirmPassword
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary', role: 'button' },
@@ -76400,6 +76390,151 @@ exports.createContext = Script.createContext = function (context) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 841 */,
+/* 842 */,
+/* 843 */,
+/* 844 */,
+/* 845 */,
+/* 846 */,
+/* 847 */,
+/* 848 */,
+/* 849 */,
+/* 850 */,
+/* 851 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(12);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* eslint-disable react/no-unused-prop-types */
+
+
+
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    bool = _React$PropTypes.bool,
+    string = _React$PropTypes.string,
+    object = _React$PropTypes.object;
+
+var Authorize = function (_Component) {
+  _inherits(Authorize, _Component);
+
+  function Authorize(props) {
+    _classCallCheck(this, Authorize);
+
+    var _this = _possibleConstructorReturn(this, (Authorize.__proto__ || Object.getPrototypeOf(Authorize)).call(this, props));
+
+    _this.state = {
+      redirectHome: false,
+      mounted: false
+    };
+    return _this;
+  }
+
+  _createClass(Authorize, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (!nextProps.isAuthenticated) {
+        this.setState({ redirectHome: true });
+      }
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (!this.props.isAuthenticated) {
+        this.setState({ redirectHome: true });
+      } else {
+        this.setState({ mounted: true });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.state.redirectHome) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["c" /* Redirect */], { to: '/' });
+      }
+
+      var children = null;
+      if (this.state.mounted && this.props.isAuthenticated !== null) {
+        children = __WEBPACK_IMPORTED_MODULE_0_react___default.a.cloneElement(this.props.children, {
+          username: this.props.username,
+          isAuthenticated: this.props.isAuthenticated
+        });
+      }
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        children
+      );
+    }
+  }]);
+
+  return Authorize;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+Authorize.propTypes = {
+  isAuthenticated: bool,
+  username: string,
+  children: object
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.user.isAuthenticated,
+    username: state.user.user.username
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(Authorize));
+
+/***/ }),
+/* 852 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+var string = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string;
+
+
+var MemberContent = function MemberContent(_ref) {
+  var username = _ref.username;
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    null,
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'h1',
+      { className: 'text-center page-title' },
+      'Members Only'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'h2',
+      { className: 'text-center' },
+      'Hi, ',
+      username,
+      '!'
+    )
+  );
+};
+
+MemberContent.propTypes = {
+  username: string
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (MemberContent);
 
 /***/ })
 ],[434]);

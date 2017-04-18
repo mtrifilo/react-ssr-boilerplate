@@ -9,12 +9,15 @@ class NavBar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showAuthenticatedLinks: false
+      showAuthenticatedLinks: false,
+      mounted: false
     }
   }
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
-      this.setState({showAuthenticatedLinks: true})
+      this.setState({showAuthenticatedLinks: true, mounted: true})
+    } else {
+      this.setState({mounted: true})
     }
   };
 
@@ -26,6 +29,15 @@ class NavBar extends Component {
     }
   };
   render () {
+    let displayLinks
+    if (this.state.mounted && this.props.isAuthenticated !== null) {
+      displayLinks = this.state.showAuthenticatedLinks
+        ? <AuthenticatedLinks />
+        : <GuestLinks />
+    } else {
+      displayLinks = null
+    }
+
     return (
       <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse'>
         <button
@@ -41,16 +53,14 @@ class NavBar extends Component {
           <span className='navbar-toggler-icon' />
         </button>
         <Link to='/' className='navbar-brand'>React SSR Boilerplate</Link>
-        {this.state.showAuthenticatedLinks
-          ? <AuthenticatedLinks />
-          : <GuestLinks />}
+        {displayLinks}
       </nav>
     )
   }
 }
 
 NavBar.propTypes = {
-  isAuthenticated: bool.isRequired
+  isAuthenticated: bool
 }
 
 const mapStateToProps = state => {
