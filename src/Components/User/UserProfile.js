@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+const { string } = React.PropTypes
 
 class UserProfile extends Component {
   constructor (props) {
@@ -11,10 +12,14 @@ class UserProfile extends Component {
   render () {
     return (
       <div>
-        <h1>User Profile</h1>
+        <h1>{this.props.username}</h1>
       </div>
     )
   }
+}
+
+UserProfile.propTypes = {
+  username: string
 }
 
 export default UserProfile

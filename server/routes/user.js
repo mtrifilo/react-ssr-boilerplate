@@ -31,11 +31,12 @@ router.get('/:id', authorize, (req, res) => {
 /**
  * PUT '/api/user/:id'
  *
- * Allows for editing or deleting a user
+ * Allows for editing a user
  */
 
 router.put('/:id', authorize, (req, res) => {
   const id = req.params.id
+  const user = req.currentUser
 
   // validate user information
 
