@@ -34,9 +34,9 @@ var _SetToken = require('../Login/SetToken');
 
 var _SetToken2 = _interopRequireDefault(_SetToken);
 
-var _UserPage = require('../User/UserPage');
+var _AccountPage = require('../Account/AccountPage');
 
-var _UserPage2 = _interopRequireDefault(_UserPage);
+var _AccountPage2 = _interopRequireDefault(_AccountPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,7 +58,7 @@ var Routes = function Routes() {
     _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/memberpage', component: _MemberPage2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/u/:username', component: _UserPage2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/u/:username', component: _AccountPage2.default }),
     _react2.default.createElement(_reactRouter.Route, { component: _NotFound2.default })
   );
 };

@@ -6,7 +6,7 @@ import Signup from '../Signup/Signup'
 import MemberPage from '../MemberPage/MemberPage'
 import NotFound from './NotFound'
 import SetToken from '../Login/SetToken'
-import UserPage from '../User/UserPage'
+import AccountPage from '../Account/AccountPage'
 const {bool} = React.PropTypes
 
 /**
@@ -24,7 +24,7 @@ const Routes = () => {
       <Route path='/login' component={Login} />
       <Route path='/signup' component={Signup} />
       <Route path='/memberpage' component={MemberPage} />
-      <Route path='/u/:username' component={UserPage} />
+      <Route path='/u/:username' component={AccountPage} />
       <Route component={NotFound} />
     </Switch>
   )

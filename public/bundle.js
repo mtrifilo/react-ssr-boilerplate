@@ -44126,7 +44126,7 @@ var NotFound = function NotFound(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__MemberPage_MemberPage__ = __webpack_require__(445);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__NotFound__ = __webpack_require__(449);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Login_SetToken__ = __webpack_require__(443);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__User_UserPage__ = __webpack_require__(853);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Account_AccountPage__ = __webpack_require__(856);
 
 
 
@@ -44154,7 +44154,7 @@ var Routes = function Routes() {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_3__Login_Login__["a" /* default */] }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { path: '/signup', component: __WEBPACK_IMPORTED_MODULE_4__Signup_Signup__["a" /* default */] }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { path: '/memberpage', component: __WEBPACK_IMPORTED_MODULE_5__MemberPage_MemberPage__["a" /* default */] }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { path: '/u/:username', component: __WEBPACK_IMPORTED_MODULE_8__User_UserPage__["a" /* default */] }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { path: '/u/:username', component: __WEBPACK_IMPORTED_MODULE_8__Account_AccountPage__["a" /* default */] }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router__["b" /* Route */], { component: __WEBPACK_IMPORTED_MODULE_6__NotFound__["a" /* default */] })
   );
 };
@@ -76554,30 +76554,33 @@ exports.createContext = Script.createContext = function (context) {
 /* 850 */,
 /* 851 */,
 /* 852 */,
-/* 853 */
+/* 853 */,
+/* 854 */,
+/* 855 */,
+/* 856 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Authorize__ = __webpack_require__(435);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UserProfile__ = __webpack_require__(854);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AccountSettings__ = __webpack_require__(857);
 
 
 
 
-var UserPage = function UserPage(props) {
+var AccountPage = function AccountPage(props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_1__Common_Authorize__["a" /* default */],
     null,
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__UserProfile__["a" /* default */], null)
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AccountSettings__["a" /* default */], null)
   );
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (UserPage);
+/* harmony default export */ __webpack_exports__["a"] = (AccountPage);
 
 /***/ }),
-/* 854 */
+/* 857 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76594,13 +76597,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var string = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string;
 
-var UserProfile = function (_Component) {
-  _inherits(UserProfile, _Component);
+var AccountSettings = function (_Component) {
+  _inherits(AccountSettings, _Component);
 
-  function UserProfile(props) {
-    _classCallCheck(this, UserProfile);
+  function AccountSettings(props) {
+    _classCallCheck(this, AccountSettings);
 
-    var _this = _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AccountSettings.__proto__ || Object.getPrototypeOf(AccountSettings)).call(this, props));
 
     _this.state = {
       username: ''
@@ -76608,7 +76611,7 @@ var UserProfile = function (_Component) {
     return _this;
   }
 
-  _createClass(UserProfile, [{
+  _createClass(AccountSettings, [{
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -76616,21 +76619,21 @@ var UserProfile = function (_Component) {
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
-          null,
-          this.props.username
+          { className: 'text-center page-title' },
+          'Account Settings'
         )
       );
     }
   }]);
 
-  return UserProfile;
+  return AccountSettings;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-UserProfile.propTypes = {
+AccountSettings.propTypes = {
   username: string
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (UserProfile);
+/* harmony default export */ __webpack_exports__["a"] = (AccountSettings);
 
 /***/ })
 ],[434]);

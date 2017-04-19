@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 const { string } = React.PropTypes
 
-class UserProfile extends Component {
+class AccountSettings extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -12,14 +12,14 @@ class UserProfile extends Component {
   render () {
     return (
       <div>
-        <h1>{this.props.username}</h1>
+        <h1 className='text-center page-title'>Account Settings</h1>
       </div>
     )
   }
 }
 
-UserProfile.propTypes = {
+AccountSettings.propTypes = {
   username: string
 }
 
-export default UserProfile
+export default AccountSettings
