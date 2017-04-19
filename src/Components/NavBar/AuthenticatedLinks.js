@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import {logoutRequest} from '../../Redux/modules/user'
 const {func, string} = React.PropTypes
 
-const AuthenticatedLinks = ({dispatchLogoutRequest, username}) => {
+const AuthenticatedLinks = ({dispatchLogoutRequest, username, ...props}) => {
   const logout = evt => {
     evt.preventDefault()
     dispatchLogoutRequest()
@@ -23,8 +23,14 @@ const AuthenticatedLinks = ({dispatchLogoutRequest, username}) => {
         >
           Member Page
         </NavLink>
+        <NavLink
+          to={`/u/${username}`}
+          className='nav-item nav-link'
+          activeClassName='active'
+        >
+          {username}
+        </NavLink>
         <a href='#' onClick={logout} className='nav-item nav-link'>Logout</a>
-        <span className='navbar-text NavBar-text'> {username}</span>
       </div>
     </div>
   )

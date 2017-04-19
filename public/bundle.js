@@ -43453,30 +43453,36 @@ var Home = function Home(props) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NavBar_NavBar__ = __webpack_require__(448);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Common_FlashMessageContainer__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NavBar_NavBar__ = __webpack_require__(448);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Common_FlashMessageContainer__ = __webpack_require__(437);
 
 
 
-var element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.element;
+
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    element = _React$PropTypes.element,
+    object = _React$PropTypes.object;
 
 
 var Layout = function Layout(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      location = _ref.location;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     null,
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__NavBar_NavBar__["a" /* default */], null),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Common_FlashMessageContainer__["a" /* default */], null),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__NavBar_NavBar__["a" /* default */], { location: location }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Common_FlashMessageContainer__["a" /* default */], null),
     children
   );
 };
 
 Layout.propTypes = {
-  children: element
+  children: element,
+  location: object
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Layout);
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["withRouter"])(Layout));
 
 /***/ }),
 /* 440 */
@@ -43846,6 +43852,8 @@ var MemberPage = function MemberPage(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__ = __webpack_require__(51);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 
 
 
@@ -43857,7 +43865,8 @@ var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
 
 var AuthenticatedLinks = function AuthenticatedLinks(_ref) {
   var dispatchLogoutRequest = _ref.dispatchLogoutRequest,
-      username = _ref.username;
+      username = _ref.username,
+      props = _objectWithoutProperties(_ref, ['dispatchLogoutRequest', 'username']);
 
   var logout = function logout(evt) {
     evt.preventDefault();
@@ -43883,15 +43892,18 @@ var AuthenticatedLinks = function AuthenticatedLinks(_ref) {
         'Member Page'
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_2_react_router_dom__["NavLink"],
+        {
+          to: '/u/' + username,
+          className: 'nav-item nav-link',
+          activeClassName: 'active'
+        },
+        username
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'a',
         { href: '#', onClick: logout, className: 'nav-item nav-link' },
         'Logout'
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'span',
-        { className: 'navbar-text NavBar-text' },
-        ' ',
-        username
       )
     )
   );
@@ -43987,7 +43999,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var bool = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.bool;
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    bool = _React$PropTypes.bool,
+    object = _React$PropTypes.object;
 
 var NavBar = function (_Component) {
   _inherits(NavBar, _Component);
@@ -44025,7 +44039,7 @@ var NavBar = function (_Component) {
     value: function render() {
       var displayLinks = void 0;
       if (this.state.mounted && this.props.isAuthenticated !== null) {
-        displayLinks = this.state.showAuthenticatedLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__["a" /* default */], null) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GuestLinks__["a" /* default */], null);
+        displayLinks = this.state.showAuthenticatedLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__AuthenticatedLinks__["a" /* default */], { location: this.props.location }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GuestLinks__["a" /* default */], null);
       } else {
         displayLinks = null;
       }
@@ -44061,7 +44075,8 @@ var NavBar = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 NavBar.propTypes = {
-  isAuthenticated: bool
+  isAuthenticated: bool,
+  location: object.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {

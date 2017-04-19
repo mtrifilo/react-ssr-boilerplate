@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import GuestLinks from './GuestLinks'
 import AuthenticatedLinks from './AuthenticatedLinks'
-const {bool} = React.PropTypes
+const {bool, object} = React.PropTypes
 
 class NavBar extends Component {
   constructor (props) {
@@ -32,7 +32,7 @@ class NavBar extends Component {
     let displayLinks
     if (this.state.mounted && this.props.isAuthenticated !== null) {
       displayLinks = this.state.showAuthenticatedLinks
-        ? <AuthenticatedLinks />
+        ? <AuthenticatedLinks location={this.props.location} />
         : <GuestLinks />
     } else {
       displayLinks = null
@@ -60,7 +60,8 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  isAuthenticated: bool
+  isAuthenticated: bool,
+  location: object.isRequired
 }
 
 const mapStateToProps = state => {

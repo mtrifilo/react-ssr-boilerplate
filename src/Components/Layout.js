@@ -1,18 +1,20 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 import NavBar from './NavBar/NavBar'
 import FlashMessageContainer from './Common/FlashMessageContainer'
-const {element} = React.PropTypes
+const {element, object} = React.PropTypes
 
-const Layout = ({children}) => (
+const Layout = ({children, location}) => (
   <div>
-    <NavBar />
+    <NavBar location={location} />
     <FlashMessageContainer />
     {children}
   </div>
 )
 
 Layout.propTypes = {
-  children: element
+  children: element,
+  location: object
 }
 
-export default Layout
+export default withRouter(Layout)
