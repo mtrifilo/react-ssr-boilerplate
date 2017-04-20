@@ -6,23 +6,21 @@ const router = express.Router()
 /**
  * GET '/api/user/:id'
  *
- * Gets username, email, password for a user matching
- * the user id provided as a parameter
+ * Gets username, email, password for an authorized user
  */
 
-router.get('/:id', authorize, (req, res) => {
+router.get('/', authorize, (req, res) => {
   console.log('authorized user: ', req.currentUser)
   res.json(req.currentUser)
 })
 
 /**
- * PUT '/api/user/:id'
+ * PUT '/api/user/'
  *
- * Allows for editing a user
+ * Updates an authorized user's information
  */
 
-router.put('/:id', authorize, (req, res) => {
-  const id = req.params.id
+router.put('/', authorize, (req, res) => {
   const user = req.currentUser
 
   // validate user information

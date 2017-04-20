@@ -2,3 +2,7 @@
   margin: 4rem auto;
   max-width: 30rem;
 }
+
+.AccountSettings-delete-link {
+  margin-top: 2rem;
+}
