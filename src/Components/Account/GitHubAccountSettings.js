@@ -1,11 +1,20 @@
 import React from 'react'
+import Input from '../Common/Input'
+const {string} = React.PropTypes
 
-const GitHubAccountSettings = () => {
+const GitHubAccountSettings = ({username}) => {
   return (
-    <div>
-      GitHubAccountSettings
-    </div>
+    <form className='AccountSettings-form'>
+      <Input label='Username' type='text' name='newUsername' value={username} />
+      <button type='submit' className='btn btn-primary' role='button'>
+        Submit Changes
+      </button>
+    </form>
   )
+}
+
+GitHubAccountSettings.propTypes = {
+  username: string
 }
 
 export default GitHubAccountSettings

@@ -29,13 +29,14 @@ function authorize (req, res, next) {
       if (err) {
         res.status(401).json({error: 'Not authorized'})
       } else {
-        User.find({_id: decoded.sub})
+        User.findOne({_id: decoded.sub})
           .select('email _id username')
           .exec()
-          .user(user => {
+          .then(user => {
             if (isEmpty(user)) {
               return res.status(404).json({error: 'No such user'})
             }
+            console.log('retreived user:', user)
             req.currentUser = user
             next()
           })

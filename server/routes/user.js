@@ -11,21 +11,8 @@ const router = express.Router()
  */
 
 router.get('/:id', authorize, (req, res) => {
-  const id = req.params.id
-  User.find({_id: id})
-    .select('username email')
-    .exec()
-    .then(user => {
-      res.json(user)
-    })
-    .catch(err => {
-      res.status(400).json({
-        errors: {
-          server: 'User not found',
-          error: err
-        }
-      })
-    })
+  console.log('authorized user: ', req.currentUser)
+  res.json(req.currentUser)
 })
 
 /**
@@ -45,3 +32,5 @@ router.put('/:id', authorize, (req, res) => {
 
   // update the user in mongoDB to match the request body
 })
+
+module.exports = router

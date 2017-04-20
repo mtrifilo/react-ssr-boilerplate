@@ -31,7 +31,7 @@ class SignupForm extends Component {
 
   onChangeHandler = evt => {
     this.setState({[evt.target.name]: evt.target.value})
-  }
+  };
 
   onBlurHandler = evt => {
     if (evt.target.name === 'username') {
@@ -48,7 +48,7 @@ class SignupForm extends Component {
         validateConfirmPassword(this.state.password, this.state.confirmPassword)
       )
     }
-  }
+  };
 
   setValidationError = validationResult => {
     // set the validtion result to state
@@ -58,7 +58,7 @@ class SignupForm extends Component {
       validationResult
     )
     this.setState({validationErrors: newValidationErrors})
-  }
+  };
 
   onSubmitHandler = evt => {
     evt.preventDefault()
@@ -77,7 +77,7 @@ class SignupForm extends Component {
     } else {
       return this.setValidationError(validation.validationErrors)
     }
-  }
+  };
 
   render () {
     if (this.props.signupSuccessful) {

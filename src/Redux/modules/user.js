@@ -1,14 +1,17 @@
+import axios from 'axios'
 import removeToken from '../../auth/removeToken'
 
 const DEFAULT_STATE = {
   user: {},
-  isAuthenticated: null
+  isAuthenticated: null,
+  userSettings: {}
 }
 
 // ******* Action Types *******
 
 const SET_USER = 'SET_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
+const GET_USER = 'GET_USER'
 
 // ******* Action Creators & Reducers *******
 
@@ -40,12 +43,31 @@ function logoutUserReducer (state, action) {
   return Object.assign({}, state, {user: {}, isAuthenticated: false})
 }
 
+export function getUserRequest (id) {
+  return dispatch => {
+    return axios
+      .get(`/api/user/${id}`)
+      .then(user => {
+        dispatch(getUser(user.data))
+      })
+  }
+}
+
+export function getUser (user) {
+  return {type: GET_USER, user}
+}
+function getUserReducer (state, action) {
+  return Object.assign({}, state, {userSettings: action.user})
+}
+
 export default function user (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case SET_USER:
       return setUserReducer(state, action)
     case LOGOUT_USER:
       return logoutUserReducer(state, action)
+    case GET_USER:
+      return getUserReducer(state, action)
     default:
       return state
   }

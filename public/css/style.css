@@ -9352,7 +9352,11 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   padding-top: .8rem;
   color: #CCC;
   font-size: .7em;
-}body {
+}.AccountSettings-form {
+  margin: 4rem auto;
+  max-width: 30rem;
+}
+body {
   background-color: #7FDBFF;
 }
 
