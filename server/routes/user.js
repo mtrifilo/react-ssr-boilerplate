@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../db/models/User')
 const authorize = require('../auth/authorize.js')
+const {validateIdentifiers} = require('../validation/identifiersValidation')
 const router = express.Router()
 
 /**
@@ -20,17 +21,25 @@ router.get('/', authorize, (req, res) => {
  * Updates an authorized user's information
  */
 
-router.put('/', authorize, (req, res) => {
+router.put('/identifiers', authorize, (req, res) => {
   const currentUser = req.currentUser
   const changes = req.body
   console.log('changes', changes)
 
   // validate user information
+  const validationResults = validateIdentifiers(changes)
+
+  if (!validationResults.isValid) {
+    return res.status(400).json(validationResults.validationErrors)
+  }
 
   // check for duplicate user
   // if user is a duplicate, return error
 
   // update the user in mongoDB to match the request body
+  if (changes.newUsername && changes.newEmail) {
+
+  }
 })
 
 module.exports = router
