@@ -45,11 +45,9 @@ function logoutUserReducer (state, action) {
 
 export function getCurrentUserRequest (id) {
   return dispatch => {
-    return axios
-      .get(`/api/user/`)
-      .then(user => {
-        dispatch(getCurrentUser(user.data))
-      })
+    return axios.get(`/api/user/`).then(user => {
+      dispatch(getCurrentUser(user.data))
+    })
   }
 }
 
