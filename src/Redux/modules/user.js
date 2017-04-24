@@ -58,6 +58,14 @@ function getCurrentUserReducer (state, action) {
   return Object.assign({}, state, {userSettings: action.user})
 }
 
+export function changeUserIdentifiers (userData) {
+  return dispatch => {
+    return axios.put('/api/user/identifiers', userData).then(user => {
+      console.log('changeUserIdentifiers: success!', user)
+    })
+  }
+}
+
 export default function user (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case SET_USER:

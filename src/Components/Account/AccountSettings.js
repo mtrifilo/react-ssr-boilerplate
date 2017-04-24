@@ -1,14 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import isEmpty from 'lodash/isEmpty'
 import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings'
-import {getCurrentUserRequest} from '../../Redux/modules/user'
 import {
-  validateUsername,
-  validateEmail,
-  validatePassword,
-  validateConfirmPassword
-} from '../../../server/validation/signupFormValidation'
+  getCurrentUserRequest,
+  changeUserIdentifiers
+} from '../../Redux/modules/user'
+import {
+  userFormValidation,
+  userChanges,
+  validateNewUsername,
+  validateNewEmail,
+  validateCurrentPassword,
+  validateNewPassword,
+  validateConfirmNewPassword
+} from '../../../server/validation/accountSettingsValidation'
 const {string, func} = React.PropTypes
 
 class AccountSettings extends Component {
@@ -36,20 +43,20 @@ class AccountSettings extends Component {
 
   onBlurHandler = evt => {
     if (evt.target.name === 'newUsername') {
-      this.setValidationError(validateUsername(this.state.newUsername))
+      this.setValidationError(validateNewUsername(this.state.newUsername))
     }
     if (evt.target.name === 'newEmail') {
-      this.setValidationError(validateEmail(this.state.newEmail))
+      this.setValidationError(validateNewEmail(this.state.newEmail))
     }
     if (evt.target.name === 'currentPassword') {
-      this.setValidationError(validatePassword(this.state.currentPassword))
+      this.setValidationError(validateCurrentPassword(this.state.currentPassword))
     }
     if (evt.target.name === 'newPassword') {
-      this.setValidationError(validatePassword(this.state.newPassword))
+      this.setValidationError(validateNewPassword(this.state.newPassword))
     }
     if (evt.target.name === 'confirmNewPassword') {
       this.setValidationError(
-        validateConfirmPassword(
+        validateConfirmNewPassword(
           this.state.newPassword,
           this.state.confirmNewPassword
         )
@@ -64,10 +71,37 @@ class AccountSettings extends Component {
       this.state.validationErrors,
       validationResult
     )
-    console.log('validationResult', validationResult)
-    console.log('newValidationErrors', newValidationErrors)
     this.setState({validationErrors: newValidationErrors})
   };
+
+  onSubmitUserFormHandler = evt => {
+    evt.preventDefault()
+    const {newUsername, newEmail} = this.state
+    const userData = {newUsername, newEmail}
+    const prevUserData = {username: this.props.username, email: this.props.email}
+
+    const validation = userFormValidation(userData)
+
+    if (!validation.isValid) {
+      return this.setValidationError(validation.validationErrors)
+    }
+
+    const userDataChanges = userChanges(userData, prevUserData)
+
+    if (!isEmpty(userDataChanges)) {
+      console.log('userDataChanges', userDataChanges)
+      this.props.dispatchChangeUserIdentifiers(userDataChanges)
+    } else {
+      console.log('no changes to submit')
+      // dispatch flashMessage to inform the user that there
+      // are no changes to submit
+    }
+  }
+
+  onSubmitPasswordFormHandler = evt => {
+    evt.preventDefault()
+    console.log('password change submit')
+  }
 
   componentDidMount () {
     this.props.dispatchGetCurrentUser(this.props.id)
@@ -101,6 +135,8 @@ class AccountSettings extends Component {
             confirmNewPassword={this.state.confirmNewPassword}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
+            onSubmitUserFormHandler={this.onSubmitUserFormHandler}
+            onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             validationErrors={this.state.validationErrors}
             />}
       </div>
@@ -113,7 +149,8 @@ AccountSettings.propTypes = {
   username: string,
   email: string,
   id: string,
-  dispatchGetCurrentUser: func
+  dispatchGetCurrentUser: func,
+  dispatchChangeUserIdentifiers: func
 }
 
 const mapStateToProps = state => {
@@ -129,6 +166,9 @@ const mapDispatchToProps = dispatch => {
   return {
     dispatchGetCurrentUser (id) {
       dispatch(getCurrentUserRequest(id))
+    },
+    dispatchChangeUserIdentifiers (userData) {
+      dispatch(changeUserIdentifiers(userData))
     }
   }
 }

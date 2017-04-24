@@ -27,6 +27,17 @@ function userFormValidation (data) {
   }
 }
 
+function userChanges (userData, prevUserData) {
+  const userChanges = {}
+  if (userData.newUsername !== prevUserData.username) {
+    userChanges.newUsername = userData.newUsername
+  }
+  if (userData.newEmail !== prevUserData.email) {
+    userChanges.newEmail = userData.newEmail
+  }
+  return userChanges
+}
+
 function passwordFormValidation (data) {
   const validationResults = Object.assign(
     {},
@@ -136,6 +147,7 @@ function validateConfirmNewPassword (newPassword, confirmNewPassword) {
 
 module.exports = {
   userFormValidation,
+  userChanges,
   passwordFormValidation,
   validateNewUsername,
   validateNewEmail,

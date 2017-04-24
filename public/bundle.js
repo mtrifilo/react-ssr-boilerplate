@@ -12709,11 +12709,12 @@ function forEach(xs, f) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_removeToken__ = __webpack_require__(459);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_removeToken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__auth_removeToken__);
 /* harmony export (immutable) */ __webpack_exports__["a"] = setUser;
-/* harmony export (immutable) */ __webpack_exports__["d"] = logoutRequest;
+/* harmony export (immutable) */ __webpack_exports__["e"] = logoutRequest;
 /* harmony export (immutable) */ __webpack_exports__["b"] = logoutUser;
 /* harmony export (immutable) */ __webpack_exports__["c"] = getCurrentUserRequest;
 /* unused harmony export getCurrentUser */
-/* harmony export (immutable) */ __webpack_exports__["e"] = user;
+/* harmony export (immutable) */ __webpack_exports__["d"] = changeUserIdentifiers;
+/* harmony export (immutable) */ __webpack_exports__["f"] = user;
 
 
 
@@ -12774,6 +12775,14 @@ function getCurrentUser(user) {
 }
 function getCurrentUserReducer(state, action) {
   return Object.assign({}, state, { userSettings: action.user });
+}
+
+function changeUserIdentifiers(userData) {
+  return function (dispatch) {
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/api/user/identifiers', userData).then(function (user) {
+      console.log('changeUserIdentifiers: success!', user);
+    });
+  };
 }
 
 function user() {
@@ -43336,11 +43345,13 @@ var AccountPage = function AccountPage(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GitHubAccountSettings__ = __webpack_require__(437);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocalAccountSettings__ = __webpack_require__(438);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__GitHubAccountSettings__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__LocalAccountSettings__ = __webpack_require__(438);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Redux_modules_user__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__ = __webpack_require__(858);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -43350,6 +43361,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -43375,28 +43387,58 @@ var AccountSettings = function (_Component) {
 
     _this.onBlurHandler = function (evt) {
       if (evt.target.name === 'newUsername') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__["validateUsername"])(_this.state.newUsername));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["validateNewUsername"])(_this.state.newUsername));
       }
       if (evt.target.name === 'newEmail') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__["validateEmail"])(_this.state.newEmail));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["validateNewEmail"])(_this.state.newEmail));
       }
       if (evt.target.name === 'currentPassword') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__["validatePassword"])(_this.state.currentPassword));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["validateCurrentPassword"])(_this.state.currentPassword));
       }
       if (evt.target.name === 'newPassword') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__["validatePassword"])(_this.state.newPassword));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["validateNewPassword"])(_this.state.newPassword));
       }
       if (evt.target.name === 'confirmNewPassword') {
-        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__server_validation_signupFormValidation__["validateConfirmPassword"])(_this.state.newPassword, _this.state.confirmNewPassword));
+        _this.setValidationError(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["validateConfirmNewPassword"])(_this.state.newPassword, _this.state.confirmNewPassword));
       }
     };
 
     _this.setValidationError = function (validationResult) {
       // set the validtion result to state
       var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
-      console.log('validationResult', validationResult);
-      console.log('newValidationErrors', newValidationErrors);
       _this.setState({ validationErrors: newValidationErrors });
+    };
+
+    _this.onSubmitUserFormHandler = function (evt) {
+      evt.preventDefault();
+      var _this$state = _this.state,
+          newUsername = _this$state.newUsername,
+          newEmail = _this$state.newEmail;
+
+      var userData = { newUsername: newUsername, newEmail: newEmail };
+      var prevUserData = { username: _this.props.username, email: _this.props.email };
+
+      var validation = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["userFormValidation"])(userData);
+
+      if (!validation.isValid) {
+        return _this.setValidationError(validation.validationErrors);
+      }
+
+      var userDataChanges = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__server_validation_accountSettingsValidation__["userChanges"])(userData, prevUserData);
+
+      if (!__WEBPACK_IMPORTED_MODULE_2_lodash_isEmpty___default()(userDataChanges)) {
+        console.log('userDataChanges', userDataChanges);
+        _this.props.dispatchChangeUserIdentifiers(userDataChanges);
+      } else {
+        console.log('no changes to submit');
+        // dispatch flashMessage to inform the user that there
+        // are no changes to submit
+      }
+    };
+
+    _this.onSubmitPasswordFormHandler = function (evt) {
+      evt.preventDefault();
+      console.log('password change submit');
     };
 
     _this.state = {
@@ -43442,12 +43484,12 @@ var AccountSettings = function (_Component) {
           { className: 'text-center page-title' },
           'Account Settings'
         ),
-        this.props.gitHubToken ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GitHubAccountSettings__["a" /* default */], {
+        this.props.gitHubToken ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__GitHubAccountSettings__["a" /* default */], {
           username: this.state.newUsername,
           onChangeHandler: this.onChangeHandler,
           onBlurHandler: this.onBlurHandler,
           validationErrors: this.state.validationErrors
-        }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__LocalAccountSettings__["a" /* default */], {
+        }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__LocalAccountSettings__["a" /* default */], {
           username: this.state.newUsername,
           email: this.state.newEmail,
           currentPassword: this.state.currentPassword,
@@ -43455,6 +43497,8 @@ var AccountSettings = function (_Component) {
           confirmNewPassword: this.state.confirmNewPassword,
           onChangeHandler: this.onChangeHandler,
           onBlurHandler: this.onBlurHandler,
+          onSubmitUserFormHandler: this.onSubmitUserFormHandler,
+          onSubmitPasswordFormHandler: this.onSubmitPasswordFormHandler,
           validationErrors: this.state.validationErrors
         })
       );
@@ -43469,7 +43513,8 @@ AccountSettings.propTypes = {
   username: string,
   email: string,
   id: string,
-  dispatchGetCurrentUser: func
+  dispatchGetCurrentUser: func,
+  dispatchChangeUserIdentifiers: func
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -43484,7 +43529,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     dispatchGetCurrentUser: function dispatchGetCurrentUser(id) {
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["c" /* getCurrentUserRequest */])(id));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__Redux_modules_user__["c" /* getCurrentUserRequest */])(id));
+    },
+    dispatchChangeUserIdentifiers: function dispatchChangeUserIdentifiers(userData) {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__Redux_modules_user__["d" /* changeUserIdentifiers */])(userData));
     }
   };
 };
@@ -43549,7 +43597,9 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
       confirmNewPassword = _ref.confirmNewPassword,
       validationErrors = _ref.validationErrors,
       onChangeHandler = _ref.onChangeHandler,
-      onBlurHandler = _ref.onBlurHandler;
+      onBlurHandler = _ref.onBlurHandler,
+      onSubmitUserFormHandler = _ref.onSubmitUserFormHandler,
+      onSubmitPasswordFormHandler = _ref.onSubmitPasswordFormHandler;
 
   console.log('LocalAccountSettings email:', email);
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -43557,7 +43607,7 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
     null,
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'form',
-      { className: 'AccountSettings-form' },
+      { className: 'AccountSettings-form', onSubmit: onSubmitUserFormHandler },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h2',
         { className: 'text-center' },
@@ -43589,7 +43639,7 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'form',
-      { className: 'AccountSettings-form' },
+      { className: 'AccountSettings-form', onSubmit: onSubmitPasswordFormHandler },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h2',
         { className: 'text-center' },
@@ -43644,7 +43694,9 @@ LocalAccountSettings.propTypes = {
   confirmNewPassword: string,
   validationErrors: object,
   onChangeHandler: func,
-  onBlurHandler: func
+  onBlurHandler: func,
+  onSubmitUserFormHandler: func,
+  onSubmitPasswordFormHandler: func
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (LocalAccountSettings);
@@ -44291,7 +44343,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     dispatchLogoutRequest: function dispatchLogoutRequest() {
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["d" /* logoutRequest */])());
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["e" /* logoutRequest */])());
     }
   };
 };
@@ -44797,7 +44849,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["e" /* combineReducers */])({
-  user: __WEBPACK_IMPORTED_MODULE_1__modules_user__["e" /* default */],
+  user: __WEBPACK_IMPORTED_MODULE_1__modules_user__["f" /* default */],
   loginLocal: __WEBPACK_IMPORTED_MODULE_2__modules_loginLocal__["b" /* default */],
   signupLocal: __WEBPACK_IMPORTED_MODULE_3__modules_signupLocal__["b" /* default */],
   flashMessage: __WEBPACK_IMPORTED_MODULE_4__modules_flashMessage__["b" /* default */]
@@ -76910,6 +76962,158 @@ exports.createContext = Script.createContext = function (context) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 847 */,
+/* 848 */,
+/* 849 */,
+/* 850 */,
+/* 851 */,
+/* 852 */,
+/* 853 */,
+/* 854 */,
+/* 855 */,
+/* 856 */,
+/* 857 */,
+/* 858 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var Validator = __webpack_require__(391);
+var isEmpty = __webpack_require__(120);
+
+var _require = __webpack_require__(165),
+    buildErrorsObject = _require.buildErrorsObject;
+
+/**
+ * Validates user settings fields.
+ *
+ * @param {object} data - A user's submitted settings form data
+ * @returns {object} {validationErrors: Object, isValid: Boolean} - errors contains the
+ *   results of all of the validation functions as an array. isValid
+ *   will be true if any error messages are returned from any of the validation
+ *   functions.
+ */
+
+
+function userFormValidation(data) {
+  var validationResults = Object.assign({}, validateNewUsername(data.newUsername), validateNewEmail(data.newEmail));
+
+  // return any error messages, or an empty array
+  var validationErrors = buildErrorsObject(validationResults);
+
+  return {
+    validationErrors: validationErrors,
+    isValid: isEmpty(validationErrors)
+  };
+}
+
+function userChanges(userData, prevUserData) {
+  var userChanges = {};
+  if (userData.newUsername !== prevUserData.username) {
+    userChanges.newUsername = userData.newUsername;
+  }
+  if (userData.newEmail !== prevUserData.email) {
+    userChanges.newEmail = userData.newEmail;
+  }
+  return userChanges;
+}
+
+function passwordFormValidation(data) {
+  var validationResults = Object.assign({}, validateCurrentPassword(data.currentPassword), validateNewPassword(data.newPassword), validateConfirmNewPassword(data.confirmNewPassword));
+
+  var validationErrors = buildErrorsObject(validationResults);
+
+  return {
+    validationErrors: validationErrors,
+    isValid: isEmpty(validationErrors)
+  };
+}
+
+function validateNewUsername(newUsername) {
+  if (typeof newUsername !== 'string') {
+    console.error('validateNewUsername: username must be a string. received:', typeof newUsername === 'undefined' ? 'undefined' : _typeof(newUsername));
+    return { newUsername: 'username validation failed' };
+  }
+  // username shouldn't be empty
+  if (Validator.isEmpty(newUsername)) {
+    return { newUsername: 'A username is required' };
+  }
+  return { newUsername: '' };
+}
+
+function validateNewEmail(newEmail) {
+  if (typeof newEmail !== 'string') {
+    console.error('validateNewEmail: email must be a string. received:', typeof newEmail === 'undefined' ? 'undefined' : _typeof(newEmail));
+    return { newEmail: 'email validation failed' };
+  }
+  // email shouldn't be empty
+  if (Validator.isEmpty(newEmail)) {
+    return { newEmail: 'An email address is required' };
+  }
+  // email should be a valid email address
+  if (!Validator.isEmail(newEmail)) {
+    return { newEmail: 'This email address is not valid' };
+  }
+  return { newEmail: '' };
+}
+
+function validateCurrentPassword(currentPassword) {
+  if (typeof currentPassword !== 'string') {
+    console.error('validateCurrentPassword: password must be a string. received:', typeof currentPassword === 'undefined' ? 'undefined' : _typeof(currentPassword));
+    return { currentPassword: 'password validation failed' };
+  }
+  // password shouldn't be empty
+  if (Validator.isEmpty(currentPassword)) {
+    return { currentPassword: 'A password is required' };
+  }
+  return { currentPassword: '' };
+}
+
+function validateNewPassword(newPassword) {
+  if (typeof newPassword !== 'string' || (typeof currentPassword === 'undefined' ? 'undefined' : _typeof(currentPassword))) {
+    console.error('validateNewPassword: newPassword must be a string. received:', typeof newPassword === 'undefined' ? 'undefined' : _typeof(newPassword));
+    return { newPassword: 'password validation failed' };
+  }
+  // password shouldn't be empty
+  if (Validator.isEmpty(newPassword)) {
+    return { newPassword: 'A new password is required' };
+  }
+
+  return { newPassword: '' };
+}
+
+function validateConfirmNewPassword(newPassword, confirmNewPassword) {
+  if (typeof newPassword !== 'string') {
+    console.error('validateConfirmNewPassword: password must be a string. received:', typeof newPassword === 'undefined' ? 'undefined' : _typeof(newPassword));
+    return { confirmNewPassword: 'confirmPassword validation failed' };
+  }
+  if (typeof confirmNewPassword !== 'string') {
+    console.error('validateConfirmPassword: confirmPassword must be a string. received:', typeof confirmNewPassword === 'undefined' ? 'undefined' : _typeof(confirmNewPassword));
+    return { confirmNewPassword: 'confirmPassword validation failed' };
+  }
+  // confirmPassword shouldn't be empty
+  if (Validator.isEmpty(confirmNewPassword)) {
+    return { confirmNewPassword: 'Please confirm your password' };
+  }
+  // password and confirmNewPassword should match
+  if (!Validator.equals(newPassword, confirmNewPassword)) {
+    return { confirmNewPassword: "Passwords don't match, try again" };
+  }
+  return { confirmNewPassword: '' };
+}
+
+module.exports = {
+  userFormValidation: userFormValidation,
+  userChanges: userChanges,
+  passwordFormValidation: passwordFormValidation,
+  validateNewUsername: validateNewUsername,
+  validateNewEmail: validateNewEmail,
+  validateCurrentPassword: validateCurrentPassword,
+  validateNewPassword: validateNewPassword,
+  validateConfirmNewPassword: validateConfirmNewPassword
+};
 
 /***/ })
 ],[439]);

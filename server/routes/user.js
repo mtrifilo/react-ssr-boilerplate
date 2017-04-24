@@ -15,13 +15,15 @@ router.get('/', authorize, (req, res) => {
 })
 
 /**
- * PUT '/api/user/'
+ * PUT '/api/user/identifiers'
  *
  * Updates an authorized user's information
  */
 
 router.put('/', authorize, (req, res) => {
-  const user = req.currentUser
+  const currentUser = req.currentUser
+  const changes = req.body
+  console.log('changes', changes)
 
   // validate user information
 

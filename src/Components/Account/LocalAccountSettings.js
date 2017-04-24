@@ -11,13 +11,15 @@ const LocalAccountSettings = (
     confirmNewPassword,
     validationErrors,
     onChangeHandler,
-    onBlurHandler
+    onBlurHandler,
+    onSubmitUserFormHandler,
+    onSubmitPasswordFormHandler
   }
 ) => {
   console.log('LocalAccountSettings email:', email)
   return (
     <div>
-      <form className='AccountSettings-form'>
+      <form className='AccountSettings-form' onSubmit={onSubmitUserFormHandler}>
         <h2 className='text-center'>User</h2>
         <Input
           label='Username'
@@ -41,7 +43,7 @@ const LocalAccountSettings = (
           Submit Changes
         </button>
       </form>
-      <form className='AccountSettings-form'>
+      <form className='AccountSettings-form' onSubmit={onSubmitPasswordFormHandler}>
         <h2 className='text-center'>Password</h2>
         <Input
           label='Current Password'
@@ -87,7 +89,9 @@ LocalAccountSettings.propTypes = {
   confirmNewPassword: string,
   validationErrors: object,
   onChangeHandler: func,
-  onBlurHandler: func
+  onBlurHandler: func,
+  onSubmitUserFormHandler: func,
+  onSubmitPasswordFormHandler: func
 }
 
 export default LocalAccountSettings
