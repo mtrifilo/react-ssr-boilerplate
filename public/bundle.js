@@ -43370,7 +43370,7 @@ var AccountSettings = function (_Component) {
     var _this = _possibleConstructorReturn(this, (AccountSettings.__proto__ || Object.getPrototypeOf(AccountSettings)).call(this, props));
 
     _this.onChangeHandler = function (evt) {
-      _this.setState(_defineProperty({}, evt.target.name, evt.value));
+      _this.setState(_defineProperty({}, evt.target.name, evt.target.value));
     };
 
     _this.onBlurHandler = function (evt) {
@@ -43394,6 +43394,8 @@ var AccountSettings = function (_Component) {
     _this.setValidationError = function (validationResult) {
       // set the validtion result to state
       var newValidationErrors = Object.assign({}, _this.state.validationErrors, validationResult);
+      console.log('validationResult', validationResult);
+      console.log('newValidationErrors', newValidationErrors);
       _this.setState({ validationErrors: newValidationErrors });
     };
 
@@ -43420,6 +43422,16 @@ var AccountSettings = function (_Component) {
       this.props.dispatchGetCurrentUser(this.props.id);
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.username) {
+        this.setState({
+          newUsername: nextProps.username,
+          newEmail: nextProps.email
+        });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -43431,14 +43443,19 @@ var AccountSettings = function (_Component) {
           'Account Settings'
         ),
         this.props.gitHubToken ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GitHubAccountSettings__["a" /* default */], {
-          username: this.props.username,
+          username: this.state.newUsername,
           onChangeHandler: this.onChangeHandler,
-          onBlurHandler: this.onBlurHandler
+          onBlurHandler: this.onBlurHandler,
+          validationErrors: this.state.validationErrors
         }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__LocalAccountSettings__["a" /* default */], {
-          username: this.props.username,
-          email: this.props.email,
+          username: this.state.newUsername,
+          email: this.state.newEmail,
+          currentPassword: this.state.currentPassword,
+          newPassword: this.state.newPassword,
+          confirmNewPassword: this.state.confirmNewPassword,
           onChangeHandler: this.onChangeHandler,
-          onBlurHandler: this.onBlurHandler
+          onBlurHandler: this.onBlurHandler,
+          validationErrors: this.state.validationErrors
         })
       );
     }
@@ -43527,74 +43544,93 @@ var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
 var LocalAccountSettings = function LocalAccountSettings(_ref) {
   var username = _ref.username,
       email = _ref.email,
+      currentPassword = _ref.currentPassword,
+      newPassword = _ref.newPassword,
+      confirmNewPassword = _ref.confirmNewPassword,
       validationErrors = _ref.validationErrors,
       onChangeHandler = _ref.onChangeHandler,
       onBlurHandler = _ref.onBlurHandler;
 
   console.log('LocalAccountSettings email:', email);
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'form',
-    { className: 'AccountSettings-form' },
+    'div',
+    null,
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'h2',
-      { className: 'text-center' },
-      'User'
+      'form',
+      { className: 'AccountSettings-form' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h2',
+        { className: 'text-center' },
+        'User'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        label: 'Username',
+        type: 'text',
+        name: 'newUsername',
+        value: username,
+        onChange: onChangeHandler,
+        onBlur: onBlurHandler,
+        validationError: validationErrors.newUsername
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        label: 'Email',
+        type: 'email',
+        name: 'newEmail',
+        value: email,
+        onChange: onChangeHandler,
+        onBlur: onBlurHandler,
+        validationError: validationErrors.newEmail
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { type: 'submit', className: 'btn btn-primary', role: 'button' },
+        'Submit Changes'
+      )
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-      label: 'Username',
-      type: 'text',
-      name: 'newUsername',
-      value: username,
-      onChange: onChangeHandler,
-      onBlur: onBlurHandler,
-      validationError: validationErrors.newUsername
-    }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-      label: 'Email',
-      type: 'email',
-      name: 'newEmail',
-      value: email,
-      onChange: onChangeHandler,
-      onBlur: onBlurHandler,
-      validationError: validationErrors.newEmail
-    }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'h2',
-      { className: 'text-center' },
-      'Password'
-    ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-      label: 'Current Password',
-      type: 'password',
-      name: 'currentPassword',
-      onChange: onChangeHandler,
-      onBlur: onBlurHandler,
-      validationError: validationErrors.currentPassword
-    }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-      label: 'New Password',
-      type: 'password',
-      name: 'newPassword',
-      onChange: onChangeHandler,
-      onBlur: onBlurHandler,
-      validationError: validationErrors.newPassword
-    }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
-      label: 'Confirm New Password',
-      type: 'password',
-      name: 'confirmNewPassword',
-      onChange: onChangeHandler,
-      onBlur: onBlurHandler,
-      validationError: validationErrors.confirmNewPassword
-    }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'button',
-      { type: 'submit', className: 'btn btn-primary', role: 'button' },
-      'Submit Changes'
+      'form',
+      { className: 'AccountSettings-form' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h2',
+        { className: 'text-center' },
+        'Password'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        label: 'Current Password',
+        type: 'password',
+        name: 'currentPassword',
+        value: currentPassword,
+        onChange: onChangeHandler,
+        onBlur: onBlurHandler,
+        validationError: validationErrors.currentPassword
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        label: 'New Password',
+        type: 'password',
+        name: 'newPassword',
+        value: newPassword,
+        onChange: onChangeHandler,
+        onBlur: onBlurHandler,
+        validationError: validationErrors.newPassword
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+        label: 'Confirm New Password',
+        type: 'password',
+        name: 'confirmNewPassword',
+        value: confirmNewPassword,
+        onChange: onChangeHandler,
+        onBlur: onBlurHandler,
+        validationError: validationErrors.confirmNewPassword
+      }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        { type: 'submit', className: 'btn btn-primary', role: 'button' },
+        'Submit Changes'
+      )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'p',
-      { className: 'AccountSettings-delete-link' },
+      { className: 'AccountSettings-delete-link text-center' },
       'Delete Account'
     )
   );
@@ -43603,6 +43639,9 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
 LocalAccountSettings.propTypes = {
   username: string,
   email: string,
+  currentPassword: string,
+  newPassword: string,
+  confirmNewPassword: string,
   validationErrors: object,
   onChangeHandler: func,
   onBlurHandler: func

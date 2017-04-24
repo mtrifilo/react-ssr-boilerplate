@@ -31,7 +31,7 @@ class AccountSettings extends Component {
   }
 
   onChangeHandler = evt => {
-    this.setState({[evt.target.name]: evt.value})
+    this.setState({[evt.target.name]: evt.target.value})
   };
 
   onBlurHandler = evt => {
@@ -64,11 +64,22 @@ class AccountSettings extends Component {
       this.state.validationErrors,
       validationResult
     )
+    console.log('validationResult', validationResult)
+    console.log('newValidationErrors', newValidationErrors)
     this.setState({validationErrors: newValidationErrors})
   };
 
   componentDidMount () {
     this.props.dispatchGetCurrentUser(this.props.id)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.username) {
+      this.setState({
+        newUsername: nextProps.username,
+        newEmail: nextProps.email
+      })
+    }
   }
 
   render () {
@@ -77,15 +88,20 @@ class AccountSettings extends Component {
         <h1 className='text-center page-title'>Account Settings</h1>
         {this.props.gitHubToken
           ? <GitHubAccountSettings
-            username={this.props.username}
+            username={this.state.newUsername}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
+            validationErrors={this.state.validationErrors}
             />
           : <LocalAccountSettings
-            username={this.props.username}
-            email={this.props.email}
+            username={this.state.newUsername}
+            email={this.state.newEmail}
+            currentPassword={this.state.currentPassword}
+            newPassword={this.state.newPassword}
+            confirmNewPassword={this.state.confirmNewPassword}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
+            validationErrors={this.state.validationErrors}
             />}
       </div>
     )
