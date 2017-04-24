@@ -4,9 +4,9 @@ const authorize = require('../auth/authorize.js')
 const router = express.Router()
 
 /**
- * GET '/api/user/:id'
+ * GET '/api/user/'
  *
- * Gets username, email, password for an authorized user
+ * Gets a logged in user's username, email, password
  */
 
 router.get('/', authorize, (req, res) => {

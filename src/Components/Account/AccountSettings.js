@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings'
-import {getUserRequest} from '../../Redux/modules/user'
+import {getCurrentUserRequest} from '../../Redux/modules/user'
 const {string, func} = React.PropTypes
 
 class AccountSettings extends Component {
@@ -17,8 +17,12 @@ class AccountSettings extends Component {
     }
   }
 
+  onChangeHandler = (evt) => {
+    this.setState({[evt.target.name]: evt.value})
+  }
+
   componentDidMount () {
-    this.props.dispatchGetUser(this.props.id)
+    this.props.dispatchGetCurrentUser(this.props.id)
   }
 
   render () {
@@ -26,10 +30,14 @@ class AccountSettings extends Component {
       <div>
         <h1 className='text-center page-title'>Account Settings</h1>
         {this.props.gitHubToken
-          ? <GitHubAccountSettings username={this.props.username} />
+          ? <GitHubAccountSettings
+            username={this.props.username}
+            onChangeHandler={this.onChangeHandler}
+            />
           : <LocalAccountSettings
             username={this.props.username}
             email={this.props.email}
+            onChangeHandler={this.onChangeHandler}
             />}
       </div>
     )
@@ -41,7 +49,7 @@ AccountSettings.propTypes = {
   username: string,
   email: string,
   id: string,
-  dispatchGetUser: func
+  dispatchGetCurrentUser: func
 }
 
 const mapStateToProps = state => {
@@ -55,8 +63,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchGetUser (id) {
-      dispatch(getUserRequest(id))
+    dispatchGetCurrentUser (id) {
+      dispatch(getCurrentUserRequest(id))
     }
   }
 }

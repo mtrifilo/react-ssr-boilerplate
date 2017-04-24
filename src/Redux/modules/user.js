@@ -43,20 +43,20 @@ function logoutUserReducer (state, action) {
   return Object.assign({}, state, {user: {}, isAuthenticated: false})
 }
 
-export function getUserRequest (id) {
+export function getCurrentUserRequest (id) {
   return dispatch => {
     return axios
-      .get(`/api/user/${id}`)
+      .get(`/api/user/`)
       .then(user => {
-        dispatch(getUser(user.data))
+        dispatch(getCurrentUser(user.data))
       })
   }
 }
 
-export function getUser (user) {
+export function getCurrentUser (user) {
   return {type: GET_USER, user}
 }
-function getUserReducer (state, action) {
+function getCurrentUserReducer (state, action) {
   return Object.assign({}, state, {userSettings: action.user})
 }
 
@@ -67,7 +67,7 @@ export default function user (state = DEFAULT_STATE, action) {
     case LOGOUT_USER:
       return logoutUserReducer(state, action)
     case GET_USER:
-      return getUserReducer(state, action)
+      return getCurrentUserReducer(state, action)
     default:
       return state
   }

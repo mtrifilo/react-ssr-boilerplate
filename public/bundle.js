@@ -12711,8 +12711,8 @@ function forEach(xs, f) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = setUser;
 /* harmony export (immutable) */ __webpack_exports__["d"] = logoutRequest;
 /* harmony export (immutable) */ __webpack_exports__["b"] = logoutUser;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getUserRequest;
-/* unused harmony export getUser */
+/* harmony export (immutable) */ __webpack_exports__["c"] = getCurrentUserRequest;
+/* unused harmony export getCurrentUser */
 /* harmony export (immutable) */ __webpack_exports__["e"] = user;
 
 
@@ -12761,18 +12761,18 @@ function logoutUserReducer(state, action) {
   return Object.assign({}, state, { user: {}, isAuthenticated: false });
 }
 
-function getUserRequest(id) {
+function getCurrentUserRequest(id) {
   return function (dispatch) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/user/' + id).then(function (user) {
-      dispatch(getUser(user.data));
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/user/').then(function (user) {
+      dispatch(getCurrentUser(user.data));
     });
   };
 }
 
-function getUser(user) {
+function getCurrentUser(user) {
   return { type: GET_USER, user: user };
 }
-function getUserReducer(state, action) {
+function getCurrentUserReducer(state, action) {
   return Object.assign({}, state, { userSettings: action.user });
 }
 
@@ -12786,7 +12786,7 @@ function user() {
     case LOGOUT_USER:
       return logoutUserReducer(state, action);
     case GET_USER:
-      return getUserReducer(state, action);
+      return getCurrentUserReducer(state, action);
     default:
       return state;
   }
@@ -43341,6 +43341,8 @@ var AccountPage = function AccountPage(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__ = __webpack_require__(41);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -43364,6 +43366,10 @@ var AccountSettings = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (AccountSettings.__proto__ || Object.getPrototypeOf(AccountSettings)).call(this, props));
 
+    _this.onChangeHandler = function (evt) {
+      _this.setState(_defineProperty({}, evt.target.name, evt.value));
+    };
+
     _this.state = {
       newUsername: '',
       newEmail: '',
@@ -43377,7 +43383,7 @@ var AccountSettings = function (_Component) {
   _createClass(AccountSettings, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.dispatchGetUser(this.props.id);
+      this.props.dispatchGetCurrentUser(this.props.id);
     }
   }, {
     key: 'render',
@@ -43390,9 +43396,13 @@ var AccountSettings = function (_Component) {
           { className: 'text-center page-title' },
           'Account Settings'
         ),
-        this.props.gitHubToken ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GitHubAccountSettings__["a" /* default */], { username: this.props.username }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__LocalAccountSettings__["a" /* default */], {
+        this.props.gitHubToken ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__GitHubAccountSettings__["a" /* default */], {
           username: this.props.username,
-          email: this.props.email
+          onChangeHandler: this.onChangeHandler
+        }) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__LocalAccountSettings__["a" /* default */], {
+          username: this.props.username,
+          email: this.props.email,
+          onChangeHandler: this.onChangeHandler
         })
       );
     }
@@ -43406,7 +43416,7 @@ AccountSettings.propTypes = {
   username: string,
   email: string,
   id: string,
-  dispatchGetUser: func
+  dispatchGetCurrentUser: func
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -43420,8 +43430,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    dispatchGetUser: function dispatchGetUser(id) {
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["c" /* getUserRequest */])(id));
+    dispatchGetCurrentUser: function dispatchGetCurrentUser(id) {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["c" /* getCurrentUserRequest */])(id));
     }
   };
 };
@@ -43472,12 +43482,15 @@ GitHubAccountSettings.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Common_Input__ = __webpack_require__(71);
 
 
-var string = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes.string;
+var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
+    string = _React$PropTypes.string,
+    func = _React$PropTypes.func;
 
 
 var LocalAccountSettings = function LocalAccountSettings(_ref) {
   var username = _ref.username,
-      email = _ref.email;
+      email = _ref.email,
+      onChangeHandler = _ref.onChangeHandler;
 
   console.log('LocalAccountSettings email:', email);
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -43488,7 +43501,13 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
       { className: 'text-center' },
       'User'
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Username', type: 'text', name: 'newUsername', value: username }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], {
+      label: 'Username',
+      type: 'text',
+      name: 'newUsername',
+      value: username,
+      onChange: onChangeHandler
+    }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Common_Input__["a" /* default */], { label: 'Email', type: 'email', name: 'newEmail', value: email }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'h2',
@@ -43513,7 +43532,8 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
 
 LocalAccountSettings.propTypes = {
   username: string,
-  email: string
+  email: string,
+  onChangeHandler: func
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (LocalAccountSettings);
