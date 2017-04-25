@@ -31,6 +31,7 @@ router.get('/', authorize, (req, res) => {
 router.put('/identifiers', authorize, (req, res) => {
   const currentUser = req.currentUser
   const changes = req.body
+  console.log('currentUser', currentUser)
   console.log('changes', changes)
 
   // validate user information
@@ -56,20 +57,41 @@ router.put('/identifiers', authorize, (req, res) => {
   }
 
   if (changes.newUsername) {
-    verifyUniqueUsername(changes.newUsername)
+    changeUsername(currentUser._id, changes.newUsername)
+      .then(result => {
+        console.log('*result:', result)
+        if (result.updated) {
+          return res.json(result)
+        }
+        return res.status(result.status).json(result.error)
+      })
+      .catch(err => {
+        console.error('user.js: failed to change username:', err)
+      })
+  }
+
+  if (changes.newEmail) {
+    verifyUniqueEmail(changes.newEmail)
       .then(result => {
         if (!result.isUnique) {
           return res.status(400).json(result.error)
         }
-        changeUsername(currentUser.sub, changes.newUsername)
+        changeEmail(currentUser._id, changes.newEmail)
           .then(result => {
             if (result.updated) {
-              console.log('updated username!', result.doc)
+              console.log('updated email!', result.doc)
               return res.json(result)
             }
-            console.error('failed to update username:', result)
+            console.error('failed to update email:', result)
             return res.status(500).json(result.error)
           })
+          .catch(err => {
+            console.error('failed to update email:', err)
+            return res.status(500).json(err)
+          })
+      })
+      .catch(err => {
+        console.error('user.js: failed to verify unique email:', err)
       })
   }
 })

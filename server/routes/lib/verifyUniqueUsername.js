@@ -6,7 +6,7 @@ function verifyUniqueUsername (newUsername) {
   return User.findOne({ username: newUsername })
     .exec()
     .then(user => {
-      if (user.username === newUsername) {
+      if (user && user.username === newUsername) {
         error.newUsername = 'This username is taken'
       }
       return {

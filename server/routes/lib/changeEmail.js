@@ -1,9 +1,10 @@
 const User = require('../../db/models/User')
 
-function changeUsername (id, newEmail) {
+function changeEmail (id, newEmail) {
   return User.findOneAndUpdate(
     {_id: id},
-    {$set: {email: newEmail}}
+    {$set: {email: newEmail}},
+    {new: true}
   )
   .then(doc => {
     return {updated: true, doc}
@@ -14,4 +15,4 @@ function changeUsername (id, newEmail) {
   })
 }
 
-module.exports = {changeUsername}
+module.exports = {changeEmail}

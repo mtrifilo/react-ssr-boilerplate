@@ -6,7 +6,7 @@ function verifyUniqueEmail (newEmail) {
   return User.findOne({ email: newEmail })
     .exec()
     .then(user => {
-      if (user.email === newEmail) {
+      if (user && user.email === newEmail) {
         error.newEmail = 'This email is already registered'
       }
       return {
