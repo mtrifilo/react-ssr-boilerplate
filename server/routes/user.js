@@ -1,10 +1,9 @@
 const express = require('express')
 const authorize = require('../auth/authorize.js')
 const {validateIdentifiers} = require('../validation/identifiersValidation')
-const {verifyUniqueUsername} = require('./lib/verifyUniqueUsername')
-const {verifyUniqueEmail} = require('./lib/verifyUniqueEmail')
 const {changeUsername} = require('./lib/changeUsername')
 const {changeEmail} = require('./lib/changeEmail')
+const {changeUsernameAndEmail} = require('./lib/changeUsernameAndEmail')
 const router = express.Router()
 
 /**
@@ -42,17 +41,18 @@ router.put('/identifiers', authorize, (req, res) => {
   }
 
   if (changes.newUsername && changes.newEmail) {
-    verifyUniqueUsername(changes.newUsername)
+    changeUsernameAndEmail(currentUser._id, changes.newUsername, changes.newEmail)
       .then(result => {
-        if (!result.isUnique) {
-          return res.status(400).json(result.error)
+        if (result.updated) {
+          const updatedUsername = result.doc.username
+          const updatedEmail = result.doc.email
+          return res.json({updatedUsername, updatedEmail})
         }
-        return verifyUniqueEmail(changes.newEmail)
+        return res.status(result.status).json(result.error)
       })
-      .then(result => {
-        if (!result.isUnique) {
-          return res.status(400).json(result.error)
-        }
+      .catch(err => {
+        console.error('user.js: failed to change username and email')
+        return res.status(500).json(err)
       })
   }
 
@@ -67,6 +67,7 @@ router.put('/identifiers', authorize, (req, res) => {
       })
       .catch(err => {
         console.error('user.js: failed to change username:', err)
+        return res.status(500).json(err)
       })
   }
 
