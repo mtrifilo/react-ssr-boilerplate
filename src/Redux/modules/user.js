@@ -1,5 +1,6 @@
 import axios from 'axios'
 import removeToken from '../../auth/removeToken'
+import {displayFlashMessage} from './flashMessage'
 
 const DEFAULT_STATE = {
   user: {},
@@ -43,7 +44,7 @@ function logoutUserReducer (state, action) {
   return Object.assign({}, state, {user: {}, isAuthenticated: false})
 }
 
-export function getCurrentUserRequest (id) {
+export function getCurrentUserRequest () {
   return dispatch => {
     return axios.get(`/api/user/`).then(user => {
       dispatch(getCurrentUser(user.data))
@@ -58,10 +59,17 @@ function getCurrentUserReducer (state, action) {
   return Object.assign({}, state, {userSettings: action.user})
 }
 
-export function changeUserIdentifiers (userData) {
+export function changeUserIdentifiers (userData, currentUser) {
   return dispatch => {
-    return axios.put('/api/user/identifiers', userData).then(user => {
-      console.log('changeUserIdentifiers: success!', user)
+    return axios.put('/api/user/identifiers', userData).then(res => {
+      const updatedUsername = res.data.updatedUsername
+      const updatedUser = Object.assign({}, currentUser, { username: updatedUsername })
+      console.log('changeUserIdentifiers: success!', updatedUser)
+      dispatch(displayFlashMessage({
+        message: 'Updated successfully! Please login.',
+        level: 'success'
+      }))
+      dispatch(logoutRequest())
     })
   }
 }

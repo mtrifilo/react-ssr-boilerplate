@@ -9,13 +9,13 @@ class Authorize extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      redirectHome: false,
+      redirectToLogin: false,
       mounted: false
     }
   }
   componentWillReceiveProps (nextProps) {
     if (!nextProps.isAuthenticated) {
-      this.setState({redirectHome: true})
+      this.setState({redirectToLogin: true})
     }
   }
 
@@ -24,15 +24,15 @@ class Authorize extends Component {
     if (this.props.tokenExp < currentTime) {
       this.props.dispatchLogout()
     } else if (!this.props.isAuthenticated) {
-      this.setState({redirectHome: true})
+      this.setState({redirectToLogin: true})
     } else {
       this.setState({mounted: true})
     }
   }
 
   render () {
-    if (this.state.redirectHome) {
-      return <Redirect to='/' />
+    if (this.state.redirectToLogin) {
+      return <Redirect to='/login' />
     }
 
     let children = null

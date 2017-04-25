@@ -16,7 +16,7 @@ import {
   validateNewPassword,
   validateConfirmNewPassword
 } from '../../../server/validation/accountSettingsValidation'
-const {string, func} = React.PropTypes
+const {string, func, object} = React.PropTypes
 
 class AccountSettings extends Component {
   constructor (props) {
@@ -90,7 +90,7 @@ class AccountSettings extends Component {
 
     if (!isEmpty(userDataChanges)) {
       console.log('userDataChanges', userDataChanges)
-      this.props.dispatchChangeUserIdentifiers(userDataChanges)
+      this.props.dispatchChangeUserIdentifiers(userDataChanges, this.props.user)
     } else {
       console.log('no changes to submit')
       // dispatch flashMessage to inform the user that there
@@ -104,7 +104,7 @@ class AccountSettings extends Component {
   }
 
   componentDidMount () {
-    this.props.dispatchGetCurrentUser(this.props.id)
+    this.props.dispatchGetCurrentUser()
     if (this.props.username) {
       this.setState({
         newUsername: this.props.username,
@@ -154,7 +154,7 @@ AccountSettings.propTypes = {
   gitHubToken: string,
   username: string,
   email: string,
-  id: string,
+  user: object,
   dispatchGetCurrentUser: func,
   dispatchChangeUserIdentifiers: func
 }
@@ -164,17 +164,18 @@ const mapStateToProps = state => {
     gitHubToken: state.user.user.gitHubAccessToken,
     username: state.user.userSettings.username,
     email: state.user.userSettings.email,
-    id: state.user.user.sub
+    id: state.user.user.sub,
+    user: state.user.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchGetCurrentUser (id) {
-      dispatch(getCurrentUserRequest(id))
+    dispatchGetCurrentUser () {
+      dispatch(getCurrentUserRequest())
     },
-    dispatchChangeUserIdentifiers (userData) {
-      dispatch(changeUserIdentifiers(userData))
+    dispatchChangeUserIdentifiers (userData, currentUser) {
+      dispatch(changeUserIdentifiers(userData, currentUser))
     }
   }
 }

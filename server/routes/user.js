@@ -61,7 +61,8 @@ router.put('/identifiers', authorize, (req, res) => {
       .then(result => {
         console.log('*result:', result)
         if (result.updated) {
-          return res.json(result)
+          const updatedUsername = result.doc.username
+          return res.json({updatedUsername})
         }
         return res.status(result.status).json(result.error)
       })
