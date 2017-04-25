@@ -2,7 +2,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router'
-const {bool, string, object} = React.PropTypes
+import {logoutUser} from '../../Redux/modules/user'
+const {bool, string, object, number, func} = React.PropTypes
 
 class Authorize extends Component {
   constructor (props) {
@@ -19,7 +20,10 @@ class Authorize extends Component {
   }
 
   componentDidMount () {
-    if (!this.props.isAuthenticated) {
+    const currentTime = Date.now() / 1000
+    if (this.props.tokenExp < currentTime) {
+      this.props.dispatchLogout()
+    } else if (!this.props.isAuthenticated) {
       this.setState({redirectHome: true})
     } else {
       this.setState({mounted: true})
@@ -50,14 +54,25 @@ class Authorize extends Component {
 Authorize.propTypes = {
   isAuthenticated: bool,
   username: string,
-  children: object
+  children: object,
+  tokenExp: number,
+  dispatchLogout: func
 }
 
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.user.isAuthenticated,
-    username: state.user.user.username
+    username: state.user.user.username,
+    tokenExp: state.user.user.exp
   }
 }
 
-export default connect(mapStateToProps)(Authorize)
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatchLogout () {
+      dispatch(logoutUser())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Authorize)

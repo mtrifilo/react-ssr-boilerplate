@@ -19157,6 +19157,7 @@ module.exports = { buildErrorsObject: buildErrorsObject };
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__ = __webpack_require__(41);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19169,10 +19170,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var _React$PropTypes = __WEBPACK_IMPORTED_MODULE_0_react___default.a.PropTypes,
     bool = _React$PropTypes.bool,
     string = _React$PropTypes.string,
-    object = _React$PropTypes.object;
+    object = _React$PropTypes.object,
+    number = _React$PropTypes.number,
+    func = _React$PropTypes.func;
 
 var Authorize = function (_Component) {
   _inherits(Authorize, _Component);
@@ -19199,7 +19203,10 @@ var Authorize = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (!this.props.isAuthenticated) {
+      var currentTime = Date.now() / 1000;
+      if (this.props.tokenExp < currentTime) {
+        this.props.dispatchLogout();
+      } else if (!this.props.isAuthenticated) {
         this.setState({ redirectHome: true });
       } else {
         this.setState({ mounted: true });
@@ -19234,17 +19241,28 @@ var Authorize = function (_Component) {
 Authorize.propTypes = {
   isAuthenticated: bool,
   username: string,
-  children: object
+  children: object,
+  tokenExp: number,
+  dispatchLogout: func
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isAuthenticated: state.user.isAuthenticated,
-    username: state.user.user.username
+    username: state.user.user.username,
+    tokenExp: state.user.user.exp
   };
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps)(Authorize));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    dispatchLogout: function dispatchLogout() {
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["a" /* logoutUser */])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(Authorize));
 
 /***/ }),
 /* 167 */
