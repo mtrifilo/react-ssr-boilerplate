@@ -13,8 +13,14 @@ const App = props => {
   if (localStorage.token) {
     setTokenToHeaders(localStorage.token)
     const decodedToken = jwt.decode(localStorage.token)
-    console.log('ClientApp: decodedToken', decodedToken)
-    store.dispatch(setUser(decodedToken))
+    const currentTime = Date.now() / 1000
+
+    if (decodedToken.exp < currentTime) {
+      store.dispatch(logoutUser())
+    } else {
+      console.log('ClientApp: decodedToken', decodedToken)
+      store.dispatch(setUser(decodedToken))
+    }
   } else {
     store.dispatch(logoutUser())
   }

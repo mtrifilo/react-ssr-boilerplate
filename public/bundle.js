@@ -12708,9 +12708,9 @@ function forEach(xs, f) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_removeToken__ = __webpack_require__(459);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_removeToken___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__auth_removeToken__);
-/* harmony export (immutable) */ __webpack_exports__["a"] = setUser;
+/* harmony export (immutable) */ __webpack_exports__["b"] = setUser;
 /* harmony export (immutable) */ __webpack_exports__["e"] = logoutRequest;
-/* harmony export (immutable) */ __webpack_exports__["b"] = logoutUser;
+/* harmony export (immutable) */ __webpack_exports__["a"] = logoutUser;
 /* harmony export (immutable) */ __webpack_exports__["c"] = getCurrentUserRequest;
 /* unused harmony export getCurrentUser */
 /* harmony export (immutable) */ __webpack_exports__["d"] = changeUserIdentifiers;
@@ -19310,7 +19310,7 @@ function loginRequest(userData) {
 
       var user = __WEBPACK_IMPORTED_MODULE_1__auth_prepareUserFromToken___default()(res.data.token);
       console.log('user:', user);
-      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__user__["a" /* setUser */])(user));
+      dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__user__["b" /* setUser */])(user));
       dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__flashMessage__["a" /* displayFlashMessage */])({
         message: 'You are logged in. Welcome back!',
         level: 'success'
@@ -37759,10 +37759,16 @@ var App = function App(props) {
   if (localStorage.token) {
     __WEBPACK_IMPORTED_MODULE_7__auth_setTokenToHeaders___default()(localStorage.token);
     var decodedToken = __WEBPACK_IMPORTED_MODULE_8_jsonwebtoken___default.a.decode(localStorage.token);
-    console.log('ClientApp: decodedToken', decodedToken);
-    __WEBPACK_IMPORTED_MODULE_3__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["a" /* setUser */])(decodedToken));
+    var currentTime = Date.now() / 1000;
+
+    if (decodedToken.exp < currentTime) {
+      __WEBPACK_IMPORTED_MODULE_3__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["a" /* logoutUser */])());
+    } else {
+      console.log('ClientApp: decodedToken', decodedToken);
+      __WEBPACK_IMPORTED_MODULE_3__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["b" /* setUser */])(decodedToken));
+    }
   } else {
-    __WEBPACK_IMPORTED_MODULE_3__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["b" /* logoutUser */])());
+    __WEBPACK_IMPORTED_MODULE_3__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Redux_modules_user__["a" /* logoutUser */])());
   }
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* Provider */],
@@ -44176,7 +44182,7 @@ var SetToken = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var user = __WEBPACK_IMPORTED_MODULE_4__auth_prepareUserFromToken___default()(this.props.match.params.token);
-      __WEBPACK_IMPORTED_MODULE_2__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["a" /* setUser */])(user));
+      __WEBPACK_IMPORTED_MODULE_2__Redux_Store__["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__Redux_modules_user__["b" /* setUser */])(user));
       this.setState({ loading: false });
     }
   }, {
