@@ -105,6 +105,12 @@ class AccountSettings extends Component {
 
   componentDidMount () {
     this.props.dispatchGetCurrentUser(this.props.id)
+    if (this.props.username) {
+      this.setState({
+        newUsername: this.props.username,
+        newEmail: this.props.email
+      })
+    }
   }
 
   componentWillReceiveProps (nextProps) {

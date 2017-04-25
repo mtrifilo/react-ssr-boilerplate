@@ -16,7 +16,6 @@ const LocalAccountSettings = (
     onSubmitPasswordFormHandler
   }
 ) => {
-  console.log('LocalAccountSettings email:', email)
   return (
     <div>
       <form className='AccountSettings-form' onSubmit={onSubmitUserFormHandler}>

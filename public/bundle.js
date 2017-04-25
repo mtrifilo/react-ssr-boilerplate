@@ -43486,6 +43486,12 @@ var AccountSettings = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.dispatchGetCurrentUser(this.props.id);
+      if (this.props.username) {
+        this.setState({
+          newUsername: this.props.username,
+          newEmail: this.props.email
+        });
+      }
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -43625,7 +43631,6 @@ var LocalAccountSettings = function LocalAccountSettings(_ref) {
       onSubmitUserFormHandler = _ref.onSubmitUserFormHandler,
       onSubmitPasswordFormHandler = _ref.onSubmitPasswordFormHandler;
 
-  console.log('LocalAccountSettings email:', email);
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     null,
