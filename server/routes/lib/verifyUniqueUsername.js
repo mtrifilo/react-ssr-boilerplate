@@ -1,4 +1,4 @@
-const User = require('../db/models/User')
+const User = require('../../db/models/User')
 const isEmpty = require('lodash/isEmpty')
 
 function verifyUniqueUsername (newUsername) {
