@@ -19,6 +19,10 @@ router.get('/', authorize, (req, res) => {
  * PUT '/api/user/identifiers'
  *
  * Updates an authorized user's information
+ * 
+ * req.body's payload is an object containing an updated username,
+ * email, or both.
+ * { newUsername: username, newEmail: email@sample.com }
  */
 
 router.put('/identifiers', authorize, (req, res) => {
