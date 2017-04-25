@@ -39,7 +39,7 @@ function changeUsername (id, newUsername) {
           })
       })
       .catch(err => {
-        console.error('user.js: failed to verify unique user:', err)
+        console.error('changeUsername.js: failed to verify unique username:', err)
         return reject(err)
       })
   })

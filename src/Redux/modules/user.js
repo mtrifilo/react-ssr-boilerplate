@@ -63,7 +63,14 @@ export function changeUserIdentifiers (userData, currentUser) {
   return dispatch => {
     return axios.put('/api/user/identifiers', userData).then(res => {
       const updatedUsername = res.data.updatedUsername
-      const updatedUser = Object.assign({}, currentUser, { username: updatedUsername })
+      const updatedEmail = res.data.updatedEmail
+      let updatedUser = {}
+      if (updatedUsername) {
+        updatedUser = Object.assign({}, currentUser, { username: updatedUsername })
+      }
+      if (updatedEmail) {
+        updatedUser = Object.assign({}, currentUser, { email: updatedEmail })
+      }
       console.log('changeUserIdentifiers: success!', updatedUser)
       dispatch(displayFlashMessage({
         message: 'Updated successfully! Please login.',
