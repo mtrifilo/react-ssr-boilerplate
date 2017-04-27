@@ -25,6 +25,7 @@ UserSchema.pre('save', function saveHook (next) {
   if (!this.isModified('password')) {
     return next()
   }
+  console.log('User.js: password updated! hashing...')
   return hashPassword(this, next)
 })
 

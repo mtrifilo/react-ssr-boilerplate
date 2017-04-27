@@ -1,6 +1,8 @@
 const express = require('express')
 const authorize = require('../auth/authorize.js')
+const User = require('../db/models/User')
 const {validateIdentifiers} = require('../validation/identifiersValidation')
+const {passwordFormValidation} = require('../validation/accountSettingsValidation')
 const {changeUsername} = require('./lib/changeUsername')
 const {changeEmail} = require('./lib/changeEmail')
 const {changeUsernameAndEmail} = require('./lib/changeUsernameAndEmail')
@@ -84,6 +86,39 @@ router.put('/identifiers', authorize, (req, res) => {
         console.error('user.js: failed to change email:', err)
       })
   }
+})
+
+/**
+ * PUT '/api/user/password'
+ *
+ * Updates an authorized user's password
+ *
+ * req.body's payload is an object containing the user's current password,
+ * new password, and new password confirmation
+ *
+ * example: { currentPassword, newPassword, confirmNewPassword }
+ */
+
+router.put('/password', authorize, (req, res) => {
+  const currentUser = req.currentUser
+  const passwordData = req.body
+  const validationResults = passwordFormValidation(passwordData)
+
+  if (!validationResults.isValid) {
+    return res.status(400).json(validationResults.validationErrors)
+  }
+
+  User.findOneAndUpdate(
+    {_id: currentUser._id},
+    {$set: {password: passwordData.newPassword}},
+    {new: true}
+  ).then(doc => {
+    console.log('password updated!:', doc)
+    return res.json({success: true})
+  }).catch(err => {
+    console.error('Failed to update password:', err)
+    return res.status(500).json(err)
+  })
 })
 
 module.exports = router
