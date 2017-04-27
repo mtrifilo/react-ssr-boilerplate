@@ -81,6 +81,25 @@ export function changeUserIdentifiers (userData, currentUser) {
   }
 }
 
+export function changeUserPassword (passwordData) {
+  return dispatch => {
+    return axios.put('/api/user/password', passwordData).then(res => {
+      console.log('changeUserPassword: res.data', res.data)
+      if (res.data && res.data.success) {
+        dispatch(displayFlashMessage({
+          message: 'Password updated! Please login.',
+          level: 'success'
+        }))
+        return dispatch(logoutRequest())
+      }
+      return dispatch(displayFlashMessage({
+        message: 'Failed to update password.',
+        level: 'error'
+      }))
+    })
+  }
+}
+
 export default function user (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case SET_USER:

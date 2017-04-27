@@ -87,7 +87,7 @@ class AccountSettings extends Component {
       return this.setValidationError(validation.validationErrors)
     }
 
-    // only include field(s) that are different from a user's 
+    // only include field(s) that are different from a user's
     // current username or email
     const userDataChanges = userChanges(userData, prevUserData)
 
