@@ -10,6 +10,7 @@ import {
 import {
   userFormValidation,
   userChanges,
+  passwordFormValidation,
   validateNewUsername,
   validateNewEmail,
   validateCurrentPassword,
@@ -100,6 +101,14 @@ class AccountSettings extends Component {
 
   onSubmitPasswordFormHandler = evt => {
     evt.preventDefault()
+    const {currentPassword, newPassword, confirmNewPassword} = this.state
+    const passwordData = {currentPassword, newPassword, confirmNewPassword}
+
+    const validation = passwordFormValidation(passwordData)
+
+    if (!validation.isValid) {
+      return this.setValidationError(validation.validationErrors)
+    }
     console.log('password change submit')
   }
 

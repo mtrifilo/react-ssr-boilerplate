@@ -104,7 +104,7 @@ function validateCurrentPassword (currentPassword) {
 }
 
 function validateNewPassword (newPassword) {
-  if (typeof newPassword !== 'string' || typeof currentPassword) {
+  if (typeof newPassword !== 'string') {
     console.error(
       'validateNewPassword: newPassword must be a string. received:',
       typeof newPassword,
