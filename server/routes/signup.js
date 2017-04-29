@@ -1,8 +1,8 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
 const {signupFormValidation} = require('../validation/signupFormValidation')
+const {hashPassword} = require('./lib/hashPassword')
 const router = express.Router()
 
 /**
@@ -104,18 +104,6 @@ function saveNewUser (userData) {
     })
     .catch(err => {
       console.error('signup.js: saveNewuser failed', err)
-      return {error: err}
-    })
-}
-
-function hashPassword (password) {
-  return bcrypt
-    .hash(password, 10)
-    .then(hashedPassword => {
-      return {hashedPassword}
-    })
-    .catch(err => {
-      console.error('signup.js: hashPassword failed', err)
       return {error: err}
     })
 }
