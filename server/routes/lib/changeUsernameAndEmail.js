@@ -8,13 +8,13 @@ function changeUsernameAndEmailInDocument (id, newUsername, newEmail) {
     {$set: {email: newEmail, username: newUsername}},
     {new: true}
   )
-  .then(doc => {
-    return {updated: true, doc}
-  })
-  .catch(err => {
-    console.error('changeUsernameAndEmail.js:', err)
-    return {updated: false, error: err}
-  })
+    .then(doc => {
+      return {updated: true, doc}
+    })
+    .catch(err => {
+      console.error('changeUsernameAndEmail.js:', err)
+      return {updated: false, error: err}
+    })
 }
 
 function changeUsernameAndEmail (id, newUsername, newEmail) {
@@ -41,7 +41,10 @@ function changeUsernameAndEmail (id, newUsername, newEmail) {
         return resolve({error: result.error, status: 500})
       })
       .catch(err => {
-        console.error('changeUsernameAndEmail.js: failed to update username and email', err)
+        console.error(
+          'changeUsernameAndEmail.js: failed to update username and email',
+          err
+        )
         return reject(err)
       })
   })

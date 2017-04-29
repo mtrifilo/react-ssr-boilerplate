@@ -1,4 +1,5 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
 const {signupFormValidation} = require('../validation/signupFormValidation')
@@ -11,6 +12,7 @@ const router = express.Router()
  */
 router.post('/', (req, res) => {
   const userData = req.body
+  const {username, email, password} = req.body
   const {validationErrors, isValid} = signupFormValidation(userData)
   if (!isValid) {
     return res.status(400).json({
@@ -26,17 +28,31 @@ router.post('/', (req, res) => {
       // and pass false to newUser in the next .then call.
       if (!result.isUnique) {
         res.status(400).json(result.duplicateUserError)
-        return false
+        throw result.duplicateUserError
       }
-      return saveNewUser(userData)
+      return hashPassword(password)
     })
-    .then(newUser => {
-      if (newUser) {
-        return res.status(201).json(newUser)
+    .then(result => {
+      if (result.error) {
+        res.status(500).json({error: result.error})
+        throw result.error
       }
+      return saveNewUser({
+        username,
+        email,
+        password: result.hashedPassword
+      })
+    })
+    .then(result => {
+      if (result.error) {
+        res.status(500).json({error: result.error})
+        throw result.error
+      }
+      return res.status(201).json({newUser: result.newUser})
     })
     .catch(err => {
       console.log('signup.js: Signup failed', err)
+      res.status(500).json(err)
       return err
     })
 })
@@ -84,11 +100,23 @@ function saveNewUser (userData) {
   return user
     .save()
     .then(user => {
-      return user
+      return {newUser: user}
     })
     .catch(err => {
       console.error('signup.js: saveNewuser failed', err)
-      return err
+      return {error: err}
+    })
+}
+
+function hashPassword (password) {
+  return bcrypt
+    .hash(password, 10)
+    .then(hashedPassword => {
+      return {hashedPassword}
+    })
+    .catch(err => {
+      console.error('signup.js: hashPassword failed', err)
+      return {error: err}
     })
 }
 

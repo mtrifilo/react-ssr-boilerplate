@@ -7,13 +7,13 @@ function changeEmailInDocument (id, newEmail) {
     {$set: {email: newEmail}},
     {new: true}
   )
-  .then(doc => {
-    return {updated: true, doc}
-  })
-  .catch(err => {
-    console.error('changeEmail.js:', err)
-    return {updated: false, error: err}
-  })
+    .then(doc => {
+      return {updated: true, doc}
+    })
+    .catch(err => {
+      console.error('changeEmail.js:', err)
+      return {updated: false, error: err}
+    })
 }
 
 function changeEmail (id, newEmail) {

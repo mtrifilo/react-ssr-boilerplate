@@ -7,14 +7,14 @@ function changeUsernameInDocument (id, newUsername) {
     {$set: {username: newUsername}},
     {new: true}
   )
-  .then(doc => {
-    console.log('changeUsername.js: doc', doc)
-    return {updated: true, doc}
-  })
-  .catch(err => {
-    console.error('changeUsername.js:', err)
-    return {updated: false, error: err}
-  })
+    .then(doc => {
+      console.log('changeUsername.js: doc', doc)
+      return {updated: true, doc}
+    })
+    .catch(err => {
+      console.error('changeUsername.js:', err)
+      return {updated: false, error: err}
+    })
 }
 
 function changeUsername (id, newUsername) {
@@ -39,7 +39,10 @@ function changeUsername (id, newUsername) {
           })
       })
       .catch(err => {
-        console.error('changeUsername.js: failed to verify unique username:', err)
+        console.error(
+          'changeUsername.js: failed to verify unique username:',
+          err
+        )
         return reject(err)
       })
   })

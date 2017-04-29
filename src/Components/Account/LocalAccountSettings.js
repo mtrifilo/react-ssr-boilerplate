@@ -42,7 +42,10 @@ const LocalAccountSettings = (
           Submit Changes
         </button>
       </form>
-      <form className='AccountSettings-form' onSubmit={onSubmitPasswordFormHandler}>
+      <form
+        className='AccountSettings-form'
+        onSubmit={onSubmitPasswordFormHandler}
+      >
         <h2 className='text-center'>Password</h2>
         <Input
           label='Current Password'

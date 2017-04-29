@@ -66,16 +66,20 @@ export function changeUserIdentifiers (userData, currentUser) {
       const updatedEmail = res.data.updatedEmail
       let updatedUser = {}
       if (updatedUsername) {
-        updatedUser = Object.assign({}, currentUser, { username: updatedUsername })
+        updatedUser = Object.assign({}, currentUser, {
+          username: updatedUsername
+        })
       }
       if (updatedEmail) {
-        updatedUser = Object.assign({}, currentUser, { email: updatedEmail })
+        updatedUser = Object.assign({}, currentUser, {email: updatedEmail})
       }
       console.log('changeUserIdentifiers: success!', updatedUser)
-      dispatch(displayFlashMessage({
-        message: 'Updated successfully! Please login.',
-        level: 'success'
-      }))
+      dispatch(
+        displayFlashMessage({
+          message: 'Updated successfully! Please login.',
+          level: 'success'
+        })
+      )
       dispatch(logoutRequest())
     })
   }
@@ -86,16 +90,20 @@ export function changeUserPassword (passwordData) {
     return axios.put('/api/user/password', passwordData).then(res => {
       console.log('changeUserPassword: res.data', res.data)
       if (res.data && res.data.success) {
-        dispatch(displayFlashMessage({
-          message: 'Password updated! Please login.',
-          level: 'success'
-        }))
+        dispatch(
+          displayFlashMessage({
+            message: 'Password updated! Please login.',
+            level: 'success'
+          })
+        )
         return dispatch(logoutRequest())
       }
-      return dispatch(displayFlashMessage({
-        message: 'Failed to update password.',
-        level: 'error'
-      }))
+      return dispatch(
+        displayFlashMessage({
+          message: 'Failed to update password.',
+          level: 'error'
+        })
+      )
     })
   }
 }

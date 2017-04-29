@@ -5,7 +5,8 @@ import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings'
 import {
   getCurrentUserRequest,
-  changeUserIdentifiers
+  changeUserIdentifiers,
+  changeUserPassword
 } from '../../Redux/modules/user'
 import {
   userFormValidation,
@@ -50,7 +51,9 @@ class AccountSettings extends Component {
       this.setValidationError(validateNewEmail(this.state.newEmail))
     }
     if (evt.target.name === 'currentPassword') {
-      this.setValidationError(validateCurrentPassword(this.state.currentPassword))
+      this.setValidationError(
+        validateCurrentPassword(this.state.currentPassword)
+      )
     }
     if (evt.target.name === 'newPassword') {
       this.setValidationError(validateNewPassword(this.state.newPassword))
@@ -79,7 +82,10 @@ class AccountSettings extends Component {
     evt.preventDefault()
     const {newUsername, newEmail} = this.state
     const userData = {newUsername, newEmail}
-    const prevUserData = {username: this.props.username, email: this.props.email}
+    const prevUserData = {
+      username: this.props.username,
+      email: this.props.email
+    }
 
     const validation = userFormValidation(userData)
 
@@ -93,13 +99,16 @@ class AccountSettings extends Component {
 
     if (!isEmpty(userDataChanges)) {
       console.log('userDataChanges', userDataChanges)
-      this.props.dispatchChangeUserIdentifiers(userDataChanges, this.props.user)
+      this.props.dispatchChangeUserIdentifiers(
+        userDataChanges,
+        this.props.user
+      )
     } else {
       console.log('no changes to submit')
       // dispatch flashMessage to inform the user that there
       // are no changes to submit
     }
-  }
+  };
 
   onSubmitPasswordFormHandler = evt => {
     evt.preventDefault()
@@ -111,8 +120,8 @@ class AccountSettings extends Component {
     if (!validation.isValid) {
       return this.setValidationError(validation.validationErrors)
     }
-    console.log('password change submit')
-  }
+    this.props.dispatchChangeUserPassword(passwordData)
+  };
 
   componentDidMount () {
     this.props.dispatchGetCurrentUser()
@@ -167,7 +176,8 @@ AccountSettings.propTypes = {
   email: string,
   user: object,
   dispatchGetCurrentUser: func,
-  dispatchChangeUserIdentifiers: func
+  dispatchChangeUserIdentifiers: func,
+  dispatchChangeUserPassword: func
 }
 
 const mapStateToProps = state => {
@@ -187,6 +197,9 @@ const mapDispatchToProps = dispatch => {
     },
     dispatchChangeUserIdentifiers (userData, currentUser) {
       dispatch(changeUserIdentifiers(userData, currentUser))
+    },
+    dispatchChangeUserPassword (passwordData) {
+      dispatch(changeUserPassword(passwordData))
     }
   }
 }

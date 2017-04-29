@@ -15,7 +15,7 @@ function userFormValidation (data) {
   const validationResults = Object.assign(
     {},
     validateNewUsername(data.newUsername),
-    validateNewEmail(data.newEmail),
+    validateNewEmail(data.newEmail)
   )
 
   // return any error messages, or an empty array
@@ -43,7 +43,7 @@ function passwordFormValidation (data) {
     {},
     validateCurrentPassword(data.currentPassword),
     validateNewPassword(data.newPassword),
-    validateConfirmNewPassword(data.confirmNewPassword)
+    validateConfirmNewPassword(data.newPassword, data.confirmNewPassword)
   )
 
   const validationErrors = buildErrorsObject(validationResults)
@@ -107,7 +107,7 @@ function validateNewPassword (newPassword) {
   if (typeof newPassword !== 'string') {
     console.error(
       'validateNewPassword: newPassword must be a string. received:',
-      typeof newPassword,
+      typeof newPassword
     )
     return {newPassword: 'password validation failed'}
   }

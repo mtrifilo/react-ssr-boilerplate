@@ -21,28 +21,7 @@ UserSchema.methods.verifyPassword = function verifyPassword (password) {
     .catch(err => err)
 }
 
-UserSchema.pre('save', function saveHook (next) {
-  if (!this.isModified('password')) {
-    return next()
-  }
-  console.log('User.js: password updated! hashing...')
-  return hashPassword(this, next)
-})
-
 UserSchema.plugin(findOrCreate)
-
-function hashPassword (user, next) {
-  return bcrypt
-    .hash(user.password, 10)
-    .then(hashedPassword => {
-      user.password = hashedPassword
-      return next()
-    })
-    .catch(err => {
-      console.error('User.js: hashPassword failed', err)
-      return next(err)
-    })
-}
 
 const User = mongoose.model('User', UserSchema)
 

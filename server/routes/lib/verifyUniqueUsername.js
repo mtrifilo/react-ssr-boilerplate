@@ -3,7 +3,7 @@ const isEmpty = require('lodash/isEmpty')
 
 function verifyUniqueUsername (newUsername) {
   let error = {}
-  return User.findOne({ username: newUsername })
+  return User.findOne({username: newUsername})
     .exec()
     .then(user => {
       if (user && user.username === newUsername) {

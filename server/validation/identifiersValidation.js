@@ -1,5 +1,8 @@
 const isEmpty = require('lodash/isEmpty')
-const {validateNewUsername, validateNewEmail} = require('./accountSettingsValidation')
+const {
+  validateNewUsername,
+  validateNewEmail
+} = require('./accountSettingsValidation')
 
 function validateIdentifiers (changes) {
   let validationErrors = {}

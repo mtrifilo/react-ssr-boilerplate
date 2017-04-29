@@ -2,7 +2,9 @@ const express = require('express')
 const authorize = require('../auth/authorize.js')
 const User = require('../db/models/User')
 const {validateIdentifiers} = require('../validation/identifiersValidation')
-const {passwordFormValidation} = require('../validation/accountSettingsValidation')
+const {
+  passwordFormValidation
+} = require('../validation/accountSettingsValidation')
 const {changeUsername} = require('./lib/changeUsername')
 const {changeEmail} = require('./lib/changeEmail')
 const {changeUsernameAndEmail} = require('./lib/changeUsernameAndEmail')
@@ -43,7 +45,11 @@ router.put('/identifiers', authorize, (req, res) => {
   }
 
   if (changes.newUsername && changes.newEmail) {
-    changeUsernameAndEmail(currentUser._id, changes.newUsername, changes.newEmail)
+    changeUsernameAndEmail(
+      currentUser._id,
+      changes.newUsername,
+      changes.newEmail
+    )
       .then(result => {
         if (result.updated) {
           const updatedUsername = result.doc.username
@@ -112,13 +118,15 @@ router.put('/password', authorize, (req, res) => {
     {_id: currentUser._id},
     {$set: {password: passwordData.newPassword}},
     {new: true}
-  ).then(doc => {
-    console.log('password updated!:', doc)
-    return res.json({success: true})
-  }).catch(err => {
-    console.error('Failed to update password:', err)
-    return res.status(500).json(err)
-  })
+  )
+    .then(doc => {
+      console.log('password updated!:', doc)
+      return res.json({success: true})
+    })
+    .catch(err => {
+      console.error('Failed to update password:', err)
+      return res.status(500).json(err)
+    })
 })
 
 module.exports = router
