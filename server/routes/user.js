@@ -115,7 +115,7 @@ router.put('/password', authorize, (req, res) => {
     return res.status(400).json(validationResults.validationErrors)
   }
 
-  hashPassword(passwordData.password)
+  hashPassword(passwordData.newPassword)
     .then(result => {
       if (result.error) {
         res.status(500).json({ error: result.error })
@@ -128,7 +128,6 @@ router.put('/password', authorize, (req, res) => {
         res.status(500).json({ error: result.error })
         throw result.error
       }
-      console.log('password updated!:', result.doc)
       return res.json({ success: true })
     })
 })
@@ -140,7 +139,6 @@ function updatePassword (id, hashedPassword) {
     { new: true }
   )
     .then(doc => {
-      console.log('password updated!:', doc)
       return { doc }
     })
     .catch(err => {

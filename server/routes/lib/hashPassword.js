@@ -7,7 +7,7 @@ function hashPassword (password) {
       return { hashedPassword }
     })
     .catch(err => {
-      console.error('signup.js: hashPassword failed', err)
+      console.error('hashPassword.js: hashPassword failed:', err)
       return { error: err }
     })
 }
