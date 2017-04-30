@@ -29,7 +29,7 @@ router.post('/local', (req, res, next) => {
 
     const token = createToken(user, null)
 
-    return res.json({token})
+    return res.json({ token })
   })(req, res, next)
 })
 
@@ -67,7 +67,7 @@ router.get('/github/callback', (req, res, next) => {
     }
 
     if (!user) {
-      return res.status(401).json({message: 'Login failed', user})
+      return res.status(401).json({ message: 'Login failed', user })
     }
 
     const jwt = createToken(user.user, user.token)

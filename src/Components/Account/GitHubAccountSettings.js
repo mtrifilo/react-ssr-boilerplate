@@ -1,8 +1,8 @@
 import React from 'react'
 import Input from '../Common/Input'
-const {string} = React.PropTypes
+const { string } = React.PropTypes
 
-const GitHubAccountSettings = ({username}) => {
+const GitHubAccountSettings = ({ username }) => {
   return (
     <form className='AccountSettings-form'>
       <Input label='Username' type='text' name='newUsername' value={username} />

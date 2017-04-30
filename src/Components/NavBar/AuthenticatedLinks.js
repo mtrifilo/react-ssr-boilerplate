@@ -1,10 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
-import {logoutRequest} from '../../Redux/modules/user'
-const {func, string} = React.PropTypes
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { logoutRequest } from '../../Redux/modules/user'
+const { func, string } = React.PropTypes
 
-const AuthenticatedLinks = ({dispatchLogoutRequest, username, ...props}) => {
+const AuthenticatedLinks = ({ dispatchLogoutRequest, username, ...props }) => {
   const logout = evt => {
     evt.preventDefault()
     dispatchLogoutRequest()

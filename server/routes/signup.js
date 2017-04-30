@@ -1,8 +1,8 @@
 const express = require('express')
 const isEmpty = require('lodash/isEmpty')
 const User = require('../db/models/User')
-const {signupFormValidation} = require('../validation/signupFormValidation')
-const {hashPassword} = require('./lib/hashPassword')
+const { signupFormValidation } = require('../validation/signupFormValidation')
+const { hashPassword } = require('./lib/hashPassword')
 const router = express.Router()
 
 /**
@@ -12,8 +12,8 @@ const router = express.Router()
  */
 router.post('/', (req, res) => {
   const userData = req.body
-  const {username, email, password} = req.body
-  const {validationErrors, isValid} = signupFormValidation(userData)
+  const { username, email, password } = req.body
+  const { validationErrors, isValid } = signupFormValidation(userData)
   if (!isValid) {
     return res.status(400).json({
       errors: {
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
     })
     .then(result => {
       if (result.error) {
-        res.status(500).json({error: result.error})
+        res.status(500).json({ error: result.error })
         throw result.error
       }
       return saveNewUser({
@@ -45,10 +45,10 @@ router.post('/', (req, res) => {
     })
     .then(result => {
       if (result.error) {
-        res.status(500).json({error: result.error})
+        res.status(500).json({ error: result.error })
         throw result.error
       }
-      return res.status(201).json({newUser: result.newUser})
+      return res.status(201).json({ newUser: result.newUser })
     })
     .catch(err => {
       console.log('signup.js: Signup failed', err)
@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
  */
 function duplicateUserCheck (userData) {
   return User.find({
-    $or: [{email: userData.email}, {username: userData.username}]
+    $or: [{ email: userData.email }, { username: userData.username }]
   })
     .exec()
     .then(user => {
@@ -100,11 +100,11 @@ function saveNewUser (userData) {
   return user
     .save()
     .then(user => {
-      return {newUser: user}
+      return { newUser: user }
     })
     .catch(err => {
       console.error('signup.js: saveNewuser failed', err)
-      return {error: err}
+      return { error: err }
     })
 }
 

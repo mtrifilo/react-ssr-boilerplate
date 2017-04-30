@@ -1,6 +1,6 @@
 const GithubStrategy = require('passport-github2').Strategy
 const User = require('../db/models/User')
-const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET} = require('../../config.json')
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require('../../config.json')
 
 const githubStrategy = new GithubStrategy(
   {
@@ -10,11 +10,11 @@ const githubStrategy = new GithubStrategy(
     session: false
   },
   (accessToken, refreshToken, profile, done) => {
-    return User.findOne({email: profile.emails[0].value})
+    return User.findOne({ email: profile.emails[0].value })
       .exec()
       .then(user => {
         if (user) {
-          return done(null, {user, token: accessToken})
+          return done(null, { user, token: accessToken })
         }
 
         const newUserData = {
@@ -23,7 +23,7 @@ const githubStrategy = new GithubStrategy(
         }
 
         if (!newUserData.username || !newUserData.email) {
-          return done({error: 'invalid user data', newUserData})
+          return done({ error: 'invalid user data', newUserData })
         }
 
         const newUser = new User(newUserData)

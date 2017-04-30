@@ -1,5 +1,5 @@
 /* eslint-env node, jest */
-import {buildErrorsObject} from '../utils'
+import { buildErrorsObject } from '../utils'
 
 test('buildErrorsObject: should return validation errors as object', () => {
   const validationResults = {
@@ -7,7 +7,7 @@ test('buildErrorsObject: should return validation errors as object', () => {
     password: ''
   }
   const errors = buildErrorsObject(validationResults)
-  expect(errors).toEqual({email: 'A registered email is required'})
+  expect(errors).toEqual({ email: 'A registered email is required' })
 })
 
 test('buildErrorsObject: should return an empty array if no errors are present', () => {

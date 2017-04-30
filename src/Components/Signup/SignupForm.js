@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router'
-import {signupRequest} from '../../Redux/modules/signupLocal'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
+import { signupRequest } from '../../Redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
   signupFormValidation,
@@ -10,7 +10,7 @@ import {
   validatePassword,
   validateConfirmPassword
 } from '../../../server/validation/signupFormValidation'
-const {func, bool} = React.PropTypes
+const { func, bool } = React.PropTypes
 
 class SignupForm extends Component {
   constructor () {
@@ -30,7 +30,7 @@ class SignupForm extends Component {
   }
 
   onChangeHandler = evt => {
-    this.setState({[evt.target.name]: evt.target.value})
+    this.setState({ [evt.target.name]: evt.target.value })
   };
 
   onBlurHandler = evt => {
@@ -57,12 +57,12 @@ class SignupForm extends Component {
       this.state.validationErrors,
       validationResult
     )
-    this.setState({validationErrors: newValidationErrors})
+    this.setState({ validationErrors: newValidationErrors })
   };
 
   onSubmitHandler = evt => {
     evt.preventDefault()
-    const {username, email, password, confirmPassword} = this.state
+    const { username, email, password, confirmPassword } = this.state
     const userData = {
       username,
       email,

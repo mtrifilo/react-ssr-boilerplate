@@ -27,4 +27,4 @@ function validateIdentifiers (changes) {
   }
 }
 
-module.exports = {validateIdentifiers}
+module.exports = { validateIdentifiers }

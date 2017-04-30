@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
-const {string} = React.PropTypes
+const { string } = React.PropTypes
 
 class FlashMessage extends Component {
   constructor (props) {
@@ -15,7 +15,7 @@ class FlashMessage extends Component {
     if (this.state.display) {
       setTimeout(
         () => {
-          this.setState({display: false})
+          this.setState({ display: false })
         },
         1500
       )
@@ -25,7 +25,7 @@ class FlashMessage extends Component {
   componentDidMount = () => {
     setTimeout(
       () => {
-        this.setState({display: true})
+        this.setState({ display: true })
       },
       50
     )

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import removeToken from '../../auth/removeToken'
-import {displayFlashMessage} from './flashMessage'
+import { displayFlashMessage } from './flashMessage'
 
 const DEFAULT_STATE = {
   user: {},
@@ -21,7 +21,7 @@ export function setUser (user = {}) {
   if (user.username) {
     isAuthenticated = true
   }
-  return {type: SET_USER, user, isAuthenticated}
+  return { type: SET_USER, user, isAuthenticated }
 }
 function setUserReducer (state, action) {
   return Object.assign({}, state, {
@@ -38,10 +38,10 @@ export function logoutRequest () {
 }
 
 export function logoutUser () {
-  return {type: LOGOUT_USER}
+  return { type: LOGOUT_USER }
 }
 function logoutUserReducer (state, action) {
-  return Object.assign({}, state, {user: {}, isAuthenticated: false})
+  return Object.assign({}, state, { user: {}, isAuthenticated: false })
 }
 
 export function getCurrentUserRequest () {
@@ -53,10 +53,10 @@ export function getCurrentUserRequest () {
 }
 
 export function getCurrentUser (user) {
-  return {type: GET_USER, user}
+  return { type: GET_USER, user }
 }
 function getCurrentUserReducer (state, action) {
-  return Object.assign({}, state, {userSettings: action.user})
+  return Object.assign({}, state, { userSettings: action.user })
 }
 
 export function changeUserIdentifiers (userData, currentUser) {
@@ -71,7 +71,7 @@ export function changeUserIdentifiers (userData, currentUser) {
         })
       }
       if (updatedEmail) {
-        updatedUser = Object.assign({}, currentUser, {email: updatedEmail})
+        updatedUser = Object.assign({}, currentUser, { email: updatedEmail })
       }
       console.log('changeUserIdentifiers: success!', updatedUser)
       dispatch(

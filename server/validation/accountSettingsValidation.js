@@ -1,6 +1,6 @@
 const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
-const {buildErrorsObject} = require('./utils')
+const { buildErrorsObject } = require('./utils')
 
 /**
  * Validates user settings fields.
@@ -60,13 +60,13 @@ function validateNewUsername (newUsername) {
       'validateNewUsername: username must be a string. received:',
       typeof newUsername
     )
-    return {newUsername: 'username validation failed'}
+    return { newUsername: 'username validation failed' }
   }
   // username shouldn't be empty
   if (Validator.isEmpty(newUsername)) {
-    return {newUsername: 'A username is required'}
+    return { newUsername: 'A username is required' }
   }
-  return {newUsername: ''}
+  return { newUsername: '' }
 }
 
 function validateNewEmail (newEmail) {
@@ -75,17 +75,17 @@ function validateNewEmail (newEmail) {
       'validateNewEmail: email must be a string. received:',
       typeof newEmail
     )
-    return {newEmail: 'email validation failed'}
+    return { newEmail: 'email validation failed' }
   }
   // email shouldn't be empty
   if (Validator.isEmpty(newEmail)) {
-    return {newEmail: 'An email address is required'}
+    return { newEmail: 'An email address is required' }
   }
   // email should be a valid email address
   if (!Validator.isEmail(newEmail)) {
-    return {newEmail: 'This email address is not valid'}
+    return { newEmail: 'This email address is not valid' }
   }
-  return {newEmail: ''}
+  return { newEmail: '' }
 }
 
 function validateCurrentPassword (currentPassword) {
@@ -94,13 +94,13 @@ function validateCurrentPassword (currentPassword) {
       'validateCurrentPassword: password must be a string. received:',
       typeof currentPassword
     )
-    return {currentPassword: 'password validation failed'}
+    return { currentPassword: 'password validation failed' }
   }
   // password shouldn't be empty
   if (Validator.isEmpty(currentPassword)) {
-    return {currentPassword: 'A password is required'}
+    return { currentPassword: 'A password is required' }
   }
-  return {currentPassword: ''}
+  return { currentPassword: '' }
 }
 
 function validateNewPassword (newPassword) {
@@ -109,14 +109,14 @@ function validateNewPassword (newPassword) {
       'validateNewPassword: newPassword must be a string. received:',
       typeof newPassword
     )
-    return {newPassword: 'password validation failed'}
+    return { newPassword: 'password validation failed' }
   }
   // password shouldn't be empty
   if (Validator.isEmpty(newPassword)) {
-    return {newPassword: 'A new password is required'}
+    return { newPassword: 'A new password is required' }
   }
 
-  return {newPassword: ''}
+  return { newPassword: '' }
 }
 
 function validateConfirmNewPassword (newPassword, confirmNewPassword) {
@@ -125,24 +125,24 @@ function validateConfirmNewPassword (newPassword, confirmNewPassword) {
       'validateConfirmNewPassword: password must be a string. received:',
       typeof newPassword
     )
-    return {confirmNewPassword: 'confirmPassword validation failed'}
+    return { confirmNewPassword: 'confirmPassword validation failed' }
   }
   if (typeof confirmNewPassword !== 'string') {
     console.error(
       'validateConfirmPassword: confirmPassword must be a string. received:',
       typeof confirmNewPassword
     )
-    return {confirmNewPassword: 'confirmPassword validation failed'}
+    return { confirmNewPassword: 'confirmPassword validation failed' }
   }
   // confirmPassword shouldn't be empty
   if (Validator.isEmpty(confirmNewPassword)) {
-    return {confirmNewPassword: 'Please confirm your password'}
+    return { confirmNewPassword: 'Please confirm your password' }
   }
   // password and confirmNewPassword should match
   if (!Validator.equals(newPassword, confirmNewPassword)) {
-    return {confirmNewPassword: "Passwords don't match, try again"}
+    return { confirmNewPassword: "Passwords don't match, try again" }
   }
-  return {confirmNewPassword: ''}
+  return { confirmNewPassword: '' }
 }
 
 module.exports = {

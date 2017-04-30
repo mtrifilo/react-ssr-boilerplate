@@ -1,7 +1,7 @@
 import axios from 'axios'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
-import {displayFlashMessage} from './flashMessage'
-import {setUser} from './user'
+import { displayFlashMessage } from './flashMessage'
+import { setUser } from './user'
 
 const DEFAULT_STATE = {
   loginLoading: false
@@ -24,7 +24,10 @@ export function loginRequest (userData) {
         if (!res.data.token) {
           console.error('loginRequest: no token returned:', res)
           return dispatch(
-            displayFlashMessage({message: 'An error occurred', level: 'error'})
+            displayFlashMessage({
+              message: 'An error occurred',
+              level: 'error'
+            })
           )
         }
 
@@ -68,7 +71,10 @@ export function loginRequest (userData) {
             err.response
           )
           return dispatch(
-            displayFlashMessage({message: 'An error occurred.', level: 'error'})
+            displayFlashMessage({
+              message: 'An error occurred.',
+              level: 'error'
+            })
           )
         }
       })
@@ -76,10 +82,10 @@ export function loginRequest (userData) {
 }
 
 export function loginLoading (bool) {
-  return {type: LOGIN_LOADING, loginLoading: bool}
+  return { type: LOGIN_LOADING, loginLoading: bool }
 }
 function loginLoadingReducer (state, action) {
-  return Object.assign({}, state, {loginLoading: action.loginLoading})
+  return Object.assign({}, state, { loginLoading: action.loginLoading })
 }
 
 // ******* Root Reducer Slice *******

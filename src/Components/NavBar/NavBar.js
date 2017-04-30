@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import GuestLinks from './GuestLinks'
 import AuthenticatedLinks from './AuthenticatedLinks'
-const {bool, object} = React.PropTypes
+const { bool, object } = React.PropTypes
 
 class NavBar extends Component {
   constructor (props) {
@@ -15,17 +15,17 @@ class NavBar extends Component {
   }
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
-      this.setState({showAuthenticatedLinks: true, mounted: true})
+      this.setState({ showAuthenticatedLinks: true, mounted: true })
     } else {
-      this.setState({mounted: true})
+      this.setState({ mounted: true })
     }
   };
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.isAuthenticated) {
-      this.setState({showAuthenticatedLinks: true})
+      this.setState({ showAuthenticatedLinks: true })
     } else {
-      this.setState({showAuthenticatedLinks: false})
+      this.setState({ showAuthenticatedLinks: false })
     }
   };
   render () {

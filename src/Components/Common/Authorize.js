@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router'
-import {logoutUser} from '../../Redux/modules/user'
-const {bool, string, object, number, func} = React.PropTypes
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
+import { logoutUser } from '../../Redux/modules/user'
+const { bool, string, object, number, func } = React.PropTypes
 
 class Authorize extends Component {
   constructor (props) {
@@ -15,7 +15,7 @@ class Authorize extends Component {
   }
   componentWillReceiveProps (nextProps) {
     if (!nextProps.isAuthenticated) {
-      this.setState({redirectToLogin: true})
+      this.setState({ redirectToLogin: true })
     }
   }
 
@@ -24,9 +24,9 @@ class Authorize extends Component {
     if (this.props.tokenExp < currentTime) {
       this.props.dispatchLogout()
     } else if (!this.props.isAuthenticated) {
-      this.setState({redirectToLogin: true})
+      this.setState({ redirectToLogin: true })
     } else {
-      this.setState({mounted: true})
+      this.setState({ mounted: true })
     }
   }
 

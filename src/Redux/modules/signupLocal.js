@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {displayFlashMessage} from './flashMessage'
+import { displayFlashMessage } from './flashMessage'
 
 const DEFAULT_STATE = {
   signupLoading: false,
@@ -52,17 +52,19 @@ export function signupRequest (userData) {
 }
 
 export function signupLoading (bool) {
-  return {type: SIGNUP_LOADING, signupLoading: bool}
+  return { type: SIGNUP_LOADING, signupLoading: bool }
 }
 function signupLoadingReducer (state, action) {
-  return Object.assign({}, state, {signupLoading: action.signupLoading})
+  return Object.assign({}, state, { signupLoading: action.signupLoading })
 }
 
 export function signupSuccessful (bool) {
-  return {type: SIGNUP_SUCCESSFUL, signupSuccessful: bool}
+  return { type: SIGNUP_SUCCESSFUL, signupSuccessful: bool }
 }
 function signupSuccessfulReducer (state, action) {
-  return Object.assign({}, state, {signupSuccessful: action.signupSuccessful})
+  return Object.assign({}, state, {
+    signupSuccessful: action.signupSuccessful
+  })
 }
 
 // ******* Root Reducer Slice *******

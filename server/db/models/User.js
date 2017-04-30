@@ -5,11 +5,11 @@ const findOrCreate = require('mongoose-findorcreate')
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    index: {unique: true}
+    index: { unique: true }
   },
   email: {
     type: String,
-    index: {unique: true}
+    index: { unique: true }
   },
   password: String
 })

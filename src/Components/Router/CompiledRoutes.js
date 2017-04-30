@@ -39,7 +39,7 @@ var _AccountPage = require('../Account/AccountPage')
 var _AccountPage2 = _interopRequireDefault(_AccountPage)
 
 function _interopRequireDefault (obj) {
-  return obj && obj.__esModule ? obj : {default: obj}
+  return obj && obj.__esModule ? obj : { default: obj }
 }
 
 var bool = _react2.default.PropTypes.bool

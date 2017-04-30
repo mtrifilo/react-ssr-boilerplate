@@ -1,12 +1,14 @@
 import React from 'react'
 import classNames from 'classnames'
-const {string, func} = React.PropTypes
+const { string, func } = React.PropTypes
 
 const Input = (
-  {label, type, value, name, onChange, onBlur, validationError}
+  { label, type, value, name, onChange, onBlur, validationError }
 ) => {
   return (
-    <div className={classNames('form-group', {'has-danger': validationError})}>
+    <div
+      className={classNames('form-group', { 'has-danger': validationError })}
+    >
       <label>{label}</label>
       <input
         type={type}

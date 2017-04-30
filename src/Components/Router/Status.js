@@ -1,10 +1,10 @@
 import React from 'react'
-import {Route} from 'react-router'
-const {number, element} = React.PropTypes
+import { Route } from 'react-router'
+const { number, element } = React.PropTypes
 
-const Status = ({code, children}) => (
+const Status = ({ code, children }) => (
   <Route
-    render={({staticContext}) => {
+    render={({ staticContext }) => {
       if (staticContext) {
         staticContext.status = code
       }

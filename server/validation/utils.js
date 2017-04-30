@@ -5,7 +5,7 @@ function buildErrorsObject (validationResults) {
   let errors = fields
     .map(field => {
       if (validationResults[field]) {
-        return {[field]: validationResults[field]}
+        return { [field]: validationResults[field] }
       }
       return false
     })
@@ -20,4 +20,4 @@ function buildErrorsObject (validationResults) {
   return errors
 }
 
-module.exports = {buildErrorsObject}
+module.exports = { buildErrorsObject }

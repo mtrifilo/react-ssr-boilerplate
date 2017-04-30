@@ -1,14 +1,14 @@
-import React, {Component} from 'react'
-import {Redirect} from 'react-router'
-import {connect} from 'react-redux'
-import {loginRequest} from '../../Redux/modules/loginLocal'
+import React, { Component } from 'react'
+import { Redirect } from 'react-router'
+import { connect } from 'react-redux'
+import { loginRequest } from '../../Redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
   loginFormValidation,
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
-const {func, object, bool} = React.PropTypes
+const { func, object, bool } = React.PropTypes
 
 class LoginForm extends Component {
   constructor () {
@@ -24,7 +24,7 @@ class LoginForm extends Component {
   }
 
   onChangeHandler = evt => {
-    this.setState({[evt.target.name]: evt.target.value})
+    this.setState({ [evt.target.name]: evt.target.value })
   };
 
   onBlurHandler = evt => {
@@ -43,13 +43,13 @@ class LoginForm extends Component {
       this.state.validationErrors,
       validationResult
     )
-    this.setState({validationErrors: newValidationErrors})
+    this.setState({ validationErrors: newValidationErrors })
   };
 
   onSubmitHandler = evt => {
     evt.preventDefault()
-    const {email, password} = this.state
-    const userData = {email, password}
+    const { email, password } = this.state
+    const userData = { email, password }
     const validation = loginFormValidation(userData)
     if (validation.isValid) {
       return this.props.dispatchLoginRequest(userData)

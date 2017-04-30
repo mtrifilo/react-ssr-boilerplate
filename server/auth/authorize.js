@@ -27,14 +27,14 @@ function authorize (req, res, next) {
   if (token) {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
-        res.status(401).json({error: 'Not authorized'})
+        res.status(401).json({ error: 'Not authorized' })
       } else {
-        User.findOne({_id: decoded.sub})
+        User.findOne({ _id: decoded.sub })
           .select('email _id username')
           .exec()
           .then(user => {
             if (isEmpty(user)) {
-              return res.status(404).json({error: 'No such user'})
+              return res.status(404).json({ error: 'No such user' })
             }
             console.log('retreived user:', user)
             req.currentUser = user
@@ -43,7 +43,7 @@ function authorize (req, res, next) {
       }
     })
   } else {
-    res.status(403).json({error: 'No token provided'})
+    res.status(403).json({ error: 'No token provided' })
   }
 }
 

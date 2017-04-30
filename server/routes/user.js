@@ -1,13 +1,13 @@
 const express = require('express')
 const authorize = require('../auth/authorize.js')
 const User = require('../db/models/User')
-const {validateIdentifiers} = require('../validation/identifiersValidation')
+const { validateIdentifiers } = require('../validation/identifiersValidation')
 const {
   passwordFormValidation
 } = require('../validation/accountSettingsValidation')
-const {changeUsername} = require('./lib/changeUsername')
-const {changeEmail} = require('./lib/changeEmail')
-const {changeUsernameAndEmail} = require('./lib/changeUsernameAndEmail')
+const { changeUsername } = require('./lib/changeUsername')
+const { changeEmail } = require('./lib/changeEmail')
+const { changeUsernameAndEmail } = require('./lib/changeUsernameAndEmail')
 const router = express.Router()
 
 /**
@@ -54,7 +54,7 @@ router.put('/identifiers', authorize, (req, res) => {
         if (result.updated) {
           const updatedUsername = result.doc.username
           const updatedEmail = result.doc.email
-          return res.json({updatedUsername, updatedEmail})
+          return res.json({ updatedUsername, updatedEmail })
         }
         return res.status(result.status).json(result.error)
       })
@@ -69,7 +69,7 @@ router.put('/identifiers', authorize, (req, res) => {
       .then(result => {
         if (result.updated) {
           const updatedUsername = result.doc.username
-          return res.json({updatedUsername})
+          return res.json({ updatedUsername })
         }
         return res.status(result.status).json(result.error)
       })
@@ -84,7 +84,7 @@ router.put('/identifiers', authorize, (req, res) => {
       .then(result => {
         if (result.updated) {
           const updatedEmail = result.doc.email
-          return res.json({updatedEmail})
+          return res.json({ updatedEmail })
         }
         return res.status(result.status).json(result.error)
       })
@@ -115,13 +115,13 @@ router.put('/password', authorize, (req, res) => {
   }
 
   User.findOneAndUpdate(
-    {_id: currentUser._id},
-    {$set: {password: passwordData.newPassword}},
-    {new: true}
+    { _id: currentUser._id },
+    { $set: { password: passwordData.newPassword } },
+    { new: true }
   )
     .then(doc => {
       console.log('password updated!:', doc)
-      return res.json({success: true})
+      return res.json({ success: true })
     })
     .catch(err => {
       console.error('Failed to update password:', err)

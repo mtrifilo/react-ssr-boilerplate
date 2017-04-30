@@ -9,7 +9,7 @@ const localStrategy = new LocalStrategy(
     passReqToCallback: true
   },
   (req, email, password, done) => {
-    return User.findOne({email})
+    return User.findOne({ email })
       .exec()
       .then(user => verifyUser(user, password, done))
       .catch(err => {
@@ -20,12 +20,12 @@ const localStrategy = new LocalStrategy(
 
 function verifyUser (user, password, done) {
   if (!user) {
-    return done(null, false, {message: 'Invalid login credentials'})
+    return done(null, false, { message: 'Invalid login credentials' })
   }
 
   return user.verifyPassword(password).then(result => {
     if (!result) {
-      return done(null, false, {message: 'Invalid login credentials'})
+      return done(null, false, { message: 'Invalid login credentials' })
     }
     return done(null, user)
   })

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch} from 'react-router'
+import { Route, Switch } from 'react-router'
 import Home from '../Home/Home'
 import Login from '../Login/Login'
 import Signup from '../Signup/Signup'
@@ -7,7 +7,7 @@ import MemberPage from '../MemberPage/MemberPage'
 import NotFound from './NotFound'
 import SetToken from '../Login/SetToken'
 import AccountPage from '../Account/AccountPage'
-const {bool} = React.PropTypes
+const { bool } = React.PropTypes
 
 /**
  * Run `yarn run compile-routes` after altering any Routes in this file.

@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings'
@@ -18,7 +18,7 @@ import {
   validateNewPassword,
   validateConfirmNewPassword
 } from '../../../server/validation/accountSettingsValidation'
-const {string, func, object} = React.PropTypes
+const { string, func, object } = React.PropTypes
 
 class AccountSettings extends Component {
   constructor (props) {
@@ -40,7 +40,7 @@ class AccountSettings extends Component {
   }
 
   onChangeHandler = evt => {
-    this.setState({[evt.target.name]: evt.target.value})
+    this.setState({ [evt.target.name]: evt.target.value })
   };
 
   onBlurHandler = evt => {
@@ -75,13 +75,13 @@ class AccountSettings extends Component {
       this.state.validationErrors,
       validationResult
     )
-    this.setState({validationErrors: newValidationErrors})
+    this.setState({ validationErrors: newValidationErrors })
   };
 
   onSubmitUserFormHandler = evt => {
     evt.preventDefault()
-    const {newUsername, newEmail} = this.state
-    const userData = {newUsername, newEmail}
+    const { newUsername, newEmail } = this.state
+    const userData = { newUsername, newEmail }
     const prevUserData = {
       username: this.props.username,
       email: this.props.email
@@ -112,8 +112,8 @@ class AccountSettings extends Component {
 
   onSubmitPasswordFormHandler = evt => {
     evt.preventDefault()
-    const {currentPassword, newPassword, confirmNewPassword} = this.state
-    const passwordData = {currentPassword, newPassword, confirmNewPassword}
+    const { currentPassword, newPassword, confirmNewPassword } = this.state
+    const passwordData = { currentPassword, newPassword, confirmNewPassword }
 
     const validation = passwordFormValidation(passwordData)
 

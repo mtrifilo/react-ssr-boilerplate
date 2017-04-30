@@ -1,6 +1,6 @@
 import React from 'react'
 import Input from '../Common/Input'
-const {string, func, object} = React.PropTypes
+const { string, func, object } = React.PropTypes
 
 const LocalAccountSettings = (
   {
