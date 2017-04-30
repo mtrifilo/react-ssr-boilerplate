@@ -132,6 +132,13 @@ router.put('/password', authorize, (req, res) => {
     })
 })
 
+/**
+ * Updates a user's password
+ * 
+ * @param {id} string - a the authorized user's id
+ * @param {hashedPassword} string - a strongly hashed password
+ */
+
 function updatePassword (id, hashedPassword) {
   return User.findOneAndUpdate(
     { _id: id },
