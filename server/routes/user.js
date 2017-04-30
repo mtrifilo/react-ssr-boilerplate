@@ -8,6 +8,7 @@ const {
 const { changeUsername } = require('./lib/changeUsername')
 const { changeEmail } = require('./lib/changeEmail')
 const { changeUsernameAndEmail } = require('./lib/changeUsernameAndEmail')
+const { hashPassword } = require('./lib/hashPassword')
 const router = express.Router()
 
 /**
@@ -114,19 +115,38 @@ router.put('/password', authorize, (req, res) => {
     return res.status(400).json(validationResults.validationErrors)
   }
 
-  User.findOneAndUpdate(
-    { _id: currentUser._id },
-    { $set: { password: passwordData.newPassword } },
+  hashPassword(passwordData.password)
+    .then(result => {
+      if (result.error) {
+        res.status(500).json({ error: result.error })
+        throw result.error
+      }
+      return updatePassword(currentUser._id, result.hashedPassword)
+    })
+    .then(result => {
+      if (result.error) {
+        res.status(500).json({ error: result.error })
+        throw result.error
+      }
+      console.log('password updated!:', result.doc)
+      return res.json({ success: true })
+    })
+})
+
+function updatePassword (id, hashedPassword) {
+  return User.findOneAndUpdate(
+    { _id: id },
+    { $set: { password: hashedPassword } },
     { new: true }
   )
     .then(doc => {
       console.log('password updated!:', doc)
-      return res.json({ success: true })
+      return { doc }
     })
     .catch(err => {
       console.error('Failed to update password:', err)
-      return res.status(500).json(err)
+      return { error: err }
     })
-})
+}
 
 module.exports = router
