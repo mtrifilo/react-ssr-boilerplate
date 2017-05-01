@@ -88,7 +88,6 @@ export function changeUserIdentifiers (userData, currentUser) {
 export function changeUserPassword (passwordData) {
   return dispatch => {
     return axios.put('/api/user/password', passwordData).then(res => {
-      console.log('changeUserPassword: res.data', res.data)
       if (res.data && res.data.success) {
         dispatch(
           displayFlashMessage({
@@ -101,6 +100,28 @@ export function changeUserPassword (passwordData) {
       return dispatch(
         displayFlashMessage({
           message: 'Failed to update password.',
+          level: 'error'
+        })
+      )
+    })
+  }
+}
+
+export function changeGitHubUsername (newUsername) {
+  return dispatch => {
+    return axios.put('/api/user/githubstrategy', newUsername).then(res => {
+      if (res.data && res.data.success) {
+        dispatch(
+          displayFlashMessage({
+            message: 'Username updated! Please login with GitHub.',
+            level: 'success'
+          })
+        )
+        return dispatch(logoutRequest())
+      }
+      return dispatch(
+        displayFlashMessage({
+          message: 'Failed to update username.',
           level: 'error'
         })
       )
