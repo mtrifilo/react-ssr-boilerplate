@@ -54,6 +54,16 @@ function passwordFormValidation (data) {
   }
 }
 
+function newGitHubUsernameFormValidation (newUsername) {
+  const validationResults = validateNewUsername(newUsername)
+  const validationErrors = buildErrorsObject(validationResults)
+
+  return {
+    validationErrors,
+    isValid: isEmpty(validationErrors)
+  }
+}
+
 function validateNewUsername (newUsername) {
   if (typeof newUsername !== 'string') {
     console.error(
@@ -149,6 +159,7 @@ module.exports = {
   userFormValidation,
   userChanges,
   passwordFormValidation,
+  newGitHubUsernameFormValidation,
   validateNewUsername,
   validateNewEmail,
   validateCurrentPassword,
