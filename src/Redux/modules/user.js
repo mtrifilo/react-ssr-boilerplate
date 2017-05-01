@@ -62,17 +62,6 @@ function getCurrentUserReducer (state, action) {
 export function changeUserIdentifiers (userData, currentUser) {
   return dispatch => {
     return axios.put('/api/user/identifiers', userData).then(res => {
-      const updatedUsername = res.data.updatedUsername
-      const updatedEmail = res.data.updatedEmail
-      let updatedUser = {}
-      if (updatedUsername) {
-        updatedUser = Object.assign({}, currentUser, {
-          username: updatedUsername
-        })
-      }
-      if (updatedEmail) {
-        updatedUser = Object.assign({}, currentUser, { email: updatedEmail })
-      }
       dispatch(
         displayFlashMessage({
           message: 'Updated successfully! Please login.',
@@ -80,6 +69,13 @@ export function changeUserIdentifiers (userData, currentUser) {
         })
       )
       dispatch(logoutRequest())
+    })
+    .catch(err => {
+      console.error('changeUserIdentifiers failed:', err)
+      dispatch(displayFlashMessage({
+        message: 'Failed to update.',
+        level: 'error'
+      }))
     })
   }
 }
@@ -102,6 +98,13 @@ export function changeUserPassword (passwordData) {
           level: 'error'
         })
       )
+    })
+    .catch(err => {
+      console.error('changeUserPassword failed:', err)
+      dispatch(displayFlashMessage({
+        message: 'Failed to update password.',
+        level: 'error'
+      }))
     })
   }
 }
