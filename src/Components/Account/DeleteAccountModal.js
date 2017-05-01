@@ -38,6 +38,7 @@ const DeleteAccountModal = ({ onClickDeleteAccount }) => {
             <button
               type='button'
               className='btn btn-danger'
+              data-dismiss='modal'
               onClick={onClickDeleteAccount}
             >
               Delete Account

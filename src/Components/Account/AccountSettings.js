@@ -8,7 +8,8 @@ import {
   getCurrentUserRequest,
   changeUserIdentifiers,
   changeUserPassword,
-  changeGitHubUsername
+  changeGitHubUsername,
+  deleteUserAccount
 } from '../../Redux/modules/user'
 import {
   userFormValidation,
@@ -142,7 +143,7 @@ class AccountSettings extends Component {
 
   onClickDeleteAccount = evt => {
     evt.preventDefault()
-    console.log('onClickDeleteAccount clicked!')
+    this.props.dispatchDeleteUserAccount()
   };
 
   componentDidMount () {
@@ -202,7 +203,8 @@ AccountSettings.propTypes = {
   dispatchGetCurrentUser: func,
   dispatchChangeUserIdentifiers: func,
   dispatchChangeUserPassword: func,
-  dispatchChangeGitHubUsername: func
+  dispatchChangeGitHubUsername: func,
+  dispatchDeleteUserAccount: func
 }
 
 const mapStateToProps = state => {
@@ -228,6 +230,9 @@ const mapDispatchToProps = dispatch => {
     },
     dispatchChangeGitHubUsername (newUsername) {
       dispatch(changeGitHubUsername(newUsername))
+    },
+    dispatchDeleteUserAccount () {
+      dispatch(deleteUserAccount())
     }
   }
 }

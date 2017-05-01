@@ -146,6 +146,7 @@ export function deleteUserAccount () {
   return dispatch => {
     return axios.delete('/api/user/')
     .then(res => {
+      console.log('deleteUserAccount response:', res.data)
       if (res.data && res.data.success) {
         dispatch(
           displayFlashMessage({
