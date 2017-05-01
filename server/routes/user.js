@@ -177,4 +177,19 @@ router.put('/githubstrategy', authorize, (req, res) => {
     })
 })
 
+router.delete('/', authorize, (req, res) => {
+  const { _id } = req.currentUser
+  return User.findByIdAndRemove(
+    { _id }
+  )
+    .then(doc => {
+      console.log('user removed:', doc)
+      return res.json({ success: true })
+    })
+    .catch(err => {
+      console.error('failed to delete user:', err)
+      return res.status(500).json({ error: err })
+    })
+})
+
 module.exports = router
