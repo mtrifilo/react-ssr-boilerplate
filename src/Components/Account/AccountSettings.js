@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings'
+import DeleteAccountModal from './DeleteAccountModal'
 import {
   getCurrentUserRequest,
   changeUserIdentifiers,
@@ -139,6 +140,11 @@ class AccountSettings extends Component {
     this.props.dispatchChangeGitHubUsername({ newUsername })
   };
 
+  onClickDeleteAccount = evt => {
+    evt.preventDefault()
+    console.log('onClickDeleteAccount clicked!')
+  };
+
   componentDidMount () {
     this.props.dispatchGetCurrentUser()
     if (this.props.username) {
@@ -182,6 +188,7 @@ class AccountSettings extends Component {
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             validationErrors={this.state.validationErrors}
             />}
+        <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
     )
   }

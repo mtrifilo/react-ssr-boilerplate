@@ -3,6 +3,7 @@
   max-width: 30rem;
 }
 
-.AccountSettings-delete-link {
+.AccountSettings-delete-link > a {
   margin-top: 2rem;
+  color: #FF4136;
 }

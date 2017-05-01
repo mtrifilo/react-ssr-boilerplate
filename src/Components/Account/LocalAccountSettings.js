@@ -78,7 +78,13 @@ const LocalAccountSettings = (
           Submit Changes
         </button>
       </form>
-      <p className='AccountSettings-delete-link text-center'>Delete Account</p>
+
+      <p className='AccountSettings-delete-link text-center'>
+        <a href='#' data-toggle='modal' data-target='#deleteAccountModal'>
+          Delete Account
+        </a>
+      </p>
+
     </div>
   )
 }
