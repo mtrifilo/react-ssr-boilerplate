@@ -12,6 +12,7 @@ import {
   userFormValidation,
   userChanges,
   passwordFormValidation,
+  newGitHubUsernameFormValidation,
   validateNewUsername,
   validateNewEmail,
   validateCurrentPassword,
@@ -121,6 +122,20 @@ class AccountSettings extends Component {
       return this.setValidationError(validation.validationErrors)
     }
     this.props.dispatchChangeUserPassword(passwordData)
+  };
+
+  onSubmitNewGitHubUsername = evt => {
+    evt.preventDefault()
+    const { newUsername } = this.state
+    // const prevUsername = this.props.username
+
+    const validation = newGitHubUsernameFormValidation(newUsername)
+
+    if (!validation.isValid) {
+      return this.setValidationError(validation.validationErrors)
+    }
+    // dispatch an action to change the username for an
+    // account validated through GitHub
   };
 
   componentDidMount () {
