@@ -6,7 +6,8 @@ import LocalAccountSettings from './LocalAccountSettings'
 import {
   getCurrentUserRequest,
   changeUserIdentifiers,
-  changeUserPassword
+  changeUserPassword,
+  changeGitHubUsername
 } from '../../Redux/modules/user'
 import {
   userFormValidation,
@@ -134,8 +135,8 @@ class AccountSettings extends Component {
     if (!validation.isValid) {
       return this.setValidationError(validation.validationErrors)
     }
-    // dispatch an action to change the username for an
-    // account validated through GitHub
+
+    this.props.dispatchChangeGitHubUsername({ newUsername })
   };
 
   componentDidMount () {
@@ -192,7 +193,8 @@ AccountSettings.propTypes = {
   user: object,
   dispatchGetCurrentUser: func,
   dispatchChangeUserIdentifiers: func,
-  dispatchChangeUserPassword: func
+  dispatchChangeUserPassword: func,
+  dispatchChangeGitHubUsername: func
 }
 
 const mapStateToProps = state => {
@@ -215,6 +217,9 @@ const mapDispatchToProps = dispatch => {
     },
     dispatchChangeUserPassword (passwordData) {
       dispatch(changeUserPassword(passwordData))
+    },
+    dispatchChangeGitHubUsername (newUsername) {
+      dispatch(changeGitHubUsername(newUsername))
     }
   }
 }
