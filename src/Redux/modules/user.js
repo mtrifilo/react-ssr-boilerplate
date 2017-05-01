@@ -138,7 +138,6 @@ export function changeGitHubUsername (newUsername) {
             level: 'success'
           })
         )
-        )
       })
   }
 }
