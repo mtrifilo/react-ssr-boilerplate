@@ -73,7 +73,6 @@ export function changeUserIdentifiers (userData, currentUser) {
       if (updatedEmail) {
         updatedUser = Object.assign({}, currentUser, { email: updatedEmail })
       }
-      console.log('changeUserIdentifiers: success!', updatedUser)
       dispatch(
         displayFlashMessage({
           message: 'Updated successfully! Please login.',
@@ -108,12 +107,10 @@ export function changeUserPassword (passwordData) {
 }
 
 export function changeGitHubUsername (newUsername) {
-  console.log('redux: new github username:', newUsername)
   return dispatch => {
     return axios
       .put('/api/user/githubstrategy', newUsername)
       .then(res => {
-        console.log('github username updated!:', res.data)
         if (res.data && res.data.success) {
           dispatch(
             displayFlashMessage({

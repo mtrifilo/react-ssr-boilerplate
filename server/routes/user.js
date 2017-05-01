@@ -159,8 +159,7 @@ router.put('/githubstrategy', authorize, (req, res) => {
   const newUsername = req.body.newUsername
   const { _id } = req.currentUser
   const validationResults = newGitHubUsernameFormValidation(newUsername)
-
-  if (!validationResults.isvalid) {
+  if (!validationResults.isValid) {
     return res.status(400).json(validationResults.validationErrors)
   }
 
@@ -170,12 +169,11 @@ router.put('/githubstrategy', authorize, (req, res) => {
     { new: true }
   )
     .then(doc => {
-      console.log('github username updated!:', doc)
-      return { doc }
+      return res.json({ success: true })
     })
     .catch(err => {
       console.error('Failed to update username from GitHub strategy', err)
-      return { error: err }
+      return res.status(500).json({ error: err })
     })
 })
 
