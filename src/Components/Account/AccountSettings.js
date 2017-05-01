@@ -167,6 +167,7 @@ class AccountSettings extends Component {
             username={this.state.newUsername}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
+            onSubmitNewGitHubUsername={this.onSubmitNewGitHubUsername}
             validationErrors={this.state.validationErrors}
             />
           : <LocalAccountSettings

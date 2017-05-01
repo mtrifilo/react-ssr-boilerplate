@@ -170,6 +170,7 @@ router.put('/githubstrategy', authorize, (req, res) => {
     { new: true }
   )
     .then(doc => {
+      console.log('github username updated!:', doc)
       return { doc }
     })
     .catch(err => {

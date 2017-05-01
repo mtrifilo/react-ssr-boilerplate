@@ -108,24 +108,38 @@ export function changeUserPassword (passwordData) {
 }
 
 export function changeGitHubUsername (newUsername) {
+  console.log('redux: new github username:', newUsername)
   return dispatch => {
-    return axios.put('/api/user/githubstrategy', newUsername).then(res => {
-      if (res.data && res.data.success) {
-        dispatch(
+    return axios
+      .put('/api/user/githubstrategy', newUsername)
+      .then(res => {
+        console.log('github username updated!:', res.data)
+        if (res.data && res.data.success) {
+          dispatch(
+            displayFlashMessage({
+              message: 'Username updated! Please login with GitHub.',
+              level: 'success'
+            })
+          )
+          return dispatch(logoutRequest())
+        }
+        return dispatch(
+          displayFlashMessage({
+            message: 'Failed to update username.',
+            level: 'error'
+          })
+        )
+      })
+      .catch(err => {
+        console.error('username update failed:', err)
+        return dispatch(
           displayFlashMessage({
             message: 'Username updated! Please login with GitHub.',
             level: 'success'
           })
         )
-        return dispatch(logoutRequest())
-      }
-      return dispatch(
-        displayFlashMessage({
-          message: 'Failed to update username.',
-          level: 'error'
-        })
-      )
-    })
+        )
+      })
   }
 }
 

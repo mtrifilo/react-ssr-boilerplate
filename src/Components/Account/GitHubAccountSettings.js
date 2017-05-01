@@ -3,10 +3,16 @@ import Input from '../Common/Input'
 const { string, object, func } = React.PropTypes
 
 const GitHubAccountSettings = (
-  { username, validationErrors, onChangeHandler, onBlurHandler }
+  {
+    username,
+    validationErrors,
+    onChangeHandler,
+    onBlurHandler,
+    onSubmitNewGitHubUsername
+  }
 ) => {
   return (
-    <form className='AccountSettings-form'>
+    <form className='AccountSettings-form' onSubmit={onSubmitNewGitHubUsername}>
       <Input
         label='Username'
         type='text'
@@ -27,7 +33,8 @@ GitHubAccountSettings.propTypes = {
   username: string,
   validationErrors: object,
   onChangeHandler: func,
-  onBlurHandler: func
+  onBlurHandler: func,
+  onSubmitNewGitHubUsername: func
 }
 
 export default GitHubAccountSettings
