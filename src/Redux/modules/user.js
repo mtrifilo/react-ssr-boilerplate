@@ -134,11 +134,43 @@ export function changeGitHubUsername (newUsername) {
         console.error('username update failed:', err)
         return dispatch(
           displayFlashMessage({
-            message: 'Username updated! Please login with GitHub.',
-            level: 'success'
+            message: 'Failed to update username',
+            level: 'error'
           })
         )
       })
+  }
+}
+
+export function deleteUserAccount () {
+  return dispatch => {
+    return axios.delete('/api/user/')
+    .then(res => {
+      if (res.data && res.data.success) {
+        dispatch(
+          displayFlashMessage({
+            message: 'Account deleted. Goodbye!',
+            level: 'success'
+          })
+        )
+        return dispatch(logoutRequest())
+      }
+      return dispatch(
+        displayFlashMessage({
+          message: 'Failed to delete account.',
+          level: 'error'
+        })
+      )
+    })
+    .catch(err => {
+      console.error('failed to delete account:', err)
+      return dispatch(
+        displayFlashMessage({
+          message: 'Failed to delete account.',
+          level: 'error'
+        })
+      )
+    })
   }
 }
 
