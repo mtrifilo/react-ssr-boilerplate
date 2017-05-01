@@ -3,7 +3,8 @@ const authorize = require('../auth/authorize.js')
 const User = require('../db/models/User')
 const { validateIdentifiers } = require('../validation/identifiersValidation')
 const {
-  passwordFormValidation
+  passwordFormValidation,
+  newGitHubUsernameFormValidation
 } = require('../validation/accountSettingsValidation')
 const { changeUsername } = require('./lib/changeUsername')
 const { changeEmail } = require('./lib/changeEmail')
@@ -153,5 +154,28 @@ function updatePassword (id, hashedPassword) {
       return { error: err }
     })
 }
+
+router.put('/githubstrategy', authorize, (req, res) => {
+  const newUsername = req.body.newUsername
+  const { _id } = req.currentUser
+  const validationResults = newGitHubUsernameFormValidation(newUsername)
+
+  if (!validationResults.isvalid) {
+    return res.status(400).json(validationResults.validationErrors)
+  }
+
+  return User.findOneAndUpdate(
+    { _id },
+    { $set: { username: newUsername } },
+    { new: true }
+  )
+    .then(doc => {
+      return { doc }
+    })
+    .catch(err => {
+      console.error('Failed to update username from GitHub strategy', err)
+      return { error: err }
+    })
+})
 
 module.exports = router
