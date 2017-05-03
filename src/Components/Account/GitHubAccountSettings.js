@@ -12,20 +12,32 @@ const GitHubAccountSettings = (
   }
 ) => {
   return (
-    <form className='AccountSettings-form' onSubmit={onSubmitNewGitHubUsername}>
-      <Input
-        label='Username'
-        type='text'
-        name='newUsername'
-        value={username}
-        onBlur={onBlurHandler}
-        onChange={onChangeHandler}
-        validationError={validationErrors.newUsername}
-      />
-      <button type='submit' className='btn btn-primary' role='button'>
-        Submit Changes
-      </button>
-    </form>
+    <div>
+      <form
+        className='AccountSettings-form'
+        onSubmit={onSubmitNewGitHubUsername}
+      >
+        <Input
+          label='Username'
+          type='text'
+          name='newUsername'
+          value={username}
+          onBlur={onBlurHandler}
+          onChange={onChangeHandler}
+          validationError={validationErrors.newUsername}
+        />
+        <button type='submit' className='btn btn-primary' role='button'>
+          Submit Changes
+        </button>
+      </form>
+
+      <p className='AccountSettings-delete-link text-center'>
+        <a href='#' data-toggle='modal' data-target='#deleteAccountModal'>
+          Delete Account
+        </a>
+      </p>
+
+    </div>
   )
 }
 
