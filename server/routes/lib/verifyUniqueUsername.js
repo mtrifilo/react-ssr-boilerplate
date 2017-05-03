@@ -16,6 +16,10 @@ function verifyUniqueUsername (newUsername) {
     })
     .catch(err => {
       console.error('verifyUniqueUsername: failed to lookup username', err)
+      return {
+        error: { newUsername: 'Failed to lookup username. An error occurred.' },
+        isUnique: false
+      }
     })
 }
 
