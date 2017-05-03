@@ -58,6 +58,11 @@ router.get(
 router.get('/github/callback', (req, res, next) => {
   passport.authenticate('login-github', (err, user) => {
     if (err) {
+      console.error(
+        '/github/callback error: passport args: err, user',
+        err,
+        user
+      )
       return res.status(500).json({
         errors: {
           server: 'A server error occurred',

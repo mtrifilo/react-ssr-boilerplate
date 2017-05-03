@@ -23,6 +23,10 @@ const githubStrategy = new GithubStrategy(
         }
 
         if (!newUserData.username || !newUserData.email) {
+          console.error(
+            'githubStrategy.js: invalid user data error:',
+            newUserData
+          )
           return done({ error: 'invalid user data', newUserData })
         }
 
@@ -30,7 +34,7 @@ const githubStrategy = new GithubStrategy(
         newUser
           .save()
           .then(user => {
-            done(null, user)
+            done(null, { user, token: accessToken })
           })
           .catch(err => {
             done(err)
