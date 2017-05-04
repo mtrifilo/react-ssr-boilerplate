@@ -10,6 +10,7 @@ const { changeUsername } = require('./lib/changeUsername')
 const { changeEmail } = require('./lib/changeEmail')
 const { changeUsernameAndEmail } = require('./lib/changeUsernameAndEmail')
 const { hashPassword } = require('./lib/hashPassword')
+const { verifyUniqueUsername } = require('./lib/verifyUniqueUsername')
 const router = express.Router()
 
 /**
@@ -21,6 +22,25 @@ const router = express.Router()
 router.get('/', authorize, (req, res) => {
   console.log('authorized user: ', req.currentUser)
   res.json(req.currentUser)
+})
+
+/**
+ * GET '/api/user/username/:username'
+ *
+ * Checks a given username for uniqueness. If the username passed
+ * exists, isUnique will be false, otherwise true
+ *
+ * @returns { isUnique: bool }
+ */
+
+router.get('/user/username/:username', (req, res) => {
+  const newUsername = req.params.username
+  verifyUniqueUsername(newUsername)
+    .then(result => res.json(result))
+    .catch(err => {
+      console.error('verifyUniqueUsername failed:', err)
+      return res.status(500).json({ error: err })
+    })
 })
 
 /**

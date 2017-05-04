@@ -1,7 +1,6 @@
 const Validator = require('validator')
 const isEmpty = require('lodash/isEmpty')
 const { buildErrorsObject } = require('./utils')
-const { verifyUniqueUsername } = require('../routes/lib/verifyUniqueUsername')
 
 /**
  * Validates all signup form fields.
@@ -43,14 +42,7 @@ function validateUsername (username) {
     return { username: 'A username is required' }
   }
 
-  // username should be unique
-  return verifyUniqueUsername(username).then(result => {
-    if (result.isUnique) {
-      return { username: '' }
-    }
-    return { username: 'This username is taken.' }
-  })
-  // return { username: '' }
+  return { username: '' }
 }
 
 function validateEmail (email) {
