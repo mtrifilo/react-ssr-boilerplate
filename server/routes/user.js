@@ -11,6 +11,7 @@ const { changeEmail } = require('./lib/changeEmail')
 const { changeUsernameAndEmail } = require('./lib/changeUsernameAndEmail')
 const { hashPassword } = require('./lib/hashPassword')
 const { verifyUniqueUsername } = require('./lib/verifyUniqueUsername')
+const { verifyUniqueEmail } = require('./lib/verifyUniqueEmail')
 const router = express.Router()
 
 /**
@@ -39,6 +40,25 @@ router.get('/user/username/:username', (req, res) => {
     .then(result => res.json(result))
     .catch(err => {
       console.error('verifyUniqueUsername failed:', err)
+      return res.status(500).json({ error: err })
+    })
+})
+
+/**
+* GET '/api/user/email/:email'
+ *
+ * Checks a given email for uniqueness. If the email passed
+ * exists, isUnique will be false, otherwise true
+ *
+ * @returns { isUnique: bool }
+ */
+
+router.get('/user/email/:email', (req, res) => {
+  const newEmail = req.params.email
+  verifyUniqueEmail(newEmail)
+    .then(result => res.json(result))
+    .catch(err => {
+      console.error('verifyUniqueEmail failed:', err)
       return res.status(500).json({ error: err })
     })
 })
