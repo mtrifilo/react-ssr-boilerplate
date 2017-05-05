@@ -10,7 +10,11 @@ import {
   validatePassword,
   validateConfirmPassword
 } from '../../../server/validation/signupFormValidation'
-const { func, bool } = React.PropTypes
+import {
+  checkUsernameUniqueness,
+  checkEmailUniqueness
+} from '../../Redux/modules/user'
+const { func, bool, object } = React.PropTypes
 
 class SignupForm extends Component {
   constructor () {
@@ -36,9 +40,11 @@ class SignupForm extends Component {
   onBlurHandler = evt => {
     if (evt.target.name === 'username') {
       this.setValidationError(validateUsername(this.state.username))
+      this.props.dispatchCheckUsernameUniqueness(this.state.username)
     }
     if (evt.target.name === 'email') {
       this.setValidationError(validateEmail(this.state.email))
+      this.props.dispatchCheckEmailUniqueness(this.state.email)
     }
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
@@ -78,6 +84,17 @@ class SignupForm extends Component {
       return this.setValidationError(validation.validationErrors)
     }
   };
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.newUsername.isUnique === false) {
+      this.setValidationError({ username: 'This username is taken' })
+    }
+    if (nextProps.newEmail.isUnique === false) {
+      this.setValidationError({
+        email: 'This email address is already registered.'
+      })
+    }
+  }
 
   render () {
     if (this.props.signupSuccessful) {
@@ -131,13 +148,19 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
   dispatchSignupRequest: func.isRequired,
-  signupSuccessful: bool.isRequired
+  signupSuccessful: bool.isRequired,
+  newUsername: object,
+  newEmail: object,
+  dispatchCheckUsernameUniqueness: func,
+  dispatchCheckEmailUniqueness: func
 }
 
 const mapStateToProps = state => {
   return {
     signupLoading: state.signupLocal.signupLoading,
-    signupSuccessful: state.signupLocal.signupSuccessful
+    signupSuccessful: state.signupLocal.signupSuccessful,
+    newUsername: state.user.newUsername,
+    newEmail: state.user.newEmail
   }
 }
 
@@ -145,6 +168,12 @@ const mapDispatchToProps = dispatch => {
   return {
     dispatchSignupRequest (userData) {
       dispatch(signupRequest(userData))
+    },
+    dispatchCheckUsernameUniqueness (newUsername) {
+      dispatch(checkUsernameUniqueness(newUsername))
+    },
+    dispatchCheckEmailUniqueness (newEmail) {
+      dispatch(checkEmailUniqueness(newEmail))
     }
   }
 }

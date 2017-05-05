@@ -22,6 +22,9 @@ const SET_USER = 'SET_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
 const GET_USER = 'GET_USER'
 const SET_USERNAME_UNIQUENESS_RESULT = 'SET_USERNAME_UNIQUENESS_RESULT'
+const SET_USERNAME_UNIQUENESS_ERROR = 'SET_USERNAME_UNIQUENESS_ERROR'
+const SET_EMAIL_UNIQUENESS_RESULT = 'SET_EMAIL_UNIQUENESS_RESULT'
+const SET_EMAIL_UNIQUENESS_ERROR = 'SET_EMAIL_UNIQUENESS_ERROR'
 
 // ******* Action Creators & Reducers *******
 
@@ -201,8 +204,13 @@ export function deleteUserAccount () {
 
 export function checkUsernameUniqueness (newUsername) {
   return dispatch => {
-    return axios.get(`/api/user/${newUsername}`).then(result => {
-      dispatch(setUsernameUniquenessResult(result.isUnique))
+    return axios.get(`/api/user/username/${newUsername}`).then(result => {
+      console.log('checkUsernameUniqueness result:', result)
+      dispatch(setUsernameUniquenessResult(result.data.isUnique))
+
+      if (!result.data.isUnique) {
+        dispatch(setUsernameUniquenessError(result.data.error.newUsername))
+      }
     })
   }
 }
@@ -219,6 +227,61 @@ function setUsernameUniquenessResultReducer (state, action) {
   })
 }
 
+export function setUsernameUniquenessError (errorString) {
+  return {
+    type: SET_USERNAME_UNIQUENESS_ERROR,
+    error: errorString
+  }
+}
+function setUsernameUniquenessErrorReducer (state, action) {
+  return Object.assign({}, state, {
+    newUsername: { error: action.error }
+  })
+}
+
+/**
+ * Checks if a new email already exists on the server
+ *
+ * An object will be passed to the .then function: { error: { newEmail: 'error desc'}, isUnique: bool }
+ */
+
+export function checkEmailUniqueness (newEmail) {
+  return dispatch => {
+    return axios.get(`/api/user/email/${newEmail}`).then(result => {
+      console.log('checkEmailUniqueness result:', result)
+      dispatch(setEmailUniquenessResult(result.data.isUnique))
+
+      if (!result.data.isUnique) {
+        dispatch(setEmailUniquenessError(result.data.error.newEmail))
+      }
+    })
+  }
+}
+
+export function setEmailUniquenessResult (bool) {
+  return {
+    type: SET_EMAIL_UNIQUENESS_RESULT,
+    isUnique: bool
+  }
+}
+function setEmailUniquenessResultReducer (state, action) {
+  return Object.assign({}, state, {
+    newEmail: { isUnique: action.isUnique }
+  })
+}
+
+export function setEmailUniquenessError (errorString) {
+  return {
+    type: SET_EMAIL_UNIQUENESS_ERROR,
+    error: errorString
+  }
+}
+function setEmailUniquenessErrorReducer (state, action) {
+  return Object.assign({}, state, {
+    newEmail: { error: action.error }
+  })
+}
+
 export default function user (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case SET_USER:
@@ -229,6 +292,12 @@ export default function user (state = DEFAULT_STATE, action) {
       return getCurrentUserReducer(state, action)
     case SET_USERNAME_UNIQUENESS_RESULT:
       return setUsernameUniquenessResultReducer(state, action)
+    case SET_USERNAME_UNIQUENESS_ERROR:
+      return setUsernameUniquenessErrorReducer(state, action)
+    case SET_EMAIL_UNIQUENESS_RESULT:
+      return setEmailUniquenessResultReducer(state, action)
+    case SET_EMAIL_UNIQUENESS_ERROR:
+      return setEmailUniquenessErrorReducer(state, action)
     default:
       return state
   }

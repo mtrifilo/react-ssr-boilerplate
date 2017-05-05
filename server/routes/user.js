@@ -34,7 +34,7 @@ router.get('/', authorize, (req, res) => {
  * @returns { isUnique: bool }
  */
 
-router.get('/user/username/:username', (req, res) => {
+router.get('/username/:username', (req, res) => {
   const newUsername = req.params.username
   verifyUniqueUsername(newUsername)
     .then(result => res.json(result))
@@ -53,7 +53,7 @@ router.get('/user/username/:username', (req, res) => {
  * @returns { isUnique: bool }
  */
 
-router.get('/user/email/:email', (req, res) => {
+router.get('/email/:email', (req, res) => {
   const newEmail = req.params.email
   verifyUniqueEmail(newEmail).then(result => res.json(result)).catch(err => {
     console.error('verifyUniqueEmail failed:', err)
