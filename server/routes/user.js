@@ -45,7 +45,7 @@ router.get('/user/username/:username', (req, res) => {
 })
 
 /**
-* GET '/api/user/email/:email'
+ * GET '/api/user/email/:email'
  *
  * Checks a given email for uniqueness. If the email passed
  * exists, isUnique will be false, otherwise true
@@ -55,12 +55,10 @@ router.get('/user/username/:username', (req, res) => {
 
 router.get('/user/email/:email', (req, res) => {
   const newEmail = req.params.email
-  verifyUniqueEmail(newEmail)
-    .then(result => res.json(result))
-    .catch(err => {
-      console.error('verifyUniqueEmail failed:', err)
-      return res.status(500).json({ error: err })
-    })
+  verifyUniqueEmail(newEmail).then(result => res.json(result)).catch(err => {
+    console.error('verifyUniqueEmail failed:', err)
+    return res.status(500).json({ error: err })
+  })
 })
 
 /**
