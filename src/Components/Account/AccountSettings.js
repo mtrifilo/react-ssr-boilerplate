@@ -9,7 +9,9 @@ import {
   changeUserIdentifiers,
   changeUserPassword,
   changeGitHubUsername,
-  deleteUserAccount
+  deleteUserAccount,
+  checkUsernameUniqueness,
+  checkEmailUniqueness
 } from '../../Redux/modules/user'
 import {
   userFormValidation,
@@ -39,7 +41,8 @@ class AccountSettings extends Component {
         currentPassword: '',
         newPassword: '',
         confirmNewPassword: ''
-      }
+      },
+      isValid: false
     }
   }
 
@@ -50,9 +53,15 @@ class AccountSettings extends Component {
   onBlurHandler = evt => {
     if (evt.target.name === 'newUsername') {
       this.setValidationError(validateNewUsername(this.state.newUsername))
+      if (this.state.newUsername !== this.props.username) {
+        this.props.dispatchCheckUsernameUniqueness(this.state.newUsername)
+      }
     }
     if (evt.target.name === 'newEmail') {
       this.setValidationError(validateNewEmail(this.state.newEmail))
+      if (this.state.newEmail !== this.props.email) {
+        this.props.dispatchCheckEmailUniqueness(this.state.newEmail)
+      }
     }
     if (evt.target.name === 'currentPassword') {
       this.setValidationError(
@@ -80,6 +89,24 @@ class AccountSettings extends Component {
       validationResult
     )
     this.setState({ validationErrors: newValidationErrors })
+    this.checkFormValidity()
+  };
+
+  checkFormValidity = () => {
+    const errorKeys = Object.keys(this.state.validationErrors)
+    const errorsPresent = errorKeys
+      .map(field => {
+        return this.state.validationErrors[field] !== ''
+      })
+      .filter(result => {
+        return result
+      })
+    if (errorsPresent[0]) {
+      this.setState({ isValid: false })
+    } else {
+      this.setState({ isValid: true })
+    }
+    console.log('checkFormValidity result:', errorsPresent[0])
   };
 
   onSubmitUserFormHandler = evt => {
@@ -157,12 +184,19 @@ class AccountSettings extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.username) {
-      this.setState({
-        newUsername: nextProps.username,
-        newEmail: nextProps.email
-      })
+    if (nextProps.username !== this.props.username) {
+      this.setState({ newUsername: nextProps.username })
     }
+    if (nextProps.email !== this.props.email) {
+      this.setState({ newEmail: nextProps.email })
+    }
+    if (nextProps.newUsername.isUnique === false) {
+      this.setValidationError({ newUsername: 'This username is taken' })
+    }
+    if (nextProps.newEmail.isUnique === false) {
+      this.setValidationError({ newEmail: 'This email address is taken' })
+    }
+    this.checkFormValidity()
   }
 
   render () {
@@ -200,11 +234,15 @@ AccountSettings.propTypes = {
   username: string,
   email: string,
   user: object,
+  newUsername: object,
+  newEmail: object,
   dispatchGetCurrentUser: func,
   dispatchChangeUserIdentifiers: func,
   dispatchChangeUserPassword: func,
   dispatchChangeGitHubUsername: func,
-  dispatchDeleteUserAccount: func
+  dispatchDeleteUserAccount: func,
+  dispatchCheckUsernameUniqueness: func,
+  dispatchCheckEmailUniqueness: func
 }
 
 const mapStateToProps = state => {
@@ -213,7 +251,9 @@ const mapStateToProps = state => {
     username: state.user.userSettings.username,
     email: state.user.userSettings.email,
     id: state.user.user.sub,
-    user: state.user.user
+    user: state.user.user,
+    newUsername: state.user.newUsername,
+    newEmail: state.user.newEmail
   }
 }
 
@@ -233,6 +273,12 @@ const mapDispatchToProps = dispatch => {
     },
     dispatchDeleteUserAccount () {
       dispatch(deleteUserAccount())
+    },
+    dispatchCheckUsernameUniqueness (newUsername) {
+      dispatch(checkUsernameUniqueness(newUsername))
+    },
+    dispatchCheckEmailUniqueness (newEmail) {
+      dispatch(checkEmailUniqueness(newEmail))
     }
   }
 }
