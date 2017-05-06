@@ -1,6 +1,6 @@
 import React from 'react'
 import Input from '../Common/Input'
-const { string, func, object } = React.PropTypes
+const { string, func, object, bool } = React.PropTypes
 
 const LocalAccountSettings = (
   {
@@ -13,7 +13,8 @@ const LocalAccountSettings = (
     onChangeHandler,
     onBlurHandler,
     onSubmitUserFormHandler,
-    onSubmitPasswordFormHandler
+    onSubmitPasswordFormHandler,
+    isValid
   }
 ) => {
   return (
@@ -38,7 +39,12 @@ const LocalAccountSettings = (
           onBlur={onBlurHandler}
           validationError={validationErrors.newEmail}
         />
-        <button type='submit' className='btn btn-primary' role='button'>
+        <button
+          disabled={!isValid}
+          type='submit'
+          className='btn btn-primary'
+          role='button'
+        >
           Submit Changes
         </button>
       </form>
@@ -74,7 +80,12 @@ const LocalAccountSettings = (
           onBlur={onBlurHandler}
           validationError={validationErrors.confirmNewPassword}
         />
-        <button type='submit' className='btn btn-primary' role='button'>
+        <button
+          disabled={!isValid}
+          type='submit'
+          className='btn btn-primary'
+          role='button'
+        >
           Submit Changes
         </button>
       </form>
@@ -99,7 +110,8 @@ LocalAccountSettings.propTypes = {
   onChangeHandler: func,
   onBlurHandler: func,
   onSubmitUserFormHandler: func,
-  onSubmitPasswordFormHandler: func
+  onSubmitPasswordFormHandler: func,
+  isValid: bool
 }
 
 export default LocalAccountSettings

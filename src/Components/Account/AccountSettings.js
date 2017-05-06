@@ -88,8 +88,9 @@ class AccountSettings extends Component {
       this.state.validationErrors,
       validationResult
     )
-    this.setState({ validationErrors: newValidationErrors })
-    this.checkFormValidity()
+    this.setState({ validationErrors: newValidationErrors }, () => {
+      this.checkFormValidity()
+    })
   };
 
   checkFormValidity = () => {
@@ -106,7 +107,6 @@ class AccountSettings extends Component {
     } else {
       this.setState({ isValid: true })
     }
-    console.log('checkFormValidity result:', errorsPresent[0])
   };
 
   onSubmitUserFormHandler = evt => {
@@ -222,6 +222,7 @@ class AccountSettings extends Component {
             onSubmitUserFormHandler={this.onSubmitUserFormHandler}
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             validationErrors={this.state.validationErrors}
+            isValid={this.state.isValid}
             />}
         <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
