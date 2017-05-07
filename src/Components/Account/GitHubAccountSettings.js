@@ -3,7 +3,7 @@ import Input from '../Common/Input'
 import {
   newGitHubUsernameFormValidation
 } from '../../../server/validation/accountSettingsValidation'
-const { string, object, func } = React.PropTypes
+const { string, object, func, bool } = React.PropTypes
 
 class GitHubAccountSettings extends Component {
   onSubmitNewGitHubUsername = evt => {
@@ -36,7 +36,12 @@ class GitHubAccountSettings extends Component {
             onChange={this.props.onChangeHandler}
             validationError={this.props.validationErrors.newUsername}
           />
-          <button type='submit' className='btn btn-primary' role='button'>
+          <button
+            disabled={!this.props.isValid}
+            type='submit'
+            className='btn btn-primary'
+            role='button'
+          >
             Submit Changes
           </button>
         </form>
@@ -58,7 +63,8 @@ GitHubAccountSettings.propTypes = {
   setValidationError: func,
   onChangeHandler: func,
   onBlurHandler: func,
-  dispatchChangeGitHubUsername: func
+  dispatchChangeGitHubUsername: func,
+  isValid: bool
 }
 
 export default GitHubAccountSettings

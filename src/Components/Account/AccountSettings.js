@@ -164,6 +164,7 @@ class AccountSettings extends Component {
               }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
+            isValid={this.state.isValid.identifiers}
             />
           : <LocalAccountSettings
             newUsername={this.state.newUsername}
