@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import GitHubAccountSettings from './GitHubAccountSettings'
-import LocalAccountSettings from './LocalAccountSettings'
+import LocalAccountSettings from './LocalAccountSettings/LocalAccountSettings'
 import DeleteAccountModal from './DeleteAccountModal'
 import {
   getCurrentUserRequest,
@@ -141,19 +142,6 @@ class AccountSettings extends Component {
     }
   };
 
-  onSubmitPasswordFormHandler = evt => {
-    evt.preventDefault()
-    const { currentPassword, newPassword, confirmNewPassword } = this.state
-    const passwordData = { currentPassword, newPassword, confirmNewPassword }
-
-    const validation = passwordFormValidation(passwordData)
-
-    if (!validation.isValid) {
-      return this.setValidationError(validation.validationErrors)
-    }
-    this.props.dispatchChangeUserPassword(passwordData)
-  };
-
   onSubmitNewGitHubUsername = evt => {
     evt.preventDefault()
     const { newUsername } = this.state
@@ -221,6 +209,7 @@ class AccountSettings extends Component {
             onBlurHandler={this.onBlurHandler}
             onSubmitUserFormHandler={this.onSubmitUserFormHandler}
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
+            dispatchChangeUserPassword={this.props.dispatchChangeUserPassword}
             validationErrors={this.state.validationErrors}
             isValid={this.state.isValid}
             />}
