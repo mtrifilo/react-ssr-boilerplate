@@ -23,7 +23,7 @@ class ChangePasswordForm extends Component {
     return (
       <form
         className='AccountSettings-form'
-        onSubmit={this.props.onSubmitPasswordFormHandler}
+        onSubmit={this.onSubmitPasswordFormHandler}
       >
         <h2 className='text-center'>Password</h2>
         <Input
