@@ -209,7 +209,11 @@ export function checkUsernameUniqueness (newUsername) {
       dispatch(setUsernameUniquenessResult(result.data.isUnique))
 
       if (!result.data.isUnique) {
-        dispatch(setUsernameUniquenessError(result.data.error.newUsername))
+        if (result.data.error) {
+          dispatch(setUsernameUniquenessError(result.data.error.newUsername))
+        } else {
+          console.log(result.data)
+        }
       }
     })
   }

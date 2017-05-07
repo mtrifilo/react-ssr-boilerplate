@@ -50,13 +50,13 @@ class AccountSettings extends Component {
   onBlurHandler = evt => {
     if (evt.target.name === 'newUsername') {
       this.setValidationError(validateNewUsername(this.state.newUsername))
-      if (this.state.newUsername !== this.props.username) {
+      if (this.state.newUsername !== this.props.username && this.state.newUsername !== '') {
         this.props.dispatchCheckUsernameUniqueness(this.state.newUsername)
       }
     }
     if (evt.target.name === 'newEmail') {
       this.setValidationError(validateNewEmail(this.state.newEmail))
-      if (this.state.newEmail !== this.props.email) {
+      if (this.state.newEmail !== this.props.email && this.state.newEmail !== '') {
         this.props.dispatchCheckEmailUniqueness(this.state.newEmail)
       }
     }
