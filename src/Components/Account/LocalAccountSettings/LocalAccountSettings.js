@@ -1,6 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import ChangeIdentifierForm from './ChangeIdentifierForm'
 import ChangePasswordForm from './ChangePasswordForm'
+import {
+  changeUserIdentifiers,
+  changeUserPassword
+} from '../../../Redux/modules/user'
 const { string, func, object, bool } = React.PropTypes
 
 const LocalAccountSettings = (
@@ -17,8 +22,6 @@ const LocalAccountSettings = (
     setValidationError,
     onChangeHandler,
     onBlurHandler,
-    onSubmitUserFormHandler,
-    onSubmitPasswordFormHandler,
     dispatchChangeUserPassword,
     dispatchChangeUserIdentifiers,
     isValid
@@ -27,7 +30,6 @@ const LocalAccountSettings = (
   return (
     <div>
       <ChangeIdentifierForm
-        onSubmitUserFormHandler={onSubmitUserFormHandler}
         onChangeHandler={onChangeHandler}
         onBlurHandler={onBlurHandler}
         dispatchChangeUserIdentifiers={dispatchChangeUserIdentifiers}
@@ -41,7 +43,6 @@ const LocalAccountSettings = (
         isValid={isValid}
       />
       <ChangePasswordForm
-        onSubmitPasswordFormHandler={onSubmitPasswordFormHandler}
         dispatchChangeUserPassword={dispatchChangeUserPassword}
         onChangeHandler={onChangeHandler}
         onBlurhandler={onBlurHandler}
@@ -76,11 +77,28 @@ LocalAccountSettings.propTypes = {
   setValidationError: func,
   onChangeHandler: func,
   onBlurHandler: func,
-  onSubmitUserFormHandler: func,
-  onSubmitPasswordFormHandler: func,
   dispatchChangeUserPassword: func,
   dispatchChangeUserIdentifiers: func,
   isValid: bool
 }
 
-export default LocalAccountSettings
+const mapStateToProps = state => {
+  return {
+    user: state.user.user
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatchChangeUserPassword (passwordData) {
+      dispatch(changeUserPassword(passwordData))
+    },
+    dispatchChangeUserIdentifiers (userData, currentUser) {
+      dispatch(changeUserIdentifiers(userData, currentUser))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  LocalAccountSettings
+)

@@ -6,8 +6,6 @@ import LocalAccountSettings from './LocalAccountSettings/LocalAccountSettings'
 import DeleteAccountModal from './DeleteAccountModal'
 import {
   getCurrentUserRequest,
-  changeUserIdentifiers,
-  changeUserPassword,
   changeGitHubUsername,
   deleteUserAccount,
   checkUsernameUniqueness,
@@ -152,7 +150,6 @@ class AccountSettings extends Component {
             setValdiationError={this.setValidationError}
             />
           : <LocalAccountSettings
-            user={this.props.user}
             newUsername={this.state.newUsername}
             newEmail={this.state.newEmail}
             username={this.props.username}
@@ -162,12 +159,6 @@ class AccountSettings extends Component {
             confirmNewPassword={this.state.confirmNewPassword}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
-            onSubmitUserFormHandler={this.onSubmitUserFormHandler}
-            onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
-            dispatchChangeUserPassword={this.props.dispatchChangeUserPassword}
-            dispatchChangeUserIdentifiers={
-                this.props.dispatchChangeUserIdentifiers
-              }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
@@ -182,12 +173,9 @@ AccountSettings.propTypes = {
   gitHubToken: string,
   username: string,
   email: string,
-  user: object,
   newUsername: object,
   newEmail: object,
   dispatchGetCurrentUser: func,
-  dispatchChangeUserIdentifiers: func,
-  dispatchChangeUserPassword: func,
   dispatchChangeGitHubUsername: func,
   dispatchDeleteUserAccount: func,
   dispatchCheckUsernameUniqueness: func,
@@ -200,7 +188,6 @@ const mapStateToProps = state => {
     username: state.user.userSettings.username,
     email: state.user.userSettings.email,
     id: state.user.user.sub,
-    user: state.user.user,
     newUsername: state.user.newUsername,
     newEmail: state.user.newEmail
   }
@@ -210,12 +197,6 @@ const mapDispatchToProps = dispatch => {
   return {
     dispatchGetCurrentUser () {
       dispatch(getCurrentUserRequest())
-    },
-    dispatchChangeUserIdentifiers (userData, currentUser) {
-      dispatch(changeUserIdentifiers(userData, currentUser))
-    },
-    dispatchChangeUserPassword (passwordData) {
-      dispatch(changeUserPassword(passwordData))
     },
     dispatchChangeGitHubUsername (newUsername) {
       dispatch(changeGitHubUsername(newUsername))
