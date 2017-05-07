@@ -11,6 +11,7 @@ const LocalAccountSettings = (
     newPassword,
     confirmNewPassword,
     validationErrors,
+    setValidationError,
     onChangeHandler,
     onBlurHandler,
     onSubmitUserFormHandler,
@@ -36,6 +37,7 @@ const LocalAccountSettings = (
         onChangeHandler={onChangeHandler}
         onBlurhandler={onBlurHandler}
         validationErrors={validationErrors}
+        setValidationError={setValidationError}
         currentPassword={currentPassword}
         newPassword={newPassword}
         confirmNewPassword={confirmNewPassword}
@@ -59,6 +61,7 @@ LocalAccountSettings.propTypes = {
   newPassword: string,
   confirmNewPassword: string,
   validationErrors: object,
+  setValidationError: func,
   onChangeHandler: func,
   onBlurHandler: func,
   onSubmitUserFormHandler: func,
