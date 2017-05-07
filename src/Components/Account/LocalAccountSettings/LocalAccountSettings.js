@@ -45,7 +45,7 @@ const LocalAccountSettings = (
       <ChangePasswordForm
         dispatchChangeUserPassword={dispatchChangeUserPassword}
         onChangeHandler={onChangeHandler}
-        onBlurhandler={onBlurHandler}
+        onBlurHandler={onBlurHandler}
         validationErrors={validationErrors}
         setValidationError={setValidationError}
         currentPassword={currentPassword}
