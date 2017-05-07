@@ -48,7 +48,7 @@ class ChangeIdentifierForm extends Component {
           label='Username'
           type='text'
           name='newUsername'
-          value={this.props.username}
+          value={this.props.newUsername}
           onChange={this.props.onChangeHandler}
           onBlur={this.props.onBlurHandler}
           validationError={this.props.validationErrors.newUsername}
@@ -57,7 +57,7 @@ class ChangeIdentifierForm extends Component {
           label='Email'
           type='email'
           name='newEmail'
-          value={this.props.email}
+          value={this.props.newEmail}
           onChange={this.props.onChangeHandler}
           onBlur={this.props.onBlurHandler}
           validationError={this.props.validationErrors.newEmail}
@@ -76,7 +76,7 @@ class ChangeIdentifierForm extends Component {
 }
 
 ChangeIdentifierForm.propTypes = {
-  user: string,
+  user: object,
   username: string,
   email: string,
   newUsername: string,

@@ -6,7 +6,7 @@ import {
   changeUserIdentifiers,
   changeUserPassword
 } from '../../../Redux/modules/user'
-const { string, func, object, bool } = React.PropTypes
+const { string, func, object } = React.PropTypes
 
 const LocalAccountSettings = (
   {
@@ -79,7 +79,7 @@ LocalAccountSettings.propTypes = {
   onBlurHandler: func,
   dispatchChangeUserPassword: func,
   dispatchChangeUserIdentifiers: func,
-  isValid: bool
+  isValid: object
 }
 
 const mapStateToProps = state => {

@@ -99,22 +99,22 @@ class AccountSettings extends Component {
       confirmNewPassword
     } = this.state.validationErrors
 
-    let identifierErrorsPresent = false
-    let passwordErrorsPresent = false
+    let identifiersValid = true
+    let passwordValid = true
 
     if (newUsername !== '' || newEmail !== '') {
-      identifierErrorsPresent = true
+      identifiersValid = false
     }
     if (
       currentPassword !== '' || newPassword !== '' || confirmNewPassword !== ''
     ) {
-      passwordErrorsPresent = true
+      passwordValid = false
     }
 
     this.setState({
       isValid: {
-        identifiers: identifierErrorsPresent,
-        password: passwordErrorsPresent
+        identifiers: identifiersValid,
+        password: passwordValid
       }
     })
   };
