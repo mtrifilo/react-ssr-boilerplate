@@ -72,6 +72,7 @@ ChangePasswordForm.propTypes = {
   onBlurHandler: func,
   dispatchChangeUserPassword: func,
   validationErrors: object,
+  setValidationError: func,
   currentPassword: string,
   newPassword: string,
   confirmNewPassword: string,

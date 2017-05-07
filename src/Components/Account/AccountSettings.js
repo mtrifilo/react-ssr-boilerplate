@@ -211,6 +211,7 @@ class AccountSettings extends Component {
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             dispatchChangeUserPassword={this.props.dispatchChangeUserPassword}
             validationErrors={this.state.validationErrors}
+            setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
             />}
         <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
