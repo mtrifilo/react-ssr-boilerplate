@@ -5,8 +5,11 @@ const { string, func, object, bool } = React.PropTypes
 
 const LocalAccountSettings = (
   {
+    user,
     username,
     email,
+    newUsername,
+    newEmail,
     currentPassword,
     newPassword,
     confirmNewPassword,
@@ -17,6 +20,7 @@ const LocalAccountSettings = (
     onSubmitUserFormHandler,
     onSubmitPasswordFormHandler,
     dispatchChangeUserPassword,
+    dispatchChangeUserIdentifiers,
     isValid
   }
 ) => {
@@ -26,9 +30,14 @@ const LocalAccountSettings = (
         onSubmitUserFormHandler={onSubmitUserFormHandler}
         onChangeHandler={onChangeHandler}
         onBlurHandler={onBlurHandler}
+        dispatchChangeUserIdentifiers={dispatchChangeUserIdentifiers}
         validationErrors={validationErrors}
+        setValidationError={setValidationError}
+        user={user}
         username={username}
         email={email}
+        newUsername={newUsername}
+        newEmail={newEmail}
         isValid={isValid}
       />
       <ChangePasswordForm
@@ -55,8 +64,11 @@ const LocalAccountSettings = (
 }
 
 LocalAccountSettings.propTypes = {
+  user: object,
   username: string,
   email: string,
+  newUsername: string,
+  newEmail: string,
   currentPassword: string,
   newPassword: string,
   confirmNewPassword: string,
@@ -67,6 +79,7 @@ LocalAccountSettings.propTypes = {
   onSubmitUserFormHandler: func,
   onSubmitPasswordFormHandler: func,
   dispatchChangeUserPassword: func,
+  dispatchChangeUserIdentifiers: func,
   isValid: bool
 }
 

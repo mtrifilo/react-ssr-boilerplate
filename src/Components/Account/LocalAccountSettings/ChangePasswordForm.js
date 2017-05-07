@@ -67,7 +67,6 @@ class ChangePasswordForm extends Component {
 }
 
 ChangePasswordForm.propTypes = {
-  onSubmitPasswordFormHandler: func,
   onChangeHandler: func,
   onBlurHandler: func,
   dispatchChangeUserPassword: func,

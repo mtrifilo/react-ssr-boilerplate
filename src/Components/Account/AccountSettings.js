@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import isEmpty from 'lodash/isEmpty'
 import GitHubAccountSettings from './GitHubAccountSettings'
 import LocalAccountSettings from './LocalAccountSettings/LocalAccountSettings'
 import DeleteAccountModal from './DeleteAccountModal'
@@ -15,8 +14,6 @@ import {
   checkEmailUniqueness
 } from '../../Redux/modules/user'
 import {
-  userFormValidation,
-  userChanges,
   newGitHubUsernameFormValidation,
   validateNewUsername,
   validateNewEmail,
@@ -109,42 +106,9 @@ class AccountSettings extends Component {
     }
   };
 
-  onSubmitUserFormHandler = evt => {
-    evt.preventDefault()
-    const { newUsername, newEmail } = this.state
-    const userData = { newUsername, newEmail }
-    const prevUserData = {
-      username: this.props.username,
-      email: this.props.email
-    }
-
-    const validation = userFormValidation(userData)
-
-    if (!validation.isValid) {
-      return this.setValidationError(validation.validationErrors)
-    }
-
-    // only include field(s) that are different from a user's
-    // current username or email
-    const userDataChanges = userChanges(userData, prevUserData)
-
-    if (!isEmpty(userDataChanges)) {
-      console.log('userDataChanges', userDataChanges)
-      this.props.dispatchChangeUserIdentifiers(
-        userDataChanges,
-        this.props.user
-      )
-    } else {
-      console.log('no changes to submit')
-      // dispatch flashMessage to inform the user that there
-      // are no changes to submit
-    }
-  };
-
   onSubmitNewGitHubUsername = evt => {
     evt.preventDefault()
     const { newUsername } = this.state
-    // const prevUsername = this.props.username
 
     const validation = newGitHubUsernameFormValidation(newUsername)
 
@@ -199,8 +163,11 @@ class AccountSettings extends Component {
             validationErrors={this.state.validationErrors}
             />
           : <LocalAccountSettings
-            username={this.state.newUsername}
-            email={this.state.newEmail}
+            user={this.props.user}
+            newUsername={this.state.newUsername}
+            newEmail={this.state.newEmail}
+            username={this.props.username}
+            email={this.props.email}
             currentPassword={this.state.currentPassword}
             newPassword={this.state.newPassword}
             confirmNewPassword={this.state.confirmNewPassword}
@@ -209,6 +176,7 @@ class AccountSettings extends Component {
             onSubmitUserFormHandler={this.onSubmitUserFormHandler}
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             dispatchChangeUserPassword={this.props.dispatchChangeUserPassword}
+            dispatchChangeUserIdentifiers={this.props.dispatchChangeUserIdentifiers}
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
