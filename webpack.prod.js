@@ -13,7 +13,7 @@ module.exports = function (env) {
       }),
       new webpack.DefinePlugin({
         'process.env': {
-          'NODE_ENV': JSON.stringify('production')
+          NODE_ENV: JSON.stringify('production')
         }
       }),
       new webpack.optimize.UglifyJsPlugin({
@@ -24,8 +24,8 @@ module.exports = function (env) {
         comments: false
       }),
       new CompressionPlugin({
-        asset: "[path].gz[query]",
-        algorithm: "gzip",
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
         test: /\.js$|\.html$/,
         threshold: 10240,
         minRatio: 0.8
