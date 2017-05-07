@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-import { signupRequest } from '../../Redux/modules/signupLocal'
+import { signupRequest } from '../../redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {
   signupFormValidation,
@@ -14,7 +14,7 @@ import {
 import {
   checkUsernameUniqueness,
   checkEmailUniqueness
-} from '../../Redux/modules/user'
+} from '../../redux/modules/user'
 const { func, bool, object } = React.PropTypes
 
 class SignupForm extends Component {

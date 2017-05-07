@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
-import { loginRequest } from '../../Redux/modules/loginLocal'
+import { loginRequest } from '../../redux/modules/loginLocal'
 import Input from '../Common/Input'
 import {
   loginFormValidation,

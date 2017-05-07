@@ -8,9 +8,9 @@ const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const { Provider } = require('react-redux')
-const { store } = require('./src/Redux/Store')
-const Routes = require('./src/Components/Router/CompiledRoutes').default
-const Layout = require('./src/Components/Layout').default
+const { store } = require('./src/redux/store')
+const Routes = require('./src/components/Router/CompiledRoutes').default
+const Layout = require('./src/components/Layout').default
 
 const _template = require('lodash/template')
 const baseTemplate = fs.readFileSync('./index.html')
@@ -55,11 +55,13 @@ app.use('/public', express.static('./public'))
 app.use((req, res) => {
   const context = {}
   const body = ReactDOMServer.renderToString(
-    React.createElement(Provider, { store },
-      React.createElement(StaticRouter, { location: req.url, context: context },
-        React.createElement(Layout, null,
-          React.createElement(Routes)
-        )
+    React.createElement(
+      Provider,
+      { store },
+      React.createElement(
+        StaticRouter,
+        { location: req.url, context: context },
+        React.createElement(Layout, null, React.createElement(Routes))
       )
     )
   )

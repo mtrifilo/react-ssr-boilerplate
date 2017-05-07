@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
-import store from '../../Redux/Store'
-import { setUser } from '../../Redux/modules/user'
+import store from '../../redux/store'
+import { setUser } from '../../redux/modules/user'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
 const { object } = React.PropTypes
 

@@ -10,7 +10,7 @@ import {
   deleteUserAccount,
   checkUsernameUniqueness,
   checkEmailUniqueness
-} from '../../Redux/modules/user'
+} from '../../redux/modules/user'
 import {
   validateNewUsername,
   validateNewEmail,

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-import { logoutUser } from '../../Redux/modules/user'
+import { logoutUser } from '../../redux/modules/user'
 const { bool, string, object, number, func } = React.PropTypes
 
 class Authorize extends Component {

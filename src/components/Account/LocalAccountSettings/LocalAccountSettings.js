@@ -5,7 +5,7 @@ import ChangePasswordForm from './ChangePasswordForm'
 import {
   changeUserIdentifiers,
   changeUserPassword
-} from '../../../Redux/modules/user'
+} from '../../../redux/modules/user'
 const { string, func, object } = React.PropTypes
 
 const LocalAccountSettings = (

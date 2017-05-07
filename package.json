@@ -14,9 +14,10 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "watch:prod": "webpack --config webpack.prod.js --watch",
+    "babel:clear": "del public/production",
     "server": "NODE_ENV=server nodemon server.js",
     "mongo": "mongod --port 27017 --dbpath=./data",
-    "compile-routes": "NODE_ENV=server babel src/Components/Router/Routes.js -o src/Components/Router/CompiledRoutes.js",
+    "compile-routes": "NODE_ENV=server babel src/components/Router/Routes.js -o src/components/Router/CompiledRoutes.js",
     "all": "xfce4-terminal -H -e \"yarn run tdd\" & xfce4-terminal -H -e \"yarn run watch\" & xfce4-terminal -H -e \"yarn run server\" & xfce4-terminal -H -e \"yarn run mongo\""
   },
   "dependencies": {
@@ -26,6 +27,8 @@
     "body-parser": "^1.17.1",
     "bootstrap": "4.0.0-alpha.6",
     "classnames": "^2.2.5",
+    "del": "^2.2.2",
+    "del-cli": "^0.2.1",
     "express": "^4.15.2",
     "helmet": "^3.5.0",
     "jsonwebtoken": "^7.3.0",
