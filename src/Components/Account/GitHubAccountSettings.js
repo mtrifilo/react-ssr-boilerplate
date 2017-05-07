@@ -1,52 +1,64 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Input from '../Common/Input'
+import {
+  newGitHubUsernameFormValidation
+} from '../../../server/validation/accountSettingsValidation'
 const { string, object, func } = React.PropTypes
 
-const GitHubAccountSettings = (
-  {
-    username,
-    validationErrors,
-    onChangeHandler,
-    onBlurHandler,
-    onSubmitNewGitHubUsername
+class GitHubAccountSettings extends Component {
+  onSubmitNewGitHubUsername = evt => {
+    evt.preventDefault()
+
+    const validation = newGitHubUsernameFormValidation(this.props.newUsername)
+
+    if (!validation.isValid) {
+      return this.props.setValidationError(validation.validationErrors)
+    }
+
+    this.props.dispatchChangeGitHubUsername({
+      newUsername: this.props.newUsername
+    })
+  };
+
+  render () {
+    return (
+      <div>
+        <form
+          className='AccountSettings-form'
+          onSubmit={this.onSubmitNewGitHubUsername}
+        >
+          <Input
+            label='Username'
+            type='text'
+            name='newUsername'
+            value={this.props.newUsername}
+            onBlur={this.props.onBlurHandler}
+            onChange={this.props.onChangeHandler}
+            validationError={this.props.validationErrors.newUsername}
+          />
+          <button type='submit' className='btn btn-primary' role='button'>
+            Submit Changes
+          </button>
+        </form>
+
+        <p className='AccountSettings-delete-link text-center'>
+          <a href='#' data-toggle='modal' data-target='#deleteAccountModal'>
+            Delete Account
+          </a>
+        </p>
+
+      </div>
+    )
   }
-) => {
-  return (
-    <div>
-      <form
-        className='AccountSettings-form'
-        onSubmit={onSubmitNewGitHubUsername}
-      >
-        <Input
-          label='Username'
-          type='text'
-          name='newUsername'
-          value={username}
-          onBlur={onBlurHandler}
-          onChange={onChangeHandler}
-          validationError={validationErrors.newUsername}
-        />
-        <button type='submit' className='btn btn-primary' role='button'>
-          Submit Changes
-        </button>
-      </form>
-
-      <p className='AccountSettings-delete-link text-center'>
-        <a href='#' data-toggle='modal' data-target='#deleteAccountModal'>
-          Delete Account
-        </a>
-      </p>
-
-    </div>
-  )
 }
 
 GitHubAccountSettings.propTypes = {
-  username: string,
+  newUsername: string,
   validationErrors: object,
+  setValidationError: func,
   onChangeHandler: func,
   onBlurHandler: func,
-  onSubmitNewGitHubUsername: func
+  dispatchChangeGitHubUsername: func
 }
 
 export default GitHubAccountSettings

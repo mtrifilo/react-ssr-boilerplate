@@ -14,7 +14,6 @@ import {
   checkEmailUniqueness
 } from '../../Redux/modules/user'
 import {
-  newGitHubUsernameFormValidation,
   validateNewUsername,
   validateNewEmail,
   validateCurrentPassword,
@@ -106,19 +105,6 @@ class AccountSettings extends Component {
     }
   };
 
-  onSubmitNewGitHubUsername = evt => {
-    evt.preventDefault()
-    const { newUsername } = this.state
-
-    const validation = newGitHubUsernameFormValidation(newUsername)
-
-    if (!validation.isValid) {
-      return this.setValidationError(validation.validationErrors)
-    }
-
-    this.props.dispatchChangeGitHubUsername({ newUsername })
-  };
-
   onClickDeleteAccount = evt => {
     evt.preventDefault()
     this.props.dispatchDeleteUserAccount()
@@ -156,11 +142,14 @@ class AccountSettings extends Component {
         <h1 className='text-center page-title'>Account Settings</h1>
         {this.props.gitHubToken
           ? <GitHubAccountSettings
-            username={this.state.newUsername}
+            newUsername={this.state.newUsername}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
-            onSubmitNewGitHubUsername={this.onSubmitNewGitHubUsername}
+            dispatchChangeGitHubUsername={
+                this.props.dispatchChangeGitHubUsername
+              }
             validationErrors={this.state.validationErrors}
+            setValdiationError={this.setValidationError}
             />
           : <LocalAccountSettings
             user={this.props.user}
@@ -176,7 +165,9 @@ class AccountSettings extends Component {
             onSubmitUserFormHandler={this.onSubmitUserFormHandler}
             onSubmitPasswordFormHandler={this.onSubmitPasswordFormHandler}
             dispatchChangeUserPassword={this.props.dispatchChangeUserPassword}
-            dispatchChangeUserIdentifiers={this.props.dispatchChangeUserIdentifiers}
+            dispatchChangeUserIdentifiers={
+                this.props.dispatchChangeUserIdentifiers
+              }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
