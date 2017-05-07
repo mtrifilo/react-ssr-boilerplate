@@ -20,7 +20,7 @@ class SetToken extends Component {
 
   render () {
     if (this.state.loading) {
-      return <h1>Loading...</h1>
+      return <h1 className='text-center'>Loading...</h1>
     }
     return <Redirect to='/' />
   }
