@@ -17,7 +17,6 @@ import {
 import {
   userFormValidation,
   userChanges,
-  passwordFormValidation,
   newGitHubUsernameFormValidation,
   validateNewUsername,
   validateNewEmail,
