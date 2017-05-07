@@ -36,7 +36,10 @@ class AccountSettings extends Component {
         newPassword: '',
         confirmNewPassword: ''
       },
-      isValid: false
+      isValid: {
+        identifiers: false,
+        passoword: false
+      }
     }
   }
 
@@ -88,19 +91,32 @@ class AccountSettings extends Component {
   };
 
   checkFormValidity = () => {
-    const errorKeys = Object.keys(this.state.validationErrors)
-    const errorsPresent = errorKeys
-      .map(field => {
-        return this.state.validationErrors[field] !== ''
-      })
-      .filter(result => {
-        return result
-      })
-    if (errorsPresent[0]) {
-      this.setState({ isValid: false })
-    } else {
-      this.setState({ isValid: true })
+    const {
+      newUsername,
+      newEmail,
+      currentPassword,
+      newPassword,
+      confirmNewPassword
+    } = this.state.validationErrors
+
+    let identifierErrorsPresent = false
+    let passwordErrorsPresent = false
+
+    if (newUsername !== '' || newEmail !== '') {
+      identifierErrorsPresent = true
     }
+    if (
+      currentPassword !== '' || newPassword !== '' || confirmNewPassword !== ''
+    ) {
+      passwordErrorsPresent = true
+    }
+
+    this.setState({
+      isValid: {
+        identifiers: identifierErrorsPresent,
+        password: passwordErrorsPresent
+      }
+    })
   };
 
   onClickDeleteAccount = evt => {

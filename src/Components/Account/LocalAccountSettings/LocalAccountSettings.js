@@ -40,7 +40,7 @@ const LocalAccountSettings = (
         email={email}
         newUsername={newUsername}
         newEmail={newEmail}
-        isValid={isValid}
+        isValid={isValid.identifiers}
       />
       <ChangePasswordForm
         dispatchChangeUserPassword={dispatchChangeUserPassword}
@@ -51,7 +51,7 @@ const LocalAccountSettings = (
         currentPassword={currentPassword}
         newPassword={newPassword}
         confirmNewPassword={confirmNewPassword}
-        isValid={isValid}
+        isValid={isValid.password}
       />
 
       <p className='AccountSettings-delete-link text-center'>
