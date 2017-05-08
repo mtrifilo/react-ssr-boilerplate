@@ -4,18 +4,25 @@ if (process.env.NODE_ENV !== 'production') {
 
 const fs = require('fs')
 
+// React
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const { Provider } = require('react-redux')
-const { store } = require('./src/redux/store')
+const { store } = process.env.NODE_ENV === 'production'
+  ? require('./src/redux/store')
+  : require('./public/src/redux/store')
 const Routes = require('./src/components/Router/CompiledRoutes').default
-const Layout = require('./src/components/Layout').default
+const Layout = process.env.NODE_ENV === 'production'
+  ? require('./src/components/Layout').default
+  : require('./public/src/componets/Layout')
 
+// Template for injecting server-side rendered React markup
 const _template = require('lodash/template')
 const baseTemplate = fs.readFileSync('./index.html')
 const template = _template(baseTemplate)
 
+// App configuration and secrets
 const config = require('./config.json')
 
 const connectMongoose = require('./server/db/connectMongoose')
@@ -36,16 +43,17 @@ const user = require('./server/routes/user')
 
 connectMongoose(MONGO_URI)
 
+// Middleware
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(passport.initialize())
 passport.use('local-login', localStrategy)
 passport.use('login-github', githubStrategy)
 
+// Routes
 app.use('/api/signup', signup)
 app.use('/api/login', login)
 app.use('/api/user', user)
-
 app.use('/public', express.static('./public'))
 
 /**
