@@ -6,7 +6,7 @@
   "author": "Matt Trifilo",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
     "test": "jest",
     "tdd": "NODE_ENV=test jest --watch",
     "lint": "eslint server.js webpack.config.js webpack.prod.js server/** src/**",

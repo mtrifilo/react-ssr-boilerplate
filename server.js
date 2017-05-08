@@ -12,12 +12,12 @@ const { Provider } = require('react-redux')
 const { store } = process.env.NODE_ENV === 'production'
   ? require('./public/production/src/redux/store')
   : require('./src/redux/store')
-const Routes = require('./src/components/Router/CompiledRoutes').default
+const Routes = process.env.NODE_ENV === 'production'
+  ? require('./public/production/src/components/Router/CompiledRoutes').default
+  : require('./src/components/Router/CompiledRoutes').default
 const Layout = process.env.NODE_ENV === 'production'
-  ? require('./public/production/src/componets/Layout')
-  : require('./src/components/Layout').default(
-      './public/production/src/componets/Layout'
-    )
+  ? require('./public/production/src/components/Layout').default
+  : require('./src/components/Layout').default
 
 // Template for injecting server-side rendered React markup
 const _template = require('lodash/template')
@@ -83,5 +83,6 @@ app.use((req, res) => {
     res.status(200).send(template({ body }))
   }
 })
+console.log('node environment:', process.env.NODE_ENV)
 console.log(`Express: Listening on port ${PORT}`)
 app.listen(PORT)
