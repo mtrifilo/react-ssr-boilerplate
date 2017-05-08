@@ -26,7 +26,9 @@ const template = _template(baseTemplate)
 const config = require('./config.json')
 
 const connectMongoose = require('./server/db/connectMongoose')
-const MONGO_URI = config.mongoUriDev
+const MONGO_URI = process.env.NODE_ENV === 'production'
+  ? config.mongoUriProduction
+  : config.mongoUriDev
 
 const express = require('express')
 const helmet = require('helmet')
