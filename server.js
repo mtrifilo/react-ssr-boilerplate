@@ -36,7 +36,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const localStrategy = require('./server/passport/localStrategy')
 const githubStrategy = require('./server/passport/githubStrategy')
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || config.expressPort
 const app = express()
 
 const signup = require('./server/routes/signup')
