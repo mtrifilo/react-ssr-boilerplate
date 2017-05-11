@@ -6,7 +6,7 @@ const githubStrategy = new GithubStrategy(
   {
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: `http://${domain}/api/login/github/callback`,
+    callbackURL: `${domain}/api/login/github/callback`,
     session: false
   },
   (accessToken, refreshToken, profile, done) => {
