@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FlashMessage from './FlashMessage'
-const { array } = React.PropTypes
+import { array } from 'prop-types'
 
 const FlashMessageContainer = ({ flashMessages }) => {
   const displayFlashMessages = flashMessages.map(({ message, level }) => (

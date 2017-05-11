@@ -7,7 +7,7 @@ import MemberPage from '../MemberPage/MemberPage'
 import NotFound from './NotFound'
 import SetToken from '../Login/SetToken'
 import AccountPage from '../Account/AccountPage'
-const { bool } = React.PropTypes
+import { bool } from 'prop-types'
 
 /**
  * Run `yarn run compile-routes` after altering any Routes in this file.

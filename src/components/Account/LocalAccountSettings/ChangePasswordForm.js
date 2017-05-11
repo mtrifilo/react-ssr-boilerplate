@@ -3,7 +3,7 @@ import Input from '../../Common/Input'
 import {
   passwordFormValidation
 } from '../../../../server/validation/accountSettingsValidation'
-const { func, string, object, bool } = React.PropTypes
+import { func, string, object, bool } from 'prop-types'
 
 class ChangePasswordForm extends Component {
   onSubmitPasswordFormHandler = evt => {

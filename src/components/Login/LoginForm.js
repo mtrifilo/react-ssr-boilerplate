@@ -8,7 +8,7 @@ import {
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
-const { func, object, bool } = React.PropTypes
+import { func, object, bool } from 'prop-types'
 
 class LoginForm extends Component {
   constructor () {

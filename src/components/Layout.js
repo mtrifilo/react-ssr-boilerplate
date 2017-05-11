@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import NavBar from './NavBar/NavBar'
 import FlashMessageContainer from './Common/FlashMessageContainer'
-const { element, object } = React.PropTypes
+import { element, object } from 'prop-types'
 
 const Layout = ({ children, location }) => (
   <div>

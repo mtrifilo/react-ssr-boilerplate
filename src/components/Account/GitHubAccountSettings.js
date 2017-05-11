@@ -3,7 +3,7 @@ import Input from '../Common/Input'
 import {
   newGitHubUsernameFormValidation
 } from '../../../server/validation/accountSettingsValidation'
-const { string, object, func, bool } = React.PropTypes
+import { string, object, func, bool } from 'prop-types'
 
 class GitHubAccountSettings extends Component {
   onSubmitNewGitHubUsername = evt => {

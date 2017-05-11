@@ -18,7 +18,7 @@ import {
   validateNewPassword,
   validateConfirmNewPassword
 } from '../../../server/validation/accountSettingsValidation'
-const { string, func, object } = React.PropTypes
+import { string, func, object } from 'prop-types'
 
 class AccountSettings extends Component {
   constructor (props) {

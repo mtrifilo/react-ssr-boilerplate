@@ -1,5 +1,5 @@
 import React from 'react'
-const { func } = React.PropTypes
+import { func } from 'prop-types'
 
 const DeleteAccountModal = ({ onClickDeleteAccount }) => {
   return (

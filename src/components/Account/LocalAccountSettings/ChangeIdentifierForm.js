@@ -5,7 +5,7 @@ import {
   userFormValidation,
   userChanges
 } from '../../../../server/validation/accountSettingsValidation'
-const { func, string, object, bool } = React.PropTypes
+import { func, string, object, bool } from 'prop-types'
 
 class ChangeIdentifierForm extends Component {
   onSubmitUserFormHandler = evt => {

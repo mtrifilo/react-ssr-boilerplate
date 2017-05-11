@@ -1,5 +1,5 @@
 import React from 'react'
-const { string } = React.PropTypes
+import { string } from 'prop-types'
 
 const MemberContent = ({ username }) => (
   <div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import GuestLinks from './GuestLinks'
 import AuthenticatedLinks from './AuthenticatedLinks'
-const { bool, object } = React.PropTypes
+import { bool, object } from 'prop-types'
 
 class NavBar extends Component {
   constructor (props) {

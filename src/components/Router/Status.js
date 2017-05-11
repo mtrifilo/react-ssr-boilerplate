@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router'
-const { number, element } = React.PropTypes
+import { number, element } from 'prop-types'
 
 const Status = ({ code, children }) => (
   <Route

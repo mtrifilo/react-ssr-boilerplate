@@ -3,7 +3,7 @@ import { Redirect } from 'react-router'
 import store from '../../redux/store'
 import { setUser } from '../../redux/modules/user'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
-const { object } = React.PropTypes
+import { object } from 'prop-types'
 
 class SetToken extends Component {
   constructor (props) {

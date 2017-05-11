@@ -6,27 +6,25 @@ import {
   changeUserIdentifiers,
   changeUserPassword
 } from '../../../redux/modules/user'
-const { string, func, object } = React.PropTypes
+import { string, func, object } from 'prop-types'
 
-const LocalAccountSettings = (
-  {
-    user,
-    username,
-    email,
-    newUsername,
-    newEmail,
-    currentPassword,
-    newPassword,
-    confirmNewPassword,
-    validationErrors,
-    setValidationError,
-    onChangeHandler,
-    onBlurHandler,
-    dispatchChangeUserPassword,
-    dispatchChangeUserIdentifiers,
-    isValid
-  }
-) => {
+const LocalAccountSettings = ({
+  user,
+  username,
+  email,
+  newUsername,
+  newEmail,
+  currentPassword,
+  newPassword,
+  confirmNewPassword,
+  validationErrors,
+  setValidationError,
+  onChangeHandler,
+  onBlurHandler,
+  dispatchChangeUserPassword,
+  dispatchChangeUserIdentifiers,
+  isValid
+}) => {
   return (
     <div>
       <ChangeIdentifierForm

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logoutRequest } from '../../redux/modules/user'
-const { func, string } = React.PropTypes
+import { func, string } from 'prop-types'
 
 const AuthenticatedLinks = ({ dispatchLogoutRequest, username, ...props }) => {
   const logout = evt => {

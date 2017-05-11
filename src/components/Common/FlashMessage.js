@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-const { string } = React.PropTypes
+import { string } from 'prop-types'
 
 class FlashMessage extends Component {
   constructor (props) {
@@ -13,22 +13,16 @@ class FlashMessage extends Component {
 
   showMessage = () => {
     if (this.state.display) {
-      setTimeout(
-        () => {
-          this.setState({ display: false })
-        },
-        1500
-      )
+      setTimeout(() => {
+        this.setState({ display: false })
+      }, 1500)
     }
   };
 
   componentDidMount = () => {
-    setTimeout(
-      () => {
-        this.setState({ display: true })
-      },
-      50
-    )
+    setTimeout(() => {
+      this.setState({ display: true })
+    }, 50)
   };
 
   render () {
