@@ -15,7 +15,7 @@ import {
   checkUsernameUniqueness,
   checkEmailUniqueness
 } from '../../redux/modules/user'
-const { func, bool, object } = React.PropTypes
+import { func, bool, object } from 'prop-types'
 
 class SignupForm extends Component {
   constructor () {
@@ -41,11 +41,15 @@ class SignupForm extends Component {
   onBlurHandler = evt => {
     if (evt.target.name === 'username') {
       this.setValidationError(validateUsername(this.state.username))
-      this.props.dispatchCheckUsernameUniqueness(this.state.username)
+      if (this.state.username !== '') {
+        this.props.dispatchCheckUsernameUniqueness(this.state.username)
+      }
     }
     if (evt.target.name === 'email') {
       this.setValidationError(validateEmail(this.state.email))
-      this.props.dispatchCheckEmailUniqueness(this.state.email)
+      if (this.state.email !== '') {
+        this.props.dispatchCheckEmailUniqueness(this.state.email)
+      }
     }
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
