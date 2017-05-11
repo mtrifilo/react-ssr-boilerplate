@@ -1,12 +1,12 @@
 const GithubStrategy = require('passport-github2').Strategy
 const User = require('../db/models/User')
-const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require('../../config.json')
+const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, domain } = require('../../config.json')
 
 const githubStrategy = new GithubStrategy(
   {
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: 'http://localhost:4000/api/login/github/callback',
+    callbackURL: `http://${domain}/api/login/github/callback`,
     session: false
   },
   (accessToken, refreshToken, profile, done) => {
