@@ -8,7 +8,7 @@ module.exports = function () {
     context: __dirname,
     entry: {
       vendor: ['react', 'react-dom', 'react-router-dom'],
-      app: './src/components/BrowserEntry.js'
+      app: './client/components/BrowserEntry.js'
     },
     output: {
       path: path.join(__dirname, 'public'),

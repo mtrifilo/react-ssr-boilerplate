@@ -10,14 +10,15 @@ const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const { Provider } = require('react-redux')
 const { store } = process.env.NODE_ENV === 'production'
-  ? require('./public/production/src/redux/store')
-  : require('./src/redux/store')
+  ? require('./public/production/client/redux/store')
+  : require('./client/redux/store')
 const Routes = process.env.NODE_ENV === 'production'
-  ? require('./public/production/src/components/Router/CompiledRoutes').default
-  : require('./src/components/Router/CompiledRoutes').default
+  ? require('./public/production/client/components/Router/CompiledRoutes')
+      .default
+  : require('./client/components/Router/CompiledRoutes').default
 const Layout = process.env.NODE_ENV === 'production'
-  ? require('./public/production/src/components/Layout').default
-  : require('./src/components/Layout').default
+  ? require('./public/production/client/components/Layout').default
+  : require('./client/components/Layout').default
 
 // Template for injecting server-side rendered React markup
 const _template = require('lodash/template')
