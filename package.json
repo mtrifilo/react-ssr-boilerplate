@@ -82,11 +82,15 @@
     "jest": "^20.0.0",
     "json-loader": "^0.5.4",
     "nodemon": "^1.11.0",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-import": "^9.1.0",
+    "postcss-loader": "^2.0.5",
+    "postcss-reporter": "^3.0.0",
     "prettier-standard": "^5.0.0",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
-    "webpack-bundle-analyzer": "^2.7.0",
+    "webpack-bundle-analyzer": "^2.8.1",
     "webpack-merge": "^4.0.0"
   }
 }
