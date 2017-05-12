@@ -13,6 +13,7 @@ class NavBar extends Component {
       mounted: false
     }
   }
+
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
       this.setState({ showAuthenticatedLinks: true, mounted: true })
@@ -28,6 +29,7 @@ class NavBar extends Component {
       this.setState({ showAuthenticatedLinks: false })
     }
   };
+
   render () {
     let displayLinks
     if (this.state.mounted && this.props.isAuthenticated !== null) {
