@@ -1,0 +1,9 @@
+{
+  "expressPort": "4000",
+  "domain": "http://localhost:4000",
+  "mongoUriDev": "mongodb://localhost:27017/react-ssr-boiler",
+  "mongoUriProduction": "ENTER_YOUR_PRODUCTION_MONGO_URI_FROM_MLAB_OR_ELSEWHERE",
+  "jwtSecret": "PickAComplexString1337",
+  "GITHUB_CLIENT_ID": "ENTER_YOUR_APP'S_CLIENT_ID",
+  "GITHUB_CLIENT_SECRET": "ENTER_YOUR_APP'S_CLIENT_SECRET"
+}
