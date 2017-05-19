@@ -24,9 +24,9 @@ You get everything you need to build out a full stack application with:
 
 Out of the box, the boilerplate comes with a few views, and working local and OAuth authentication to get you going. 
 
-The React application itself is what is called a univeral (formerly "isomorphic") JavaScript application. This means that on the server, React will render its component tree into HTML markup as a big string, and pass it down to the browser. Instead of the browser having to wait for a JavaScript bundle with the React application, it can simply show the HTML it's getting right away while the JavaScript bundles download. Once the React application code finishes downloading to the client, the JavaScript will be able to handle user interactions without needing to re-render the markup that already arrived pre-rendered from the server. This has huge performance wins for users with slow connections and is becoming a common way serve production React applications, in addition to other frameworks like Angular 2 and 4.
+The React application itself is what is called a universal (formerly "isomorphic") JavaScript application. This means that on the server, React will render its component tree into HTML markup as a big string, and pass it down to the browser. Instead of the browser having to wait for a JavaScript bundle with the React application, it can simply show the HTML it's getting right away while the JavaScript bundles download. Once the React application code finishes downloading to the client, the JavaScript will be able to handle user interactions without needing to re-render the markup that already arrived pre-rendered from the server. This has huge performance wins for users with slow connections and is becoming a common way serve production React applications, in addition to other frameworks like Angular 2 and 4.
 
-## Why another boilerplate? :dancers:
+### Why another boilerplate? :dancers:
 
 Free Code Camp encourages students to use a boilerplate collection called `Clementine.js`, which is very powerful and easy to set up. It has great documentation and tutorials so it's the way to go if you're new to building full stack applications.
 
@@ -38,9 +38,84 @@ I encourage you to learn these technologies deeply before using this for a proje
 
 That said, I think it's beneficial to challenge yourself with modern tools you'll likely find at companies using React every day.
  
- ## Roadmap :milky_way:
+ ### Roadmap :milky_way:
 
  * Thorough documentation
  * Testing all the things
  * A complete mobile audit
 
+## Quick Start
+
+This project uses `yarn`, but the equivalent `npm` commands will work fine as well.
+
+If you want to run MongoDB locally, make sure it is installed.
+run `mongod --version` in your terminal. If you get some version information back, you're ready to go! Otherwise you can either install mongoDB on your system, or set up a cloud MongoDB instance on [mlab.com](mlab.com) for free.
+
+### Clone this Repo
+
+`git clone https://github.com/itxchy/react-ssr-boilerplate.git`
+
+### Install Dependencies
+
+```bash
+yarn
+```
+
+### Personalize `config.json`
+
+In the root directory, you'll find `config.sample.json`.
+
+Rename it to `config.json`.
+
+Here are the constants it contains:
+```js
+{
+  // The port Express will use
+  "expressPort": "4000",
+  // The full domain for Passport to use in the GitHub strategy.
+  // For actual DNS names, the port will not be necessary
+  "domain": "http://localhost:4000",
+  // If you're running MongoDB locally, this address will work fine with 
+  // the mongo NPM script during development.
+  "mongoUriDev": "mongodb://localhost:27017/react-ssr-boiler",
+  // You can set up a free MongoDB instance at mlab.com
+  "mongoUriProduction": "ENTER_YOUR_PRODUCTION_MONGO_URI_FROM_MLAB_OR_ELSEWHERE",
+  // A complex string to be used for creating and verifying JSON Web Tokens
+  "jwtSecret": "PickAComplexString1337",
+  // Your app's GitHub credentials. 
+  // Go to github.com, log in, go to settings, then scroll down to "developer settings"
+  // and you'll find "OAuth Applications". Go there to register your new application.
+  // The callback URL will be `${domain}/api/login/github/callback`
+  // ${domain} is indeed the domain a few lines above, making the URL http://localhost:4000/api/login/github/callback in this case.
+  // Once your app is registered, your client ID and client secret will be available
+  "GITHUB_CLIENT_ID": "ENTER_YOUR_APP'S_CLIENT_ID",
+  "GITHUB_CLIENT_SECRET": "ENTER_YOUR_APP'S_CLIENT_SECRET"
+}
+```
+### Build and Run The Application
+
+#### Development
+
+##### Webpack
+To build and watch the React application with Webpack 2, run:
+```bash
+yarn run watch
+```
+
+##### Express Server
+To start the server, open a separate tab or terminal window and run:
+```bash
+yarn run server
+```
+
+##### MongoDB
+To start MongoDB locally, open a separate tab or terminal window and run:
+```bash
+yarn run mongo
+```
+
+##### Jest
+To start Jest in watch mode, open a separate tab or terminal window and run:
+```bash
+yarn run tdd
+```
