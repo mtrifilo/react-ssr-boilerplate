@@ -119,3 +119,16 @@ To start Jest in watch mode, open a separate tab or terminal window and run:
 ```bash
 yarn run tdd
 ```
+
+#### Production
+
+To build the production version of your app, run this;
+```bash
+yarn build:prod
+```
+
+`build:prod` will run all of the React and Redux source files through babel, and output them to a production folder in the public directory.
+
+In a development environment, `babel-register` runs on the server, transpiling the application source code on the fly. This is great for development since we don't need to re-compile our code everytime we want serve a change in the application code. In a production environment, it's a waste of resources to recompile the same code over and over again when it hasn't changed.
+
+In a production environment, the server will not use `babel-register` to transpile the application source code. Instead, the server will use a pre-compiled copy of the source code in the `public/production` directory. If you make changes to the source code in this environment, you'll need to re-compile the production code before you'll be able to see the change in production.
