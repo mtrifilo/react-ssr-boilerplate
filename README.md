@@ -38,7 +38,7 @@ I encourage you to learn these technologies deeply before using this for a proje
 
 That said, I think it's beneficial to challenge yourself with modern tools you'll likely find at companies using React every day.
  
- ### Roadmap :milky_way:
+### Roadmap :milky_way:
 
  * Thorough documentation
  * Testing all the things
@@ -97,7 +97,7 @@ Here are the constants it contains:
 #### Development
 
 ##### Webpack
-To build and watch the React application with Webpack 2, run:
+To build and watch the client side JavaScript bundles with Webpack 2, run:
 ```bash
 yarn run watch
 ```
