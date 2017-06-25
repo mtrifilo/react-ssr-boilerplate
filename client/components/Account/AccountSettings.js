@@ -50,13 +50,19 @@ class AccountSettings extends Component {
   onBlurHandler = evt => {
     if (evt.target.name === 'newUsername') {
       this.setValidationError(validateNewUsername(this.state.newUsername))
-      if (this.state.newUsername !== this.props.username && this.state.newUsername !== '') {
+      if (
+        this.state.newUsername !== this.props.username &&
+        this.state.newUsername !== ''
+      ) {
         this.props.dispatchCheckUsernameUniqueness(this.state.newUsername)
       }
     }
     if (evt.target.name === 'newEmail') {
       this.setValidationError(validateNewEmail(this.state.newEmail))
-      if (this.state.newEmail !== this.props.email && this.state.newEmail !== '') {
+      if (
+        this.state.newEmail !== this.props.email &&
+        this.state.newEmail !== ''
+      ) {
         this.props.dispatchCheckEmailUniqueness(this.state.newEmail)
       }
     }
@@ -106,7 +112,9 @@ class AccountSettings extends Component {
       identifiersValid = false
     }
     if (
-      currentPassword !== '' || newPassword !== '' || confirmNewPassword !== ''
+      currentPassword !== '' ||
+      newPassword !== '' ||
+      confirmNewPassword !== ''
     ) {
       passwordValid = false
     }
@@ -160,12 +168,12 @@ class AccountSettings extends Component {
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
             dispatchChangeGitHubUsername={
-                this.props.dispatchChangeGitHubUsername
-              }
+              this.props.dispatchChangeGitHubUsername
+            }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid.identifiers}
-            />
+          />
           : <LocalAccountSettings
             newUsername={this.state.newUsername}
             newEmail={this.state.newEmail}
@@ -179,7 +187,7 @@ class AccountSettings extends Component {
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
-            />}
+          />}
         <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
     )
