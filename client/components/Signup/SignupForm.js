@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { signupRequest } from '../../redux/modules/signupLocal'
 import Input from '../Common/Input'
 import {

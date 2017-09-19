@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { Route } from 'react-router-dom'
 import { number, element } from 'prop-types'
 
 const Status = ({ code, children }) => (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loginRequest } from '../../redux/modules/loginLocal'
 import Input from '../Common/Input'

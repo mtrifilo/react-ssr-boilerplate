@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { logoutUser } from '../../redux/modules/user'
 import { bool, string, object, number, func } from 'prop-types'
 

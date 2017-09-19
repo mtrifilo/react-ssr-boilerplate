@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import store from '../../redux/store'
 import { setUser } from '../../redux/modules/user'
 import prepareUserFromToken from '../../auth/prepareUserFromToken'
