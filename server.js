@@ -7,7 +7,7 @@ const fs = require('fs')
 // React
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
-const { StaticRouter } = require('react-router')
+const { StaticRouter } = require('react-router-dom')
 const { Provider } = require('react-redux')
 const { store } = process.env.NODE_ENV === 'production'
   ? require('./public/production/client/redux/store')
