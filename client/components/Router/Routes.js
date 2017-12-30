@@ -7,7 +7,6 @@ import MemberPage from '../MemberPage/MemberPage'
 import NotFound from './NotFound'
 import SetToken from '../Login/SetToken'
 import AccountPage from '../Account/AccountPage'
-import { bool } from 'prop-types'
 
 /**
  * Run `yarn run compile-routes` after altering any Routes in this file.
@@ -28,10 +27,6 @@ const Routes = () => {
       <Route component={NotFound} />
     </Switch>
   )
-}
-
-Routes.propTypes = {
-  isAuthenticated: bool // eslint-disable-line react/no-unused-prop-types
 }
 
 export default Routes
