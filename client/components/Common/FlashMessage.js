@@ -17,13 +17,13 @@ class FlashMessage extends Component {
         this.setState({ display: false })
       }, 1500)
     }
-  };
+  }
 
   componentDidMount = () => {
     setTimeout(() => {
       this.setState({ display: true })
     }, 50)
-  };
+  }
 
   render () {
     this.showMessage()

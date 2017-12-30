@@ -20,7 +20,7 @@ class NavBar extends Component {
     } else {
       this.setState({ mounted: true })
     }
-  };
+  }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.isAuthenticated) {
@@ -28,7 +28,7 @@ class NavBar extends Component {
     } else {
       this.setState({ showAuthenticatedLinks: false })
     }
-  };
+  }
 
   render () {
     let displayLinks

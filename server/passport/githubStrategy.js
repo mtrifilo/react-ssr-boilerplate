@@ -1,6 +1,10 @@
 const GithubStrategy = require('passport-github2').Strategy
 const User = require('../db/models/User')
-const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, domain } = require('../../config.json')
+const {
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  domain
+} = require('../../config.json')
 
 const githubStrategy = new GithubStrategy(
   {

@@ -4,6 +4,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 const fs = require('fs')
 
+if (!fs.existsSync('./config.json')) {
+  throw Error('You need to create a config.json file in the root directorly with the required environment variables. You can use the config.sample.json file as a template.')
+}
+
 // React
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')

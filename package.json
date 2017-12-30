@@ -1,7 +1,7 @@
 {
   "name": "react-ssr-boilerplate",
   "version": "1.0.0",
-  "description": "A minimalistic boiler plate with everything you need to get a server side rendered React application up and running FAST.",
+  "description": "A minimalistic boilerplate with everything you need to get a server side rendered React application up and running FAST.",
   "main": "index.js",
   "author": "Matt Trifilo",
   "license": "MIT",

@@ -17,7 +17,7 @@ class ChangePasswordForm extends Component {
       return this.props.setValidationError(validation.validationErrors)
     }
     this.props.dispatchChangeUserPassword(passwordData)
-  };
+  }
 
   render () {
     return (

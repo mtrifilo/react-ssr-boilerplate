@@ -25,7 +25,7 @@ class LoginForm extends Component {
 
   onChangeHandler = evt => {
     this.setState({ [evt.target.name]: evt.target.value })
-  };
+  }
 
   onBlurHandler = evt => {
     if (evt.target.name === 'email') {
@@ -34,7 +34,7 @@ class LoginForm extends Component {
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
     }
-  };
+  }
 
   setValidationError = validationResult => {
     // Set validation result to state
@@ -44,7 +44,7 @@ class LoginForm extends Component {
       validationResult
     )
     this.setState({ validationErrors: newValidationErrors })
-  };
+  }
 
   onSubmitHandler = evt => {
     evt.preventDefault()
@@ -56,7 +56,7 @@ class LoginForm extends Component {
     } else {
       return this.setValidationError(validation.validationErrors)
     }
-  };
+  }
 
   render () {
     if (this.props.isAuthenticated) {
