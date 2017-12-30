@@ -31,7 +31,7 @@ const Routes = () => {
 }
 
 Routes.propTypes = {
-  isAuthenticated: bool
+  isAuthenticated: bool // eslint-disable-line react/no-unused-prop-types
 }
 
 export default Routes

@@ -5,4 +5,4 @@ import '../../node_modules/bootstrap/dist/js/bootstrap.js'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 import './main.css'
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.hydrate(<App />, document.getElementById('app'))

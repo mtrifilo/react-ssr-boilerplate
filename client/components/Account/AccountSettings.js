@@ -162,19 +162,20 @@ class AccountSettings extends Component {
     return (
       <div>
         <h1 className='text-center page-title'>Account Settings</h1>
-        {this.props.gitHubToken
-          ? <GitHubAccountSettings
+        {this.props.gitHubToken ? (
+          <GitHubAccountSettings
             newUsername={this.state.newUsername}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
             dispatchChangeGitHubUsername={
-                this.props.dispatchChangeGitHubUsername
-              }
+              this.props.dispatchChangeGitHubUsername
+            }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid.identifiers}
-            />
-          : <LocalAccountSettings
+          />
+        ) : (
+          <LocalAccountSettings
             newUsername={this.state.newUsername}
             newEmail={this.state.newEmail}
             username={this.props.username}
@@ -187,7 +188,8 @@ class AccountSettings extends Component {
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
-            />}
+          />
+        )}
         <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
     )
