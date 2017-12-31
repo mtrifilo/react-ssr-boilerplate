@@ -2,12 +2,17 @@
   "parser": "babel-eslint",
   "extends": [
     "standard",
-    "standard-react"
+    "standard-react",
+    "plugin:jest/recommended"
   ],
   "rules": {
     "object-curly-spacing": [
       "error",
       "always"
     ]
+  },
+  "plugins": ["jest"],
+  "env": {
+    "jest/globals": true
   }
 }
