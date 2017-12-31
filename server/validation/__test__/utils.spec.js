@@ -1,4 +1,3 @@
-/* eslint-env node, jest */
 import { buildErrorsObject } from '../utils'
 
 test('buildErrorsObject: should return validation errors as object', () => {

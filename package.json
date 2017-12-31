@@ -7,8 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node server.js",
-    "test": "jest",
-    "tdd": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest",
+    "tdd": "yarn run test --watch",
+    "coverage": "yarn run test --coverage",
     "lint": "eslint server.js webpack.config.js webpack.prod.js server/** client/**",
     "prettier": "prettier-standard 'server/**/*.js' 'client/**/*.js'",
     "build": "webpack",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-jest": "^22.0.4",
     "babel-polyfill": "^6.23.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
