@@ -22,10 +22,10 @@ const Input = ({
         name={name}
         onChange={onChange}
         onBlur={onBlur}
-        className='form-control'
+        className={classNames('form-control', { 'is-invalid': validationError })}
       />
       {validationError &&
-        <div className='form-control-feedback'>
+        <div className='invalid-feedback'>
           {validationError}
         </div>}
     </div>

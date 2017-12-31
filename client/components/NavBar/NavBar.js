@@ -41,7 +41,7 @@ class NavBar extends Component {
     }
 
     return (
-      <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse'>
+      <nav className='navbar navbar-dark bg-dark navbar-expand-sm'>
         <button
           className='navbar-toggler navbar-toggler-right'
           type='button'
