@@ -20,7 +20,7 @@ class NavBar extends Component {
     } else {
       this.setState({ mounted: true })
     }
-  };
+  }
 
   componentWillReceiveProps = nextProps => {
     if (nextProps.isAuthenticated) {
@@ -28,7 +28,7 @@ class NavBar extends Component {
     } else {
       this.setState({ showAuthenticatedLinks: false })
     }
-  };
+  }
 
   render () {
     let displayLinks
@@ -41,7 +41,7 @@ class NavBar extends Component {
     }
 
     return (
-      <nav className='navbar navbar-toggleable-md navbar-inverse bg-inverse'>
+      <nav className='navbar navbar-dark bg-dark navbar-expand-sm'>
         <button
           className='navbar-toggler navbar-toggler-right'
           type='button'

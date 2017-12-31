@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 import { loginRequest } from '../../redux/modules/loginLocal'
 import Input from '../Common/Input'
@@ -8,11 +7,11 @@ import {
   validateEmail,
   validatePassword
 } from '../../../server/validation/loginFormValidation'
-import { func, object, bool } from 'prop-types'
+import { func, object } from 'prop-types'
 
 class LoginForm extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       email: '',
       password: '',
@@ -25,7 +24,7 @@ class LoginForm extends Component {
 
   onChangeHandler = evt => {
     this.setState({ [evt.target.name]: evt.target.value })
-  };
+  }
 
   onBlurHandler = evt => {
     if (evt.target.name === 'email') {
@@ -34,7 +33,7 @@ class LoginForm extends Component {
     if (evt.target.name === 'password') {
       this.setValidationError(validatePassword(this.state.password))
     }
-  };
+  }
 
   setValidationError = validationResult => {
     // Set validation result to state
@@ -44,7 +43,7 @@ class LoginForm extends Component {
       validationResult
     )
     this.setState({ validationErrors: newValidationErrors })
-  };
+  }
 
   onSubmitHandler = evt => {
     evt.preventDefault()
@@ -56,13 +55,9 @@ class LoginForm extends Component {
     } else {
       return this.setValidationError(validation.validationErrors)
     }
-  };
+  }
 
   render () {
-    if (this.props.isAuthenticated) {
-      return <Redirect to='/' />
-    }
-
     return (
       <form className='login-form' onSubmit={this.onSubmitHandler}>
         <Input
@@ -90,8 +85,7 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  dispatchLoginRequest: func.isRequired,
-  isAuthenticated: bool.isRequired
+  dispatchLoginRequest: func.isRequired
 }
 
 LoginForm.contextTypes = {
@@ -100,8 +94,7 @@ LoginForm.contextTypes = {
 
 const mapStateToProps = state => {
   return {
-    loginLoading: state.loginLocal.loginLoading,
-    isAuthenticated: state.user.isAuthenticated
+    loginLoading: state.loginLocal.loginLoading
   }
 }
 

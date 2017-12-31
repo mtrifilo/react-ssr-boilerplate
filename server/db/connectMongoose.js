@@ -10,7 +10,7 @@ const connectMongoose = uri => {
   mongoose
     .connect(uri)
     .then(() => {
-      console.log('mongoose connected!')
+      console.log('mongoose: connected!')
     })
     .catch(err => {
       console.error('mongoose connection failed:', err)

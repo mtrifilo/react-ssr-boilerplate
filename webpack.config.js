@@ -54,7 +54,7 @@ module.exports = function () {
     },
     devtool: 'cheap-module-source-map',
     performance: {
-      hints: 'warning',
+      hints: false,
       maxEntrypointSize: 400000,
       maxAssetSize: 300000
     },

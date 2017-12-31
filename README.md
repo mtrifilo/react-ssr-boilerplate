@@ -2,15 +2,15 @@
 
 ### [Live Demo](https://react-ssr-boilerplate.matttrifilo.com/)
 
-A minimalistic boiler plate with everything you need to get a server side rendered React application up and running FAST. 
+A minimalistic boilerplate with everything you need to get a server side rendered React application up and running FAST.
 
-This is meant to be an alternative starter project for Free Code Camp full stack application projects. It's not officially affiliated with Free Code Camp.
+This was originally meant to be an alternative starter project for Free Code Camp full stack application projects. It's not officially affiliated with Free Code Camp.
 
 Many of the implementations here are opinionated, so feel free to refactor them, or gut them, in anyway you see fit to work for your way of thinking and your use case.
 
 ## Batteries Included :battery:
 
-You get everything you need to build out a full stack application with: 
+You get everything you need to build out a full stack application with:
 - React
 - React Router 4
 - Redux
@@ -22,22 +22,22 @@ You get everything you need to build out a full stack application with:
 - Mongoose
 - Passport
 
-Out of the box, the boilerplate comes with a few views, and working local and OAuth authentication to get you going. 
+Out of the box, the boilerplate comes with a few views, and working local and OAuth authentication to get you going.
 
-The React application itself is what is called a universal (formerly "isomorphic") JavaScript application. This means that on the server, React will render its component tree into HTML markup as a big string, and pass it down to the browser. Instead of the browser having to wait for a JavaScript bundle with the React application, it can simply show the HTML it's getting right away while the JavaScript bundles download. Once the React application code finishes downloading to the client, the JavaScript will be able to handle user interactions without needing to re-render the markup that already arrived pre-rendered from the server. This has huge performance wins for users with slow connections and is becoming a common way serve production React applications, in addition to other frameworks like Angular 2 and 4.
+The React application itself is what is called a universal (formerly "isomorphic") JavaScript application. This means that on the server, React will render its component tree into HTML markup as a big string, and pass it down to the browser. Instead of the browser having to wait for a JavaScript bundle with the React application, it can simply show the HTML it's getting right away while the JavaScript bundles download. Once the React application code finishes downloading to the client, the JavaScript will be able to handle user interactions without needing to re-render the markup that already arrived pre-rendered from the server. This has huge performance wins for users with slow connections and is becoming a common way serve production React applications, in addition to other frameworks like Angular and Vue.
 
 ### Why another boilerplate? :dancers:
 
 Free Code Camp encourages students to use a boilerplate collection called `Clementine.js`, which is very powerful and easy to set up. It has great documentation and tutorials so it's the way to go if you're new to building full stack applications.
 
-This boilerplate is meant to be an alternative for students who want to build their full stack application projects using modern tools from the React ecosystem, with a project structure that is tailored to using React and Redux.
+This boilerplate is meant to be an alternative for anyone who wants to build full stack applications using modern tools from the React ecosystem, with a project structure that is tailored to using React and Redux.
 
-There are many mature React boilerplates out their with dozens (or hundreds!) of smart, experienced developers contributing to them all the time, but a lot of them are overly complex for just building a basic full stack application in my opinion. This boilerplate isn't meant to address every use case, or be optimally polished for production ready apps. It's meant to be easy to understand and extend, while encouraging good habits for a good user and developer experience.
+There are many mature React boilerplates out their with dozens (even hundreds!) of smart, experienced developers contributing to them all the time, but a lot of them are overly complex for just building a basic full stack application in my opinion. This boilerplate isn't meant to address every use case, or to be fully production ready. It's meant to be easy to understand and extend, while encouraging good habits for a good user and developer experience.
 
-I encourage you to learn these technologies deeply before using this for a project, as it is fairly complex. I'll be working on documenting and commenting every aspect of this boilerplate to make it as clear and extendable as possible, but you'll get much more out of it if you have a solid understanding of how the underlying technologies like React, Redux, React Router 4, and Express all work and work together. Server side rendering has gotten easier over time, but that's another level of complexity that needs to be accounted for when adding features.
+I recommend that you learn these technologies deeply before using this for a project, as it is fairly complex. I'll be working on documenting and commenting every aspect of this boilerplate to make it as clear and extendable as possible, but you'll get much more out of it if you have a solid understanding of how the underlying technologies like React, Redux, React Router 4, Mongo, and Express all work and work together. Server side rendering has gotten easier, but it's another level of complexity that needs to be accounted for when adding features.
 
-That said, I think it's beneficial to challenge yourself with modern tools you'll likely find at companies using React every day.
- 
+That said, I think it's beneficial to challenge yourself with modern tools you'll likely find at companies using React every day. If you can master these technologies, you'll be in great shape build whatever you can dream up.
+
 ### Roadmap :milky_way:
 
  * Thorough documentation
@@ -75,14 +75,14 @@ Here are the constants it contains:
   // The full domain for Passport to use in the GitHub strategy.
   // For actual DNS names, the port will not be necessary
   "domain": "http://localhost:4000",
-  // If you're running MongoDB locally, this address will work fine with 
+  // If you're running MongoDB locally, this address will work fine with
   // the mongo NPM script during development.
   "mongoUriDev": "mongodb://localhost:27017/react-ssr-boiler",
   // You can set up a free MongoDB instance at mlab.com
   "mongoUriProduction": "ENTER_YOUR_PRODUCTION_MONGO_URI_FROM_MLAB_OR_ELSEWHERE",
   // A complex string to be used for creating and verifying JSON Web Tokens
   "jwtSecret": "PickAComplexString1337",
-  // Your app's GitHub credentials. 
+  // Your app's GitHub credentials.
   // Go to github.com, log in, go to settings, then scroll down to "developer settings"
   // and you'll find "OAuth Applications". Go there to register your new application.
   // The callback URL will be `${domain}/api/login/github/callback`

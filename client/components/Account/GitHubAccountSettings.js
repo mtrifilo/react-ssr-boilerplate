@@ -18,7 +18,7 @@ class GitHubAccountSettings extends Component {
     this.props.dispatchChangeGitHubUsername({
       newUsername: this.props.newUsername
     })
-  };
+  }
 
   render () {
     return (

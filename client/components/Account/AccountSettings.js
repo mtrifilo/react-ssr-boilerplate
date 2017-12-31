@@ -45,18 +45,24 @@ class AccountSettings extends Component {
 
   onChangeHandler = evt => {
     this.setState({ [evt.target.name]: evt.target.value })
-  };
+  }
 
   onBlurHandler = evt => {
     if (evt.target.name === 'newUsername') {
       this.setValidationError(validateNewUsername(this.state.newUsername))
-      if (this.state.newUsername !== this.props.username && this.state.newUsername !== '') {
+      if (
+        this.state.newUsername !== this.props.username &&
+        this.state.newUsername !== ''
+      ) {
         this.props.dispatchCheckUsernameUniqueness(this.state.newUsername)
       }
     }
     if (evt.target.name === 'newEmail') {
       this.setValidationError(validateNewEmail(this.state.newEmail))
-      if (this.state.newEmail !== this.props.email && this.state.newEmail !== '') {
+      if (
+        this.state.newEmail !== this.props.email &&
+        this.state.newEmail !== ''
+      ) {
         this.props.dispatchCheckEmailUniqueness(this.state.newEmail)
       }
     }
@@ -76,7 +82,7 @@ class AccountSettings extends Component {
         )
       )
     }
-  };
+  }
 
   setValidationError = validationResult => {
     // set the validtion result to state
@@ -88,7 +94,7 @@ class AccountSettings extends Component {
     this.setState({ validationErrors: newValidationErrors }, () => {
       this.checkFormValidity()
     })
-  };
+  }
 
   checkFormValidity = () => {
     const {
@@ -106,7 +112,9 @@ class AccountSettings extends Component {
       identifiersValid = false
     }
     if (
-      currentPassword !== '' || newPassword !== '' || confirmNewPassword !== ''
+      currentPassword !== '' ||
+      newPassword !== '' ||
+      confirmNewPassword !== ''
     ) {
       passwordValid = false
     }
@@ -117,12 +125,12 @@ class AccountSettings extends Component {
         password: passwordValid
       }
     })
-  };
+  }
 
   onClickDeleteAccount = evt => {
     evt.preventDefault()
     this.props.dispatchDeleteUserAccount()
-  };
+  }
 
   componentDidMount () {
     this.props.dispatchGetCurrentUser()
@@ -154,19 +162,20 @@ class AccountSettings extends Component {
     return (
       <div>
         <h1 className='text-center page-title'>Account Settings</h1>
-        {this.props.gitHubToken
-          ? <GitHubAccountSettings
+        {this.props.gitHubToken ? (
+          <GitHubAccountSettings
             newUsername={this.state.newUsername}
             onChangeHandler={this.onChangeHandler}
             onBlurHandler={this.onBlurHandler}
             dispatchChangeGitHubUsername={
-                this.props.dispatchChangeGitHubUsername
-              }
+              this.props.dispatchChangeGitHubUsername
+            }
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid.identifiers}
-            />
-          : <LocalAccountSettings
+          />
+        ) : (
+          <LocalAccountSettings
             newUsername={this.state.newUsername}
             newEmail={this.state.newEmail}
             username={this.props.username}
@@ -179,7 +188,8 @@ class AccountSettings extends Component {
             validationErrors={this.state.validationErrors}
             setValdiationError={this.setValidationError}
             isValid={this.state.isValid}
-            />}
+          />
+        )}
         <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
     )

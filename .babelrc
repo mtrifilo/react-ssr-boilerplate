@@ -21,18 +21,12 @@
   "env": {
     "test": {
       "plugins": [
-        "transform-es2015-modules-commonjs",
-        "transform-object-rest-spread"
+        "transform-es2015-modules-commonjs"
       ]
     },
     "server": {
-      "plugins": [
-        "transform-es2015-modules-commonjs",
-        "transform-object-rest-spread"
-      ]
+      "plugins":
+        "transform-es2015-modules-commonjs"
     }
-    // "production": {
-    //   "plugins": ["transform-es2015-modules-commonjs"]
-    // }
   }
 }

@@ -15,12 +15,9 @@ const DELETE_FLASH_MESSAGE = 'DELETE_FLASH_MESSAGE'
 export function displayFlashMessage ({ message, level }) {
   return dispatch => {
     dispatch(addFlashMessage(message, level))
-    setTimeout(
-      () => {
-        dispatch(deleteFlashMessage())
-      },
-      2000
-    )
+    setTimeout(() => {
+      dispatch(deleteFlashMessage())
+    }, 2000)
   }
 }
 

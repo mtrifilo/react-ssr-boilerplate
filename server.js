@@ -4,21 +4,30 @@ if (process.env.NODE_ENV !== 'production') {
 
 const fs = require('fs')
 
+if (!fs.existsSync('./config.json')) {
+  throw Error(
+    'You need to create a config.json file in the root directorly with the required environment variables. You can use the config.sample.json file as a template.'
+  )
+}
+
 // React
 const React = require('react')
 const ReactDOMServer = require('react-dom/server')
 const { StaticRouter } = require('react-router')
 const { Provider } = require('react-redux')
-const { store } = process.env.NODE_ENV === 'production'
-  ? require('./public/production/client/redux/store')
-  : require('./client/redux/store')
-const Routes = process.env.NODE_ENV === 'production'
-  ? require('./public/production/client/components/Router/CompiledRoutes')
+const { store } =
+  process.env.NODE_ENV === 'production'
+    ? require('./public/production/client/redux/store')
+    : require('./client/redux/store')
+const Routes =
+  process.env.NODE_ENV === 'production'
+    ? require('./public/production/client/components/Router/CompiledRoutes')
       .default
-  : require('./client/components/Router/CompiledRoutes').default
-const Layout = process.env.NODE_ENV === 'production'
-  ? require('./public/production/client/components/Layout').default
-  : require('./client/components/Layout').default
+    : require('./client/components/Router/CompiledRoutes').default
+const Layout =
+  process.env.NODE_ENV === 'production'
+    ? require('./public/production/client/components/Layout').default
+    : require('./client/components/Layout').default
 
 // Template for injecting server-side rendered React markup
 const _template = require('lodash/template')
@@ -29,9 +38,10 @@ const template = _template(baseTemplate)
 const config = require('./config.json')
 
 const connectMongoose = require('./server/db/connectMongoose')
-const MONGO_URI = process.env.NODE_ENV === 'production'
-  ? config.mongoUriProduction
-  : config.mongoUriDev
+const MONGO_URI =
+  process.env.NODE_ENV === 'production'
+    ? config.mongoUriProduction
+    : config.mongoUriDev
 
 const express = require('express')
 const helmet = require('helmet')
@@ -85,5 +95,5 @@ app.use((req, res) => {
   }
 })
 console.log('node environment:', process.env.NODE_ENV)
-console.log(`Express: Listening on port ${PORT}`)
+console.log(`express: Listening on port ${PORT}`)
 app.listen(PORT)

@@ -24,12 +24,9 @@ export function signupRequest (userData) {
         console.log('signup success!', res)
         // signupForm will redirect the user to the login page
         // when signupSuccessful is true.
-        setTimeout(
-          () => {
-            dispatch(signupSuccessful(false))
-          },
-          500
-        )
+        setTimeout(() => {
+          dispatch(signupSuccessful(false))
+        }, 500)
         dispatch(
           displayFlashMessage({
             message: 'Signup successful! You can login.',

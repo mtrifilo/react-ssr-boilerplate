@@ -26,16 +26,13 @@ class ChangeIdentifierForm extends Component {
 
     if (!isEmpty(userDataChanges)) {
       console.log('userDataChanges', userDataChanges)
-      this.props.dispatchChangeUserIdentifiers(
-        userDataChanges,
-        this.props.user
-      )
+      this.props.dispatchChangeUserIdentifiers(userDataChanges, this.props.user)
     } else {
       console.log('no changes to submit')
       // dispatch flashMessage to inform the user that there
       // are no changes to submit
     }
-  };
+  }
 
   render () {
     return (
