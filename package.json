@@ -1,7 +1,8 @@
 {
   "name": "react-ssr-boilerplate",
-  "version": "2.0.0",
-  "description": "A minimalistic boilerplate with everything you need to get a server side rendered React application up and running FAST.",
+  "version": "2.1.0",
+  "description":
+    "A minimalistic boilerplate with everything you need to get a server side rendered React application up and running FAST.",
   "main": "index.js",
   "author": "Matt Trifilo",
   "license": "MIT",
@@ -10,22 +11,30 @@
     "test": "NODE_ENV=test jest",
     "tdd": "yarn run test --watch",
     "coverage": "yarn run test --coverage",
-    "lint": "eslint server.js webpack.config.js webpack.prod.js server/** client/**",
+    "lint":
+      "eslint server.js webpack.config.js webpack.prod.js server/** client/**",
     "prettier": "prettier-standard 'server/**/*.js' 'client/**/*.js'",
     "build": "webpack",
     "watch": "webpack --watch",
     "build:prod": "yarn run babel:prod && webpack --config webpack.prod.js",
     "watch:prod": "webpack --config webpack.prod.js --watch",
-    "babel:prod": "yarn run babel:clear && mkdir public/production && yarn run babel:components && yarn run babel:redux && yarn run babel:auth && yarn run babel:validation",
+    "babel:prod":
+      "yarn run babel:clear && mkdir public/production && yarn run babel:components && yarn run babel:redux && yarn run babel:auth && yarn run babel:validation",
     "babel:clear": "del public/production",
-    "babel:components": "NODE_ENV=server babel client/components -d public/production/client/components",
-    "babel:redux": "NODE_ENV=server babel client/redux -d public/production/client/redux",
-    "babel:auth": "NODE_ENV=server babel client/auth -d public/production/client/auth",
-    "babel:validation": "NODE_ENV=server babel server/validation -d public/production/server/validation",
+    "babel:components":
+      "NODE_ENV=server babel client/components -d public/production/client/components",
+    "babel:redux":
+      "NODE_ENV=server babel client/redux -d public/production/client/redux",
+    "babel:auth":
+      "NODE_ENV=server babel client/auth -d public/production/client/auth",
+    "babel:validation":
+      "NODE_ENV=server babel server/validation -d public/production/server/validation",
     "server": "NODE_ENV=server nodemon server.js",
     "mongo": "mongod --port 27017 --dbpath=./data",
-    "compile-routes": "NODE_ENV=server babel client/components/Router/Routes.js -o client/components/Router/CompiledRoutes.js",
-    "all": "xfce4-terminal -H -e \"yarn run tdd\" & xfce4-terminal -H -e \"yarn run watch\" & xfce4-terminal -H -e \"yarn run server\" & xfce4-terminal -H -e \"yarn run mongo\""
+    "compile-routes":
+      "NODE_ENV=server babel client/components/Router/Routes.js -o client/components/Router/CompiledRoutes.js",
+    "all":
+      "xfce4-terminal -H -e \"yarn run tdd\" & xfce4-terminal -H -e \"yarn run watch\" & xfce4-terminal -H -e \"yarn run server\" & xfce4-terminal -H -e \"yarn run mongo\""
   },
   "dependencies": {
     "axios": "^0.17.1",
