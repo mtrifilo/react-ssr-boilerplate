@@ -6,7 +6,7 @@ A minimalistic boilerplate with everything you need to get a server side rendere
 
 This was originally meant to be an alternative starter project for Free Code Camp full stack application projects. It's not officially affiliated with Free Code Camp.
 
-Many of the implementations here are opinionated, so feel free to refactor them, or gut them, in anyway you see fit to work for your way of thinking and your use case.
+Many of the implementations here are opinionated, so feel free to refactor them, or gut them, in anyway you see fit.
 
 ## Batteries Included :battery:
 
@@ -14,7 +14,7 @@ You get everything you need to build out a full stack application with:
 - React
 - React Router 4
 - Redux
-- Webpack 2
+- Webpack 3
 - Jest
 - Bootstrap 4
 - PostCSS
