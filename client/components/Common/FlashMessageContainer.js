@@ -7,11 +7,7 @@ const FlashMessageContainer = ({ flashMessages }) => {
   const displayFlashMessages = flashMessages.map(({ message, level }) => (
     <FlashMessage key={message} message={message} level={level} />
   ))
-  return (
-    <div>
-      {displayFlashMessages}
-    </div>
-  )
+  return <div>{displayFlashMessages}</div>
 }
 
 FlashMessageContainer.propTypes = {

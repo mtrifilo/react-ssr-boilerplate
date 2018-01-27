@@ -92,9 +92,9 @@ function loginLoadingReducer (state, action) {
 
 export default function loginGithub (state = DEFAULT_STATE, action) {
   switch (action.type) {
-    case LOGIN_LOADING:
-      return loginLoadingReducer(state, action)
-    default:
-      return state
+  case LOGIN_LOADING:
+    return loginLoadingReducer(state, action)
+  default:
+    return state
   }
 }

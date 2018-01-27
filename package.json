@@ -33,7 +33,7 @@
     "babel-polyfill": "^6.23.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
-    "bootstrap": "v4.0.0-beta.3",
+    "bootstrap": "v4.0.0",
     "classnames": "^2.2.5",
     "del": "^3.0.0",
     "del-cli": "^1.0.0",

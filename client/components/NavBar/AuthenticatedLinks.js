@@ -14,7 +14,7 @@ const AuthenticatedLinks = ({ dispatchLogoutRequest, username, ...props }) => {
     <div
       className='collapse navbar-collapse justify-content-end'
       id='navbarNavAltMarkup'
-    >
+      >
       <div className='navbar-nav'>
         <NavLink
           to='/memberpage'
@@ -30,7 +30,9 @@ const AuthenticatedLinks = ({ dispatchLogoutRequest, username, ...props }) => {
         >
           {username}
         </NavLink>
-        <a href='#' onClick={logout} className='nav-item nav-link'>Logout</a>
+        <a href='#' onClick={logout} className='nav-item nav-link'>
+          Logout
+        </a>
       </div>
     </div>
   )

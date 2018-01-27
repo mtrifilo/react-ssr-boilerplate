@@ -14,7 +14,7 @@ const Input = ({
   return (
     <div
       className={classNames('form-group', { 'has-danger': validationError })}
-    >
+      >
       <label>{label}</label>
       <input
         type={type}
@@ -22,12 +22,13 @@ const Input = ({
         name={name}
         onChange={onChange}
         onBlur={onBlur}
-        className={classNames('form-control', { 'is-invalid': validationError })}
+        className={classNames('form-control', {
+          'is-invalid': validationError
+        })}
       />
-      {validationError &&
-        <div className='invalid-feedback'>
-          {validationError}
-        </div>}
+      {validationError && (
+        <div className='invalid-feedback'>{validationError}</div>
+      )}
     </div>
   )
 }

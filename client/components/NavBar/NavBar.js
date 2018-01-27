@@ -33,9 +33,11 @@ class NavBar extends Component {
   render () {
     let displayLinks
     if (this.state.mounted && this.props.isAuthenticated !== null) {
-      displayLinks = this.state.showAuthenticatedLinks
-        ? <AuthenticatedLinks location={this.props.location} />
-        : <GuestLinks />
+      displayLinks = this.state.showAuthenticatedLinks ? (
+        <AuthenticatedLinks location={this.props.location} />
+      ) : (
+        <GuestLinks />
+      )
     } else {
       displayLinks = null
     }
@@ -54,7 +56,9 @@ class NavBar extends Component {
         >
           <span className='navbar-toggler-icon' />
         </button>
-        <Link to='/' className='navbar-brand'>React SSR Boilerplate</Link>
+          <Link to='/' className='navbar-brand'>
+          React SSR Boilerplate
+          </Link>
         {displayLinks}
       </nav>
     )

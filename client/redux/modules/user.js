@@ -288,21 +288,21 @@ function setEmailUniquenessErrorReducer (state, action) {
 
 export default function user (state = DEFAULT_STATE, action) {
   switch (action.type) {
-    case SET_USER:
-      return setUserReducer(state, action)
-    case LOGOUT_USER:
-      return logoutUserReducer(state, action)
-    case GET_USER:
-      return getCurrentUserReducer(state, action)
-    case SET_USERNAME_UNIQUENESS_RESULT:
-      return setUsernameUniquenessResultReducer(state, action)
-    case SET_USERNAME_UNIQUENESS_ERROR:
-      return setUsernameUniquenessErrorReducer(state, action)
-    case SET_EMAIL_UNIQUENESS_RESULT:
-      return setEmailUniquenessResultReducer(state, action)
-    case SET_EMAIL_UNIQUENESS_ERROR:
-      return setEmailUniquenessErrorReducer(state, action)
-    default:
-      return state
+  case SET_USER:
+    return setUserReducer(state, action)
+  case LOGOUT_USER:
+    return logoutUserReducer(state, action)
+  case GET_USER:
+    return getCurrentUserReducer(state, action)
+  case SET_USERNAME_UNIQUENESS_RESULT:
+    return setUsernameUniquenessResultReducer(state, action)
+  case SET_USERNAME_UNIQUENESS_ERROR:
+    return setUsernameUniquenessErrorReducer(state, action)
+  case SET_EMAIL_UNIQUENESS_RESULT:
+    return setEmailUniquenessResultReducer(state, action)
+  case SET_EMAIL_UNIQUENESS_ERROR:
+    return setEmailUniquenessErrorReducer(state, action)
+  default:
+    return state
   }
 }
