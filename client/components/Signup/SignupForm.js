@@ -92,7 +92,7 @@ class SignupForm extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.newUsername.isUnique === false) {
-      this.setValidationError({ username: 'This username is taken' })
+      this.setValidationError({ username: 'This username is taken tryyyy' })
     }
     if (nextProps.newEmail.isUnique === false) {
       this.setValidationError({
@@ -116,36 +116,36 @@ class SignupForm extends Component {
           value={this.state.username}
           validationError={this.state.validationErrors.username}
         />
-        <Input
-          label='Email Address'
-          type='email'
-          name='email'
-          onChange={this.onChangeHandler}
-          onBlur={this.onBlurHandler}
-          value={this.state.email}
-          validationError={this.state.validationErrors.email}
+          <Input
+            label='Email Address'
+            type='email'
+            name='email'
+            onChange={this.onChangeHandler}
+            onBlur={this.onBlurHandler}
+            value={this.state.email}
+            validationError={this.state.validationErrors.email}
         />
-        <Input
-          label='Password'
-          type='password'
-          name='password'
-          onChange={this.onChangeHandler}
-          onBlur={this.onBlurHandler}
-          value={this.state.password}
-          validationError={this.state.validationErrors.password}
+          <Input
+            label='Password'
+            type='password'
+            name='password'
+            onChange={this.onChangeHandler}
+            onBlur={this.onBlurHandler}
+            value={this.state.password}
+            validationError={this.state.validationErrors.password}
         />
-        <Input
-          label='Confirm Password'
-          type='password'
-          name='confirmPassword'
-          onChange={this.onChangeHandler}
-          onBlur={this.onBlurHandler}
-          value={this.state.confirmPassword}
-          validationError={this.state.validationErrors.confirmPassword}
+          <Input
+            label='Confirm Password'
+            type='password'
+            name='confirmPassword'
+            onChange={this.onChangeHandler}
+            onBlur={this.onBlurHandler}
+            value={this.state.confirmPassword}
+            validationError={this.state.validationErrors.confirmPassword}
         />
-        <button type='submit' className='btn btn-primary' role='button'>
+          <button type='submit' className='btn btn-primary' role='button'>
           Submit
-        </button>
+          </button>
       </form>
     )
   }

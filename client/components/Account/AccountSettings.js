@@ -190,12 +190,11 @@ class AccountSettings extends Component {
             isValid={this.state.isValid}
           />
         )}
-        <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
+          <DeleteAccountModal onClickDeleteAccount={this.onClickDeleteAccount} />
       </div>
     )
   }
 }
-
 AccountSettings.propTypes = {
   gitHubToken: string,
   username: string,

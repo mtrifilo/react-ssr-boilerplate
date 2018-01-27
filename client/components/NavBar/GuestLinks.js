@@ -5,7 +5,7 @@ const GuestLinks = props => (
   <div
     className='collapse navbar-collapse justify-content-end'
     id='navbarNavAltMarkup'
-  >
+    >
     <div className='navbar-nav'>
       <NavLink
         to='/signup'

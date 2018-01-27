@@ -39,34 +39,34 @@ class ChangeIdentifierForm extends Component {
       <form
         className='AccountSettings-form'
         onSubmit={this.onSubmitUserFormHandler}
-      >
-        <h2 className='text-center'>User</h2>
-        <Input
-          label='Username'
-          type='text'
-          name='newUsername'
-          value={this.props.newUsername}
-          onChange={this.props.onChangeHandler}
-          onBlur={this.props.onBlurHandler}
-          validationError={this.props.validationErrors.newUsername}
+        >
+          <h2 className='text-center'>User</h2>
+            <Input
+              label='Username'
+              type='text'
+              name='newUsername'
+              value={this.props.newUsername}
+              onChange={this.props.onChangeHandler}
+              onBlur={this.props.onBlurHandler}
+              validationError={this.props.validationErrors.newUsername}
         />
-        <Input
-          label='Email'
-          type='email'
-          name='newEmail'
-          value={this.props.newEmail}
-          onChange={this.props.onChangeHandler}
-          onBlur={this.props.onBlurHandler}
-          validationError={this.props.validationErrors.newEmail}
+          <Input
+            label='Email'
+            type='email'
+            name='newEmail'
+            value={this.props.newEmail}
+            onChange={this.props.onChangeHandler}
+            onBlur={this.props.onBlurHandler}
+            validationError={this.props.validationErrors.newEmail}
         />
-        <button
-          disabled={!this.props.isValid}
-          type='submit'
-          className='btn btn-primary'
-          role='button'
+          <button
+            disabled={!this.props.isValid}
+            type='submit'
+            className='btn btn-primary'
+            role='button'
         >
           Submit Changes
-        </button>
+          </button>
       </form>
     )
   }

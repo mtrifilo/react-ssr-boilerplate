@@ -10,11 +10,13 @@ const DeleteAccountModal = ({ onClickDeleteAccount }) => {
       role='dialog'
       aria-labelledby='deleteAccount'
       aria-hidden='true'
-    >
+      >
       <div className='modal-dialog' role='document'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <h5 className='modal-title' id='deleteAccount'>Delete Account</h5>
+            <h5 className='modal-title' id='deleteAccount'>
+              Delete Account
+            </h5>
             <button
               type='button'
               className='close'

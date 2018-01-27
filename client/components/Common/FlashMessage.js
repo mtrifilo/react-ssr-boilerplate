@@ -35,7 +35,7 @@ class FlashMessage extends Component {
           'FlashMessage-show': this.state.display,
           'FlashMessage-hide': !this.state.display
         })}
-      >
+        >
         {this.props.message}
       </div>
     )

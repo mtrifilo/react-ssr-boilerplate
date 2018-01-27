@@ -68,11 +68,11 @@ function signupSuccessfulReducer (state, action) {
 
 export default function signupLocal (state = DEFAULT_STATE, action) {
   switch (action.type) {
-    case SIGNUP_LOADING:
-      return signupLoadingReducer(state, action)
-    case SIGNUP_SUCCESSFUL:
-      return signupSuccessfulReducer(state, action)
-    default:
-      return state
+  case SIGNUP_LOADING:
+    return signupLoadingReducer(state, action)
+  case SIGNUP_SUCCESSFUL:
+    return signupSuccessfulReducer(state, action)
+  default:
+    return state
   }
 }

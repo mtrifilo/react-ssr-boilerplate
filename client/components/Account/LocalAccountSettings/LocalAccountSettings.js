@@ -57,7 +57,6 @@ const LocalAccountSettings = ({
           Delete Account
         </a>
       </p>
-
     </div>
   )
 }
